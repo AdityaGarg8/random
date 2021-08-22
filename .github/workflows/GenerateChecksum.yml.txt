@@ -1,0 +1,11 @@
+name: Generate md5 sums
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Generate sums
+      run: |
+         pkgver=5.13.12
+         wget https://www.kernel.org/pub/linux/kernel/v${pkgver//.*}.x/linux-${pkgver}.tar.xz
+         md5sum *tar.xz
