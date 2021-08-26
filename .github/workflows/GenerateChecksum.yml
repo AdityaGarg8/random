@@ -6,6 +6,6 @@ jobs:
     steps:
     - name: Generate sums
       run: |
-         pkgver=5.10.60
+         pkgver=5.10.61
          wget -q https://www.kernel.org/pub/linux/kernel/v${pkgver//.*}.x/linux-${pkgver}.tar.xz
          md5sum *tar.xz
