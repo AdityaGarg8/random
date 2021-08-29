@@ -9,3 +9,8 @@ jobs:
          pkgver=5.13.13
          wget -q https://www.kernel.org/pub/linux/kernel/v${pkgver//.*}.x/linux-${pkgver}.tar.xz
          md5sum *tar.xz
+    - name: Upload Kernel
+      uses: actions/upload-artifact@v2
+      with:
+        name: Kernel-$(pkgver)
+        path: ${{ github.workspace }}/*tar.zst
