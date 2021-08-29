@@ -13,4 +13,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: Kernel-$(pkgver)
-        path: *tar.zst
+        path: /home/*tar.zst
