@@ -6,10 +6,10 @@ jobs:
     steps:
     - name: Generate sums
       run: |
-         mkdir /work
+         sudo mkdir /work
          cd /work
          pkgver=5.13.13
-         wget -q https://www.kernel.org/pub/linux/kernel/v${pkgver//.*}.x/linux-${pkgver}.tar.xz
+         sudo wget -q https://www.kernel.org/pub/linux/kernel/v${pkgver//.*}.x/linux-${pkgver}.tar.xz
          md5sum *tar.xz
     - name: Upload Kernel
       uses: actions/upload-artifact@v2
