@@ -13,4 +13,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: Kernel-$(pkgver)
-        path: ${{ github.workspace }}/*tar.zst
+        path: *tar.zst
