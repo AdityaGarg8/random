@@ -8,7 +8,7 @@ jobs:
       run: |
          sudo mkdir /work
          cd /work
-         pkgver=5.10.66
+         pkgver=5.10.65
          sudo wget -q https://www.kernel.org/pub/linux/kernel/v${pkgver//.*}.x/linux-${pkgver}.tar.xz
          md5sum *tar.xz
     - name: Upload Kernel
