@@ -6,13 +6,19 @@ jobs:
     steps:
     - name: Generate sums
       run: |
-         sudo mkdir /work
-         cd /work
-         pkgver=5.10.67
-         sudo wget -q https://www.kernel.org/pub/linux/kernel/v${pkgver//.*}.x/linux-${pkgver}.tar.xz
-         md5sum *tar.xz
-    - name: Upload Kernel
-      uses: actions/upload-artifact@v2
-      with:
-        name: Kernel
-        path: /work/*.tar.xz
+         KERNEL_VERSION=5.14.6
+         PKGREL=1
+         #KERNEL_REPOSITORY=git://kernel.ubuntu.com/virgin/linux-stable.git
+         KERNEL_REPOSITORY=https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+         REPO_PATH=$(pwd)
+         WORKING_PATH=/root/work
+         KERNEL_PATH="${WORKING_PATH}/linux-kernel"
+         apt-get update
+         apt-get install -y build-essential fakeroot libncurses-dev bison flex libssl-dev libelf-dev \
+         openssl dkms libudev-dev libpci-dev libiberty-dev autoconf wget xz-utils git \
+         bc rsync cpio dh-modaliases debhelper kernel-wedge curl
+         git clone --depth 1 --single-branch --branch "v${KERNEL_VERSION}" "${KERNEL_REPOSITORY}" "${KERNEL_PATH}"
+         cd "${KERNEL_PATH}"
+         make clean
+         make olddefconfig
+         echo "make kernelversion"
