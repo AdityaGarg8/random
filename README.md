@@ -1,2 +1,2 @@
-# md5-generator
-Generator to get md5 sums of linux kernels.
+# checksums-generator
+Generator to get checksums of linux kernels.
