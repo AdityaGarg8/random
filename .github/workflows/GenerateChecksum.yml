@@ -8,12 +8,5 @@ jobs:
       run: |
          sudo mkdir /work
          cd /work
-         pkgver=5.14.6
-         sudo wget -q https://www.kernel.org/pub/linux/kernel/v${pkgver//.*}.x/linux-${pkgver}.tar.xz
-         md5sum *tar.xz
-         sha256sum *tar.xz
-    - name: Upload Kernel
-      uses: actions/upload-artifact@v2
-      with:
-        name: Kernel
-        path: /work/*.tar.xz
+         sudo wget -q https://github.com/AdityaGarg8/mojave-patches/raw/main/config
+         sha256sum config
