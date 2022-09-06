@@ -49,7 +49,7 @@ index 42a5689..93be116 100644
 +	}
 +
 +	if (swap_fn_leftctrl) {
-+		trans = apple_find_translation(swapped_option_cmd_keys, code);
++		trans = apple_find_translation(swapped_fn_leftctrl_keys, code);
 +
 +		if (trans)
 +                        code = trans->to;
