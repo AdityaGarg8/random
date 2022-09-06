@@ -1,8 +1,8 @@
 diff --git a/drivers/hid/hid-apple.c b/drivers/hid/hid-apple.c
-index 6970797cd..62e81d391 100644
+index 42a5689..93be116 100644
 --- a/drivers/hid/hid-apple.c
 +++ b/drivers/hid/hid-apple.c
-@@ -375,16 +375,14 @@ static int hidinput_apple_event(struct hid_device *hid, struct input_dev *input,
+@@ -350,16 +350,18 @@ static int hidinput_apple_event(struct hid_device *hid, struct input_dev *input,
  	struct apple_sc *asc = hid_get_drvdata(hid);
  	const struct apple_key_translation *trans, *table;
  	bool do_translate;
@@ -12,6 +12,10 @@ index 6970797cd..62e81d391 100644
  
  	u16 fn_keycode = (swap_fn_leftctrl) ? (KEY_LEFTCTRL) : (KEY_FN);
  
++        if (code == KEY_GRAVE || code == KEY_102ND) {
++                hid_warn(hid, "Processing key %d...\n", code);
++        }
++
  	if (usage->code == fn_keycode) {
  		asc->fn_on = !!value;
 -		input_event_with_scancode(input, usage->type, KEY_FN,
@@ -21,7 +25,7 @@ index 6970797cd..62e81d391 100644
  	}
  
  	if (fnmode == 3) {
-@@ -393,6 +391,28 @@ static int hidinput_apple_event(struct hid_device *hid, struct input_dev *input,
+@@ -368,6 +370,33 @@ static int hidinput_apple_event(struct hid_device *hid, struct input_dev *input,
  		real_fnmode = fnmode;
  	}
  
@@ -29,8 +33,12 @@ index 6970797cd..62e81d391 100644
 +			hid->country == HID_COUNTRY_INTERNATIONAL_ISO)) {
 +		trans = apple_find_translation(apple_iso_keyboard, code);
 +
-+		if (trans)
++		if (trans) {
++                        if (code == KEY_GRAVE || code == KEY_102ND) { 
++                                hid_warn(hid, "Translated key %d to %d (iso_layout)\n", trans->from, trans->to);
++		        }
 +                        code = trans->to;
++                }
 +	}
 +
 +	if (swap_opt_cmd) {
@@ -45,12 +53,13 @@ index 6970797cd..62e81d391 100644
 +
 +		if (trans)
 +                        code = trans->to;
++                
 +	}
 +
  	if (real_fnmode) {
  		if (hid->product == USB_DEVICE_ID_APPLE_ALU_WIRELESS_ANSI ||
  		    hid->product == USB_DEVICE_ID_APPLE_ALU_WIRELESS_ISO ||
-@@ -430,15 +450,18 @@ static int hidinput_apple_event(struct hid_device *hid, struct input_dev *input,
+@@ -405,15 +434,18 @@ static int hidinput_apple_event(struct hid_device *hid, struct input_dev *input,
  		else
  			table = apple_fn_keys;
  
@@ -73,15 +82,19 @@ index 6970797cd..62e81d391 100644
  				if (trans->flags & APPLE_FLAG_FKEY) {
  					switch (real_fnmode) {
  					case 1:
-@@ -457,61 +480,29 @@ static int hidinput_apple_event(struct hid_device *hid, struct input_dev *input,
- 
+@@ -433,60 +465,33 @@ static int hidinput_apple_event(struct hid_device *hid, struct input_dev *input,
  				code = do_translate ? trans->to : trans->from;
  			}
--
+ 
 -			input_event_with_scancode(input, usage->type, code,
 -					usage->hid, value);
 -			return 1;
- 		}
+-		}
++
++                        if (code == KEY_GRAVE || code == KEY_102ND) {
++                                hid_warn(hid, "Found translation for key %d as %d, do_translate=%d (fnmode)\n", trans->from, code, do_translate);
++                        }
++                }
  
  		if (asc->quirks & APPLE_NUMLOCK_EMULATION &&
 -				(test_bit(usage->code, asc->pressed_numlock) ||
@@ -120,7 +133,9 @@ index 6970797cd..62e81d391 100644
 -			return 1;
 -		}
 -	}
--
++	if (usage->code != code) {
++		input_event_with_scancode(input, usage->type, code, usage->hid, value);
+ 
 -	if (swap_opt_cmd) {
 -		trans = apple_find_translation(swapped_option_cmd_keys, usage->code);
 -		if (trans) {
@@ -129,9 +144,7 @@ index 6970797cd..62e81d391 100644
 -			return 1;
 -		}
 -	}
-+	if (usage->code != code) {
-+		input_event_with_scancode(input, usage->type, code, usage->hid, value);
- 
+-
 -	if (swap_fn_leftctrl) {
 -		trans = apple_find_translation(swapped_fn_leftctrl_keys, usage->code);
 -		if (trans) {
@@ -145,7 +158,7 @@ index 6970797cd..62e81d391 100644
  
  	return 0;
  }
-@@ -1011,21 +1002,21 @@ static const struct hid_device_id apple_devices[] = {
+@@ -986,21 +991,21 @@ static const struct hid_device_id apple_devices[] = {
  	{ HID_USB_DEVICE(USB_VENDOR_ID_APPLE, USB_DEVICE_ID_APPLE_WELLSPRING9_JIS),
  		.driver_data = APPLE_HAS_FN | APPLE_RDESC_JIS },
  	{ HID_USB_DEVICE(USB_VENDOR_ID_APPLE, USB_DEVICE_ID_APPLE_WELLSPRINGT2_J140K),
