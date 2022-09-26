@@ -11,7 +11,7 @@ jobs:
         run: |
           echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --import
         env:
-          GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
+          GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEYecho "::set-output name=tag::${latest}" }}
 
       - name: Get the kernel upgrade script
         id: publish
@@ -19,6 +19,7 @@ jobs:
           git clone -b script https://github.com/t2linux/T2-Ubuntu-Kernel.git
           latest=$(curl -sL https://github.com/t2linux/T2-Ubuntu-Kernel/releases/latest/ | grep "<title>Release" | awk -F " " '{print $2}' )
           latestkver=$(echo $latest | cut -d "v" -f 2)
+          echo "::set-output name=tag::${latest}"
           sed -i "s/KVER/${latestkver}/g" ${{ github.workspace }}/T2-Ubuntu-Kernel/t2-kernel-script/DEBIAN/control
           chmod 755 ${{ github.workspace }}/T2-Ubuntu-Kernel/t2-kernel-script/DEBIAN/postinst
           cd ${{ github.workspace }}/T2-Ubuntu-Kernel
@@ -51,4 +52,4 @@ jobs:
           user-email: github-actions[bot]@users.noreply.github.com
           user-name: github-actions[bot]
           target-branch: main
-          commit-message: Update to kernel "${latest}"
+          commit-message: Update to kernel v${{ steps.build.outputs.tag }}
