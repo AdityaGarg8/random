@@ -30,15 +30,16 @@ jobs:
           cd ${{ github.workspace }}/t2-ubuntu-repo
 
           # Packages & Packages.gz
-          EMAIL=gargaditya08@live.com
           dpkg-scanpackages --multiversion . > Packages
           gzip -k -f Packages
 
           # Release, Release.gpg & InRelease
           apt-ftparchive release . > Release
-          gpg --default-key "${EMAIL}" -abs -o - Release > Release.gpg
-          gpg --default-key "${EMAIL}" --clearsign -o - Release > InRelease
+          gpg --default-key "${GPG_SIGNING_EMAIL}" -abs -o - Release > Release.gpg
+          gpg --default-key "${GPG_SIGNING_EMAIL}" --clearsign -o - Release > InRelease
           cd ${{ github.workspace }}
+        env:
+          GPG_SIGNING_EMAIL: ${{ secrets.GPG_SIGNING_EMAIL }}
 
       - name: Publish
         if: github.ref == 'refs/heads/main'
