@@ -17,16 +17,18 @@ jobs:
         id: publish
         run: |
           git clone -b script https://github.com/t2linux/T2-Ubuntu-Kernel.git
-          latest=$(curl -sL https://github.com/t2linux/T2-Ubuntu-Kernel/releases/latest/ | grep "<title>Release" | awk -F " " '{print $2}' )
+          lts_version=$(cat ${{ github.workspace }}/T2-Ubuntu-Kernel/t2-kernel-script-lts/usr/bin/update_t2_kernel | grep lts_version | awk "NR==1" | cut -d = -f 2)
+          getkernelver=$(curl -sL https://github.com/t2linux/T2-Ubuntu-Kernel/releases | grep "{{ urlEncodedRefName }}" | grep -v "generic" | grep v${lts_version} | cut -d "{" -f 3 | cut -c 25- | head -1)
+          latest=${getkernelver::-76}
           latestkver=$(echo $latest | cut -d "v" -f 2)
           echo "ver=${latest}" >> $GITHUB_ENV
-          sed -i "s/KVER/${latestkver}/g" ${{ github.workspace }}/T2-Ubuntu-Kernel/t2-kernel-script/DEBIAN/control
-          chmod 755 ${{ github.workspace }}/T2-Ubuntu-Kernel/t2-kernel-script/DEBIAN/postinst
+          sed -i "s/KVER/${latestkver}/g" ${{ github.workspace }}/T2-Ubuntu-Kernel/t2-kernel-script-lts/DEBIAN/control
+          chmod 755 ${{ github.workspace }}/T2-Ubuntu-Kernel/t2-kernel-script-lts/DEBIAN/postinst
           cd ${{ github.workspace }}/T2-Ubuntu-Kernel
-          dpkg-deb --build --root-owner-group t2-kernel-script
+          dpkg-deb --build --root-owner-group t2-kernel-script-lts
           cd ${{ github.workspace }}
           git clone https://github.com/AdityaGarg8/t2-ubuntu-repo.git
-          cp -r ${{ github.workspace }}/T2-Ubuntu-Kernel/t2-kernel-script.deb ${{ github.workspace }}/t2-ubuntu-repo
+          cp -r ${{ github.workspace }}/T2-Ubuntu-Kernel/t2-kernel-script-lts.deb ${{ github.workspace }}/t2-ubuntu-repo
           cd ${{ github.workspace }}/t2-ubuntu-repo
 
           # Packages & Packages.gz
@@ -40,7 +42,6 @@ jobs:
           cd ${{ github.workspace }}
         env:
           GPG_SIGNING_EMAIL: ${{ secrets.GPG_SIGNING_EMAIL }}
-
       - name: Publish
         if: github.ref == 'refs/heads/main'
         uses: cpina/github-action-push-to-another-repository@main
