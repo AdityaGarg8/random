@@ -9,7 +9,7 @@ jobs:
          git clone https://github.com/t2linux/T2-Ubuntu-Kernel.git
          cd T2-Ubuntu-Kernel
          git checkout --orphan script
-         git rm -rf
+         git rm -rf .
          echo "Branch of the kernel upgrade script" > README.md
          cd ${{ github.workspace }}
     - name: Push the change
