@@ -7,7 +7,7 @@ jobs:
     - name: Get repo
       run: |
          git clone https://github.com/AdityaGarg8/Apple-WiFi-Firmware.git
-         sed -i 's/Wi-Fi/Wifi/g' ${{ github.workspace }}/Apple-WiFi-Firmware/README.md
+         sed -i 's/Wifi/Wi-Fi/g' ${{ github.workspace }}/Apple-WiFi-Firmware/README.md
     - name: Push the change
       uses: cpina/github-action-push-to-another-repository@main
       env:
@@ -16,7 +16,7 @@ jobs:
         source-directory: 'Apple-WiFi-Firmware'
         destination-github-username: 'AdityaGarg8'
         destination-repository-name: 'Apple-WiFi-Firmware'
-        #user-email: gargaditya08@live.com
-       # user-name: Aditya Garg
+        user-email: github-actions[bot]@users.noreply.github.com
+        user-name: github-actions[bot]
         target-branch: 16,1
         
