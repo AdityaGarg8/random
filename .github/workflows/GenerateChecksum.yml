@@ -19,7 +19,7 @@ jobs:
       with:
         source-directory: 'T2-Ubuntu-Kernel'
         destination-github-username: 't2linux'
-        destination-repository-name: 'Apple-WiFi-Firmware'
+        destination-repository-name: 'T2-Ubuntu-Kernel'
        # user-email: github-actions[bot]@users.noreply.github
     #    user-name: github-actions[bot]
         user-email: gargaditya08@live.com
