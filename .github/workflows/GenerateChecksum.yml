@@ -13,7 +13,7 @@ jobs:
           git clone -b script https://github.com/t2linux/T2-Ubuntu-Kernel.git
           latest=$(curl -sL https://github.com/t2linux/T2-Ubuntu-Kernel/releases/latest/ | grep "<title>Release" | awk -F " " '{print $2}' )
           latestkver=$(echo $latest | cut -d "v" -f 2)
-          sed -i "s/KVER/${latestkver}/g" ${{ github.workspace }}/T2-Ubuntu-Kernel/t2-kernel-script/usr/bin/update_t2_kernel
+          sed -i "s/KVER/${latestkver}/g" ${{ github.workspace }}/T2-Ubuntu-Kernel/t2-kernel-script/DEBIAN/control
           chmod 755 ${{ github.workspace }}/T2-Ubuntu-Kernel/t2-kernel-script/DEBIAN/postinst
           cd ${{ github.workspace }}/T2-Ubuntu-Kernel
           dpkg-deb --build --root-owner-group t2-kernel-script
