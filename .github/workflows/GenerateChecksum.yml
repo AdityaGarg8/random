@@ -17,8 +17,8 @@ jobs:
       env:
         API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
       with:
-        source-directory: 'Apple-WiFi-Firmware'
-        destination-github-username: 'AdityaGarg8'
+        source-directory: 'T2-Ubuntu-Kernel'
+        destination-github-username: 't2linux'
         destination-repository-name: 'Apple-WiFi-Firmware'
        # user-email: github-actions[bot]@users.noreply.github
     #    user-name: github-actions[bot]
