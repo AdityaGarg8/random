@@ -18,4 +18,5 @@ jobs:
         destination-repository-name: 'Apple-WiFi-Firmware'
         user-email: gargaditya08@live.com
         user-name: Aditya Garg
+        target-branch: 16,1
         
