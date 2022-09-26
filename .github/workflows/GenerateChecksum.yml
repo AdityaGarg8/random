@@ -2,18 +2,20 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Generate-Sums:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-    - name: Generate sums
+    - name: Get repo
       run: |
-         sudo mkdir /work
-         cd /work
-         pkgver=5.16.5
-         sudo wget -q https://www.kernel.org/pub/linux/kernel/v${pkgver//.*}.x/linux-${pkgver}.tar.xz
-         md5sum *tar.xz
-         sha256sum *tar.xz
-    - name: Upload Kernel
-      uses: actions/upload-artifact@v2
+         git clone https://github.com/AdityaGarg8/Apple-WiFi-Firmware.git
+         sed -i 's/Wifi/Wi-Fi/g' ${{ github.workspace }}/Apple-WiFi-Firmware/README.md
+    - name: Push the change
+      uses: cpina/github-action-push-to-another-repository@main
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
       with:
-        name: Kernel
-        path: /work/*.tar.xz
+        source-directory: 'Apple-WiFi-Firmware'
+        destination-github-username: 'AdityaGarg8'
+        destination-repository-name: 'Apple-WiFi-Firmware'
+        user-email: gargaditya08@live.com
+        user-name: Aditya Garg
+        
