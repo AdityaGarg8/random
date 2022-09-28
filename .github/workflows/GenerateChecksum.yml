@@ -23,6 +23,7 @@ jobs:
           latestkver=$(echo $latest | cut -d "v" -f 2)
           echo "ver=${latest}" >> $GITHUB_ENV
           sed -i "s/KVER/${latestkver}/g" ${{ github.workspace }}/T2-Ubuntu-Kernel/t2-kernel-script-lts/DEBIAN/control
+          sed -i "s/KVER/${latestkver}/g" ${{ github.workspace }}/T2-Ubuntu-Kernel/t2-kernel-script-lts/DEBIAN/postinst
           chmod 755 ${{ github.workspace }}/T2-Ubuntu-Kernel/t2-kernel-script-lts/DEBIAN/postinst
           cd ${{ github.workspace }}/T2-Ubuntu-Kernel
           dpkg-deb --build --root-owner-group t2-kernel-script-lts
