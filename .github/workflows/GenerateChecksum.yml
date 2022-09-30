@@ -20,5 +20,5 @@ jobs:
           wget -q https://github.com/t2linux/T2-Ubuntu-Kernel/releases/download/v5.15.71-1/linux-image-5.15.71-t2_5.15.71-1_amd64.deb
           dpkg-deb -x ./linux-image-5.15.71-t2_5.15.71-1_amd64.deb imagedir
           cd imagedir
-          dpkg-deb --control linux-image-5.15.71-t2_5.15.71-1_amd64.deb
+       #   dpkg-deb --control linux-image-5.15.71-t2_5.15.71-1_amd64.deb
           cat DEBIAN/control
