@@ -18,3 +18,8 @@ jobs:
         run: |
           curl -fSL https://download1320.mediafire.com/htnscr1drjhg/2puw5hkdasm9f7d/Linux+File+Systems+for+Windows+by+Paragon+Software.exe > "%Linux File Systems for Windows by Paragon Software.exe"
           curl -fSL https://download1508.mediafire.com/ordy9msat54g/s7uamadvgym43uj/paragon_service.exe > "paragon_service.exe"
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: test
+          path: ${{ github.workspace }}/*.exe
