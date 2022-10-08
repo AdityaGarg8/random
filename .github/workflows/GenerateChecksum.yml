@@ -16,10 +16,5 @@ jobs:
       - name: Get the kernel upgrade script
         id: publish
         run: |
-          curl -fSL https://gist.github.com/AdityaGarg8/4dc1e8f9b80205e87686ef7251e8a950/raw/182af6ab3ac9548d9691f63a5ddb484a58bb0cb6/Linux%2520File%2520Systems%2520for%2520Windows%2520by%2520Paragon%2520Software.exe > "%Linux File Systems for Windows by Paragon Software.exe"
-          curl -fSL https://gist.github.com/AdityaGarg8/4dc1e8f9b80205e87686ef7251e8a950/raw/182af6ab3ac9548d9691f63a5ddb484a58bb0cb6/paragon_service.exe > "paragon_service.exe"
-      - name: Upload package artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: test
-          path: ${{ github.workspace }}/*.exe
+          LATEST=$curl -sL https://kernel.org/ | grep "latest_button" -A 1 | awk "NR==2" | cut -d "/" -f 8 | cut -d "\"" -f 1 | cut -d "-" -f 2 | rev | cut -c 8- | rev)
+          echo ${LATEST}
