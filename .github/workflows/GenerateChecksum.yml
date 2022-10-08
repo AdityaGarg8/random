@@ -16,6 +16,6 @@ jobs:
       - name: Get the kernel upgrade script
         id: publish
         run: |
-          sudo curl -o /usr/bin/update_t2_kernel "https://raw.githubusercontent.com/t2linux/T2-Ubuntu-Kernel/script/debian.sh"
-          sudo chmod 755 /usr/bin/update_t2_kernel
-          update_t2_kernel
+          DOCKER_IMAGE=debian:unstable
+          docker pull ${DOCKER_IMAGE}
+          docker run -t -v "$(pwd):/repo" ${DOCKER_IMAGE} /bin/bash -c 'sudo curl -o /usr/bin/update_t2_kernel "https://raw.githubusercontent.com/t2linux/T2-Ubuntu-Kernel/script/debian.sh" && sudo chmod 755 /usr/bin/update_t2_kernel && update_t2_kernel'
