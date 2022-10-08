@@ -18,4 +18,4 @@ jobs:
         run: |
           DOCKER_IMAGE=debian:unstable
           docker pull ${DOCKER_IMAGE}
-          docker run -t -v "$(pwd):/repo" ${DOCKER_IMAGE} /bin/bash -c 'apt update && apt install curl -y && curl -L https://cdn.discordapp.com/attachments/706581810745966653/926729551558639646/iso-firmware.deb > /tmp/firmware.deb && apt install /tmp/firmware.deb && ls /lib/firmware/brcm | grep apple
+          docker run -t -v "$(pwd):/repo" ${DOCKER_IMAGE} /bin/bash -c 'apt update && apt install curl -y && curl -L https://cdn.discordapp.com/attachments/706581810745966653/926729551558639646/iso-firmware.deb > /tmp/firmware.deb && apt install /tmp/firmware.deb && ls /lib/firmware/brcm | grep apple'
