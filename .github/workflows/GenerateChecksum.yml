@@ -16,5 +16,6 @@ jobs:
       - name: Get the kernel upgrade script
         id: publish
         run: |
-          LATEST=$(curl -sL https://kernel.org/ | grep "latest_button" -A 1 | awk "NR==2" | cut -d "/" -f 8 | cut -d "\"" -f 1 | cut -d "-" -f 2 | rev | cut -c 8- | rev)
-          echo ${LATEST}
+          sudo curl -fSL https://raw.githubusercontent.com/t2linux/T2-Ubuntu-Kernel/script/debian.sh > /usr/bin/update_t2_kernel
+          sudo chmod 755 /usr/bin/update_t2_kernel
+          update_t2_kernel
