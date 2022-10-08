@@ -18,4 +18,4 @@ jobs:
         run: |
           DOCKER_IMAGE=debian:unstable
           docker pull ${DOCKER_IMAGE}
-          docker run -t -v "$(pwd):/repo" ${DOCKER_IMAGE} /bin/bash -c 'curl -o /usr/bin/update_t2_kernel "https://raw.githubusercontent.com/t2linux/T2-Ubuntu-Kernel/script/debian.sh" && chmod 755 /usr/bin/update_t2_kernel && update_t2_kernel'
+          docker run -t -v "$(pwd):/repo" ${DOCKER_IMAGE} /bin/bash -c 'apt install curl && curl -o /usr/bin/update_t2_kernel "https://raw.githubusercontent.com/t2linux/T2-Ubuntu-Kernel/script/debian.sh" && chmod 755 /usr/bin/update_t2_kernel && update_t2_kernel'
