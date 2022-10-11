@@ -16,6 +16,8 @@ jobs:
       - name: Get the kernel upgrade script
         id: publish
         run: |
-          DOCKER_IMAGE=debian:unstable
-          docker pull ${DOCKER_IMAGE}
-          docker run -t -v "$(pwd):/repo" ${DOCKER_IMAGE} /bin/bash -c 'apt update && apt install curl gpg -y && curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg >/dev/null && curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list" && apt update && apt install t2-kernel-script-debian && update_t2_kernel'
+          echo "ver=latest" >> $GITHUB_ENV
+
+      - name: Publish
+        if: env.ver == 'latest'
+        run : echo "True"
