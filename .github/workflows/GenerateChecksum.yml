@@ -16,7 +16,7 @@ jobs:
       - name: Get the kernel upgrade script
         id: publish
         run: |
-          echo "ver=latest" >> $GITHUB_ENV
+          echo "ver=lates" >> $GITHUB_ENV
 
       - name: Publish
         if: env.ver == 'latest'
