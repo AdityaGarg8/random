@@ -17,6 +17,9 @@ jobs:
         id: publish
         run: |
           echo "ver=lates" >> $GITHUB_ENV
+          git clone --depth 1 https://github.com/linux-apfs/linux-apfs-rw.git
+          ls -l
+          echo $(pwd)
 
       - name: Publish
         if: env.ver == 'latest'
