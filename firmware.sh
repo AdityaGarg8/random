@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 
 """:"
+SCRIPT=$(pwd)/firmware.sh
 cd /usr/share/firmware
 tar czvf $HOME/firmware.tar.gz *
 cd $HOME
 mkdir firmware
 cd firmware
 tar xvf $HOME/firmware.tar.gz
-python ${{ github.workspace }}/firmware.sh $HOME/firmware
+python3 ${SCRIPT} $HOME/firmware
 ls -l $HOME/firmware
 tar xvf $HOME/firmware.tar
 ls -l $HOME/firmware
