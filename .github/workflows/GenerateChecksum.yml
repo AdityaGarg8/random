@@ -11,6 +11,7 @@ jobs:
         id: publish
         run: |
          ls -l /System/Library/Frameworks/IOBluetooth.framework/Versions/A/Resources
+         md5 /System/Library/Frameworks/IOBluetooth.framework/Versions/A/Resources/*
         #  system_profiler SPHardwareDataType | grep "Model Identifier"
         #  bash ./firmware.sh
           
