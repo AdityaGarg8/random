@@ -10,7 +10,7 @@ jobs:
       - name: Get the kernel upgrade script
         id: publish
         run: |
-          find /usr/share/firmware -name "*.ptb"
+          find / -name "*.ptb"
         #  system_profiler SPHardwareDataType | grep "Model Identifier"
         #  bash ./firmware.sh
           
