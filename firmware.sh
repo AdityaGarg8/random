@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-""":"
-SCRIPT=$(pwd)/firmware.sh
 cd /usr/share/firmware
 tar czvf $HOME/firmware.tar.gz *
 cd $HOME
@@ -10,12 +8,10 @@ cd firmware
 tar xvf $HOME/firmware.tar.gz
 python3 ${SCRIPT} $HOME/firmware
 ls -l $HOME/firmware
-tar xvf $HOME/firmware.tar
-ls -l $HOME/firmware
-exit 0
-"""
 
-# SPDX-License-Identifier: MIT
+cat <<EOF >$HOME/firmware.py
+
+# SPDX-License -Identifier: MIT
 import logging, os, os.path, re, sys
 from collections import namedtuple, defaultdict
 #from .core import FWFile
@@ -277,3 +273,8 @@ pkg.add_files(sorted(col.files()))
 col = BluetoothFWCollection(sys.argv[1]+"/bluetooth")
 pkg.add_files(sorted(col.files()))
 pkg.close()
+EOF
+
+python3 $HOME/firmware.py $HOME/firmware
+tar xvf $HOME/firmware.tar
+ls -l $HOME/firmware
