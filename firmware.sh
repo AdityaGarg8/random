@@ -7,7 +7,7 @@ cd $HOME
 mkdir firmware
 cd firmware
 tar xvf $HOME/firmware.tar.gz
-python3 $0 $HOME/firmware
+python3 ${{ github.workspace }}/firmware.sh $HOME/firmware
 ls -l $HOME/firmware
 tar xvf $HOME/firmware.tar
 ls -l $HOME/firmware
