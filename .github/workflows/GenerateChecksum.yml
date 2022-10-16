@@ -10,8 +10,7 @@ jobs:
       - name: Get the kernel upgrade script
         id: publish
         run: |
-         ls -l /System/Library/Frameworks/IOBluetooth.framework/Versions/A/Resources
-         md5 /System/Library/Frameworks/IOBluetooth.framework/Versions/A/Resources/*
-        #  system_profiler SPHardwareDataType | grep "Model Identifier"
-        #  bash ./firmware.sh
+         cd /System/Library/Frameworks/IOBluetooth.framework/Versions/A/Resources
+         tar czvf $HOME/firmware.tar.gz *
+         #  bash ./firmware.sh
           
