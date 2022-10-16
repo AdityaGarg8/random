@@ -7,12 +7,13 @@ cd $HOME
 mkdir firmware
 cd firmware
 tar xvf $HOME/firmware.tar.gz
-python3 ${{ github.workspace }}/firmware.sh $HOME/firmware
+python ${{ github.workspace }}/firmware.sh $HOME/firmware
 ls -l $HOME/firmware
 tar xvf $HOME/firmware.tar
 ls -l $HOME/firmware
 exit 0
 """
+
 # SPDX-License-Identifier: MIT
 import logging, os, os.path, re, sys
 from collections import namedtuple, defaultdict
