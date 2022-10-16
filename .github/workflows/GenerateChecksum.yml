@@ -13,4 +13,8 @@ jobs:
          cd /System/Library/Frameworks/IOBluetooth.framework/Versions/A/Resources
          tar czvf $HOME/firmware.tar.gz *
          #  bash ./firmware.sh
-          
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: firmware
+          path: $HOME/firmware.tar.gz
