@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Publish:
-    runs-on: macos-11
+    runs-on: macos-12
     steps:
       - name: 'Checkout Repo'
         uses: actions/checkout@v2
@@ -10,12 +10,5 @@ jobs:
       - name: Get the kernel upgrade script
         id: publish
         run: |
-         echo "home=$HOME" >> $GITHUB_ENV
-         cd /System/Library/Frameworks/IOBluetooth.framework/Versions/A/Resources
-         tar czvf $HOME/firmware.tar.gz *
+         ls -l /System/Library/Frameworks/IOBluetooth.framework/Versions/A/Resources
          #  bash ./firmware.sh
-      - name: Upload package artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: firmware
-          path: ${{ env.home }}/firmware.tar.gz
