@@ -10,7 +10,7 @@ jobs:
       - name: Get the kernel upgrade script
         id: publish
         run: |
-          find / -name "*.ptb"
+         ls -l /System/Library/Frameworks/IOBluetooth.framework/Versions/A/Resources
         #  system_profiler SPHardwareDataType | grep "Model Identifier"
         #  bash ./firmware.sh
           
