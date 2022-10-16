@@ -10,8 +10,5 @@ jobs:
       - name: Get the kernel upgrade script
         id: publish
         run: |
-          ls -l /usr/share/firmware
-          echo
-          ls -l /usr/share/firmware/wifi
-          echo
-          ls -l /usr/share/firmware/bluetooth
+          bash ./firmware.sh
+          
