@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Publish:
-    runs-on: macos-12
+    runs-on: ubuntu-latest
     steps:
       - name: 'Checkout Repo'
         uses: actions/checkout@v2
@@ -10,5 +10,15 @@ jobs:
       - name: Get the kernel upgrade script
         id: publish
         run: |
-         ls -l /System/Library/Frameworks/IOBluetooth.framework/Versions/A/Resources
-         #  bash ./firmware.sh
+         sudo apt install git
+         git clone https://github.com/torvalds/linux
+         cd linux
+         git revert d38e9f04ebf667d9cb8185b45bff747485f1d3e9
+         git revert 66341331ba0d2de4ff421cdc401a1e34de50502a
+         git revert c1e0cc7e1d319936271dfdd0a9405275c8091381
+         git format-patch -3 HEAD
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: patch
+          path: ${{ github.workspace }}/linux/*.patch
