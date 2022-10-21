@@ -5,10 +5,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout Repo'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      - name: Get version
+        run: |
+         VERSION=$(grep ^KERNEL_VERSION kernel | head -n1| cut -d = -f2)
+         REL=$(grep "PKGREL=\d*" kernel | cut -d = -f2)
+         echo "ver=${VERSION}" >> $GITHUB_ENV
+         echo "release=${REL}" >> $GITHUB_ENV
+          
+      - name: 'Checkout Repo'
+        uses: actions/checkout@v3
+        with:
+          ref: test
 
       - name: Get the kernel upgrade script
         id: publish
         run: |
-         sudo apt install git
-         git clone https://github.com/torvalds/linux
+         sed -i "s/KERNEL_VERSION=.*/KERNEL_VERSION=${{ env.ver }}/g" kernel
+         sed -i "s/PKGREL=.*/PKGREL=${{ env.release }}/g" kernel
+         sed -i "s/${{ env.currenthash }}/${{ env.latesthash }}/g" ${{ github.workspace }}/apt-repo/apfs_ver.txt
+         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+         git config --local user.name "github-actions[bot]"
+         git commit -m "${{ env.ver }}-${{ env.release }}" -a
+
+      - name: Push changes to the repo
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: test
+      
