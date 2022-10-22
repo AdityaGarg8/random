@@ -19,6 +19,7 @@ jobs:
           apt update && \
           apt install linux-generic -y && \
           cp -r /boot/config* /repo'
+          mkdir /tmp/artifacts
           cp -r "$(pwd)"/* /tmp/artifacts
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
