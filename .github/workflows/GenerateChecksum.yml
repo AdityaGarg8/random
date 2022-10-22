@@ -16,8 +16,8 @@ jobs:
           -v "$(pwd)":/repo \
           ${DOCKER_IMAGE} \
           /bin/bash -c 'cd /repo && \
-          sudo apt update && \
-          sudo apt upgrade -y && \
+          apt update && \
+          apt upgrade -y && \
           cp -r /boot/config* /repo'
           cp -r "$(pwd)"/* /tmp/artifacts
       - name: Upload package artifact
