@@ -17,7 +17,7 @@ jobs:
           ${DOCKER_IMAGE} \
           /bin/bash -c 'cd /repo && \
           apt update && \
-          apt upgrade -y && \
+          apt install linux-generic && \
           cp -r /boot/config* /repo'
           cp -r "$(pwd)"/* /tmp/artifacts
       - name: Upload package artifact
