@@ -7,30 +7,22 @@ jobs:
       - name: 'Checkout Repo'
         uses: actions/checkout@v3
 
-      - name: Get version
+      - name: Get kconfig
         run: |
-         VERSION=$(grep ^KERNEL_VERSION kernel | head -n1| cut -d = -f2)
-         REL=$(grep "PKGREL=\d*" kernel | cut -d = -f2)
-         echo "ver=${VERSION}" >> $GITHUB_ENV
-         echo "release=${REL}" >> $GITHUB_ENV
-          
-      - name: 'Checkout Repo'
-        uses: actions/checkout@v3
+          DOCKER_IMAGE=ubuntu:22.10
+          docker pull ${DOCKER_IMAGE}
+          docker run \
+          -t \
+          -v "$(pwd)":/repo \
+          ${DOCKER_IMAGE} \
+          /bin/bash -c 'cd /repo && \
+          sudo apt update && \
+          sudo apt upgrade -y && \
+          cp -r /boot/config* /repo'
+          cp -r "$(pwd)"/* /tmp/artifacts
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v2
         with:
-          ref: test
-
-      - name: Get the kernel upgrade script
-        id: publish
-        run: |
-         sed -i "s/KERNEL_VERSION=.*/KERNEL_VERSION=${{ env.ver }}/g" kernel
-         sed -i "s/PKGREL=.*/PKGREL=${{ env.release }}/g" kernel
-         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-         git config --local user.name "github-actions[bot]"
-         git commit -m "${{ env.ver }}-${{ env.release }}" -a
-
-      - name: Push changes to the repo
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: test
+          name: kconfig
+          path: /tmp/artifacts/*
       
