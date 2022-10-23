@@ -10,5 +10,5 @@ jobs:
       - name: Get kconfig
         run: |
           git clone https://github.com/t2linux/T2-Ubuntu-Kernel.git
-          sed -i "s/LOCALVERSION=-t2.*/LOCALVERSION=-t2-external/g" ${{ github.workspace }}/T2-Ubuntu-Kernel/build.sh
+          sed -i 's/LOCALVERSION=-t2-${CODENAME}/LOCALVERSION=-t2-external/g' ${{ github.workspace }}/T2-Ubuntu-Kernel/build.sh
           cat ${{ github.workspace }}/T2-Ubuntu-Kernel/build.sh
