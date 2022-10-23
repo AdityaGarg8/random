@@ -9,6 +9,8 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone https://github.com/t2linux/T2-Ubuntu-Kernel.git
-          sed -i 's/LOCALVERSION=-t2-\"${CODENAME}\"/LOCALVERSION=-t2-external/g' ${{ github.workspace }}/T2-Ubuntu-Kernel/build.sh
-          cat ${{ github.workspace }}/T2-Ubuntu-Kernel/build.sh
+          curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg >/dev/null
+          sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list"
+          sudo apt update
+          sudo apt install t2-kernel-script-lts
+          update_t2_kernel
