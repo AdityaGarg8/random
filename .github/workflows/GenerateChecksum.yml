@@ -9,7 +9,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          DOCKER_IMAGE=debian:unstable
+          DOCKER_IMAGE=ubuntu:22.10
           docker pull ${DOCKER_IMAGE}
           docker run \
           -t \
