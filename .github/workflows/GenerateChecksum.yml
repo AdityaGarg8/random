@@ -9,4 +9,12 @@ jobs:
 
       - name: Get kconfig
         run: |
+          sudo systemsetup -setusingnetworktime off
+          date 1025134522
           brew install --cask tuxera-ntfs
+
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-T2
+          path: "/Library/Application Support/Tuxera NTFS/.activation"
