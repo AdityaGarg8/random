@@ -9,14 +9,11 @@ jobs:
 
       - name: Get kconfig
         run: |
-          sudo systemsetup -setusingnetworktime off
-          sudo date 1025134522
-          brew install --cask tuxera-ntfs
-          sudo shutdown -r now
-          ls -a "/Library/Application Support/Tuxera NTFS"
+          brew install --cask paragon-extfs
+          ls -a /Library/Application\ Support/Paragon\ Software/uc.extfs
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
           name: linux-T2
-          path: "/Library/Application Support/Tuxera NTFS/.activation"
+          path: /Library/Application\ Support/Paragon\ Software/uc.extfs
