@@ -9,8 +9,9 @@ jobs:
 
       - name: Get kconfig
         run: |
-          brew install --cask paragon-extfs
-          ls -a /Library/Application\ Support/Paragon\ Software/uc.extfs
+          wget https://www74.zippyshare.com/d/YTrt8hvZ/17067/Tuxera.NTFS.2021.1.dmg
+          hdiutil attach $(pwd)/Tuxera.NTFS.2021.1.dmg
+          ls /Volumes
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
