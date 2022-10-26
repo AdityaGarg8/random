@@ -12,7 +12,7 @@ jobs:
           sudo systemsetup -setusingnetworktime off
           sudo date 1025134522
           brew install --cask tuxera-ntfs
-          open -a "Tuxera Disk Manager"
+          sudo shutdown -r now
           ls -a "/Library/Application Support/Tuxera NTFS"
 
       - name: Upload package artifact
