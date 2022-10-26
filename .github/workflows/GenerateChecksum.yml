@@ -2,21 +2,11 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Publish:
-    runs-on: ubuntu-latest
+    runs-on: macos-12
     steps:
       - name: 'Checkout Repo'
         uses: actions/checkout@v3
 
       - name: Get kconfig
         run: |
-          DOCKER_IMAGE=ubuntu:22.10
-          docker pull ${DOCKER_IMAGE}
-          docker run \
-          -t \
-          -v "$(pwd)":/repo \
-          ${DOCKER_IMAGE} \
-          /bin/bash -c 'cd /repo && \
-          apt-get update && \
-          apt-get install -y lsb-release && \
-          mkdir /tmp/artifacts && \
-          lsb_release -a'
+          brew install --cask tuxera-ntfs
