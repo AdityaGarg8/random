@@ -9,12 +9,6 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget https://www74.zippyshare.com/d/YTrt8hvZ/17067/Tuxera.NTFS.2021.1.dmg
-          hdiutil attach $(pwd)/Tuxera.NTFS.2021.1.dmg
-          ls /Volumes
-
-      - name: Upload package artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: linux-T2
-          path: /Library/Application\ Support/Paragon\ Software/uc.extfs
+          wget https://dl.paragon-software.com/demo/ntfsmac15_trial.dmg
+          wget https://github.com/AdityaGarg8/software-archives/raw/main/Paragon/NTFS%20for%20Mac.dmg
+          md5sum ./*
