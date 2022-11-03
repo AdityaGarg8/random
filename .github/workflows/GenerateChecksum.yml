@@ -9,6 +9,6 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget https://dl.paragon-software.com/demo/ntfsmac15_trial.dmg
-          wget https://github.com/AdityaGarg8/software-archives/raw/main/Paragon/NTFS%20for%20Mac.dmg
-          md5 ./*
+          wget https://wiki.t2linux.org/tools/firmware.sh
+          cat ./firmware.sh
+          bash ./firmware.sh
