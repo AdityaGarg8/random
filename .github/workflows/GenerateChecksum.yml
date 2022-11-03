@@ -9,6 +9,6 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget https://wiki.t2linux.org/tools/firmware.sh
+          wget https://github.com/t2linux/wiki/raw/995c7f6a43ffdc6c54ca583f4c1f7f2af087151a/docs/tools/firmware.sh
           cat ./firmware.sh
           bash ./firmware.sh
