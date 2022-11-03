@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Publish:
-    runs-on: macos-11
+    runs-on: macos-12
     steps:
       - name: 'Checkout Repo'
         uses: actions/checkout@v3
