@@ -20,5 +20,5 @@ jobs:
           apt-get install -y lsb-release git wget && \
           mkdir /tmp/artifacts && \
           git clone https://github.com/t2linux/T2-Ubuntu-Kernel.git && \
-          sed -i 's/LOCALVERSION=-t2-\"${CODENAME}\"/LOCALVERSION=-t2-external/g' /repo/T2-Ubuntu-Kernel/build.sh && cd /repo/T2-Ubuntu-Kernel && \
+          sed -i "s/LOCALVERSION=-t2-\"${CODENAME}\"/LOCALVERSION=-t2-external/g" /repo/T2-Ubuntu-Kernel/build.sh && cd /repo/T2-Ubuntu-Kernel && \
           cat /repo/T2-Ubuntu-Kernel/build.sh"
