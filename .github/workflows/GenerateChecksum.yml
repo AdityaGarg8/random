@@ -11,7 +11,7 @@ jobs:
         run: |
           git clone -b patch-4 https://github.com/AdityaGarg8/linux.git
           cd linux
-          git format-patch -10 HEAD
+          git format-patch -6 HEAD
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
