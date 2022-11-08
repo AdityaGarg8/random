@@ -9,6 +9,6 @@ jobs:
 
       - name: Get kconfig
         run: |
-          getkernelver=$(curl -sL https://github.com/t2linux/T2-Ubuntu-Kernel/releases | grep "{{ urlEncodedRefName }}" | grep -v "generic" | grep v${lts_version} | cut -d "{" -f 3 | cut -c 25- | head -1)
+          getkernelver=$(curl -sL https://github.com/t2linux/T2-Ubuntu-Kernel/releases | grep "{{ urlEncodedRefName }}" | grep -v "generic" | grep v5.15 | cut -d "{" -f 3 | cut -c 25- | head -1)
           latest=$(echo ${getkernelver::-76} | cut -d "v" -f 2 | cut -d "-" -f 1)
           echo $latest
