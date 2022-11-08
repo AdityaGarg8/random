@@ -17,4 +17,4 @@ jobs:
           ${DOCKER_IMAGE} \
           /bin/bash -c "cd /repo && \
           apt-get update && \
-          apt-get install -y plymouth-theme-spinner && apt list --installed | grep plymouth"
+          apt-get install -y plymouth-theme-spinner plymouth-theme-ubuntu-text && apt list --installed | grep plymouth"
