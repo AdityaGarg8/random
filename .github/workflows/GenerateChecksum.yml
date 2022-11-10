@@ -13,3 +13,4 @@ jobs:
           chmod +x ubuntu-mainline-kernel.sh
           sudo install ubuntu-mainline-kernel.sh /usr/bin/
           sudo ubuntu-mainline-kernel.sh -i --yes
+          ls /boot
