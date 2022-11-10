@@ -16,4 +16,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: linux-T2
-          path: ${{ github.workspace }}/linux/*.patch
+          path: ${{ github.workspace }}/linux-t2/*.patch
