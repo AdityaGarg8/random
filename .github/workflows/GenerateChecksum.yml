@@ -9,6 +9,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          getkernelver=$(curl -sL https://github.com/t2linux/T2-Ubuntu-Kernel/releases | grep "{{ urlEncodedRefName }}" | grep -v "generic" | grep v5.15 | cut -d "{" -f 3 | cut -c 25- | head -1)
-          latest=$(echo ${getkernelver::-76} | cut -d "v" -f 2 | cut -d "-" -f 1)
-          echo $latest
+          wget https://raw.githubusercontent.com/pimlie/ubuntu-mainline-kernel.sh/master/ubuntu-mainline-kernel.sh
+          chmod +x ubuntu-mainline-kernel.sh
+          sudo install ubuntu-mainline-kernel.sh /usr/bin/
+          sudo ubuntu-mainline-kernel.sh -i
