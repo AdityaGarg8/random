@@ -12,4 +12,4 @@ jobs:
           wget https://raw.githubusercontent.com/pimlie/ubuntu-mainline-kernel.sh/master/ubuntu-mainline-kernel.sh
           chmod +x ubuntu-mainline-kernel.sh
           sudo install ubuntu-mainline-kernel.sh /usr/bin/
-          sudo ubuntu-mainline-kernel.sh -i
+          sudo ubuntu-mainline-kernel.sh -i --yes
