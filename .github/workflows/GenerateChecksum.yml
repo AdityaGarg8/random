@@ -9,7 +9,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget https://github.com/AdityaGarg8/ubuntu-mainline-kernel.sh/raw/master/ubuntu-mainline-kernel.sh
+          wget https://github.com/pimlie/ubuntu-mainline-kernel.sh/raw/master/ubuntu-mainline-kernel.sh
           chmod +x ubuntu-mainline-kernel.sh
           sudo install ubuntu-mainline-kernel.sh /usr/bin/
           sudo ubuntu-mainline-kernel.sh -i --yes
