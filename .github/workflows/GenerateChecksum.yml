@@ -9,8 +9,11 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget https://github.com/AdityaGarg8/ubuntu-mainline-kernel.sh/raw/master/ubuntu-mainline-kernel.sh
-          chmod +x ubuntu-mainline-kernel.sh
-          sudo install ubuntu-mainline-kernel.sh /usr/bin/
-          sudo ubuntu-mainline-kernel.sh -i --yes
-          ls /boot
+          git clone -b bits/ibridge https://github.com/kekrby/linux-t2.git
+          cd linux
+          git format-patch -12 HEAD
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-T2
+          path: ${{ github.workspace }}/linux/*.patch
