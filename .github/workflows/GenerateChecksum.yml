@@ -11,7 +11,7 @@ jobs:
         run: |
           git clone -b bits/ibridge https://github.com/kekrby/linux-t2.git
           cd linux-t2
-          git format-patch -15 HEAD
+          git format-patch -13 HEAD
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
