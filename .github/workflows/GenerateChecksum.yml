@@ -9,11 +9,10 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone -b bits/ibridge https://github.com/kekrby/linux-t2.git
-          cd linux-t2
-          git format-patch -13 HEAD
+          wget https://github.com/t2linux/wiki/raw/Touchbar/docs/tools/touchbar.sh
+          bash ./touchbar.sh
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
           name: linux-T2
-          path: ${{ github.workspace }}/linux-t2/*.patch
+          path: /usr/local/bin/touchbar
