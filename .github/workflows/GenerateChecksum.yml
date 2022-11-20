@@ -13,4 +13,5 @@ jobs:
           chmod +x ubuntu-mainline-kernel.sh
           sudo mv ubuntu-mainline-kernel.sh /usr/local/bin/
           sudo ubuntu-mainline-kernel.sh -i --yes
+          echo $version | cut -d "v" -f 2
           ls /boot
