@@ -1,4 +1,4 @@
-Qname: Generate md5 sums
+name: Generate md5 sums
 on: [push]
 jobs:
   Publish:
