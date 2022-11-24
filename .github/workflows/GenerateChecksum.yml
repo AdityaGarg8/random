@@ -4,14 +4,18 @@ jobs:
   Publish:
     runs-on: ubuntu-latest
     steps:
+      - name: Free up disk space for the CI
+        uses: AdityaGarg8/remove-unwanted-software@v1
+        with:
+          remove-android: 'true'
+          remove-dotnet: 'true'
+          remove-haskell: 'true'
+
       - name: 'Checkout Repo'
         uses: actions/checkout@v3
 
       - name: Get kconfig
         run: |
-          wget https://raw.githubusercontent.com/pimlie/ubuntu-mainline-kernel.sh/master/ubuntu-mainline-kernel.sh
-          chmod +x ubuntu-mainline-kernel.sh
-          sudo mv ubuntu-mainline-kernel.sh /usr/local/bin/
-          sudo ubuntu-mainline-kernel.sh -i --yes
-          echo $version | cut -d "v" -f 2
-          ls /boot
+          sudo apt update
+          sudo apt-get install git-core gnupg flex bison maven gperf build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev ccache libgl1-mesa-dev libxml2-utils xsltproc unzip squashfs-tools python-mako libssl-dev ninja-build lunzip syslinux syslinux-utils gettext genisoimage gettext bc xorriso libncurses5 xmlstarlet build-essential git imagemagick lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libxml2 lzop pngcrush rsync schedtool python-enum34 python3-mako libelf-dev
+          repo init -u --depth=1 https://github.com/BlissRoms-x86/manifest.git -b r11-r36
