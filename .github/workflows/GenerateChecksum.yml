@@ -16,6 +16,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          apt list --installed | grep docker
-          sudo apt-get purge -y docker docker.io
-          sudo apt-get autoremove -y --purge docker-engine docker docker.io docker-ce docker-compose-plugin
+          sudo rm -rf /var/lib/docker /etc/docker
+          sudo rm /etc/apparmor.d/docker
+          sudo groupdel docker
+          sudo rm -rf /var/run/docker.sock
