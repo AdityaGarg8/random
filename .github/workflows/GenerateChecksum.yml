@@ -16,4 +16,4 @@ jobs:
 
       - name: Get kconfig
         run: |
-          apt list --installed | grep chrom
+          apt list --installed | grep edge
