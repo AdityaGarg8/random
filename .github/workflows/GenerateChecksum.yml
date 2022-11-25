@@ -16,4 +16,6 @@ jobs:
 
       - name: Get kconfig
         run: |
-          apt list --installed | grep edge
+          df -h
+          sudo dpkg -P google-chrome-stable microsoft-edge-stable
+          df -h
