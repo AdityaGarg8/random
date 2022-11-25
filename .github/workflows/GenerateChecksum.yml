@@ -7,13 +7,14 @@ jobs:
       - name: Free up disk space for the CI
         uses: AdityaGarg8/remove-unwanted-software@v1
         with:
-          remove-android: 'true'
-          remove-dotnet: 'true'
-          remove-haskell: 'true'
+          remove-android: 'false'
+          remove-dotnet: 'false'
+          remove-haskell: 'false'
 
       - name: 'Checkout Repo'
         uses: actions/checkout@v3
 
       - name: Get kconfig
         run: |
-          dpkg -l | grep -i docker
+          sudo apt-get purge -y docker-engine docker docker.io docker-ce docker-ce-cli docker-compose-plugin
+          sudo apt-get autoremove -y --purge docker-engine docker docker.io docker-ce docker-compose-plugin
