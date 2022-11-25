@@ -17,5 +17,5 @@ jobs:
       - name: Get kconfig
         run: |
           df -h
-          sudo dpkg -P google-chrome-stable microsoft-edge-stable
+          sudo dpkg -P google-chrome-stable microsoft-edge-stable > /dev/null
           df -h
