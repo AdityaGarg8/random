@@ -16,8 +16,8 @@ jobs:
 
       - name: Get kconfig
         run: |
-          dh -f
+          df -h
           sudo rm -rf /var/lib/docker /etc/docker
           sudo groupdel docker
           sudo rm -rf /var/run/docker.sock
-          dh -f
+          df -h
