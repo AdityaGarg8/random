@@ -18,6 +18,5 @@ jobs:
         run: |
           df -h
           sudo rm -rf /var/lib/docker /etc/docker
-          sudo groupdel docker
           sudo rm -rf /var/run/docker.sock
           df -h
