@@ -16,7 +16,4 @@ jobs:
 
       - name: Get kconfig
         run: |
-          df -h
-          sudo rm -rf /var/lib/docker /etc/docker
-          sudo rm -rf /var/run/docker.sock
-          df -h
+          apt list --installed | grep chrom
