@@ -16,5 +16,6 @@ jobs:
 
       - name: Get kconfig
         run: |
-          sudo apt-get purge -y docker docker.io docker-compose-plugin
+          apt list --installed | grep docker
+          sudo apt-get purge -y docker docker.io
           sudo apt-get autoremove -y --purge docker-engine docker docker.io docker-ce docker-compose-plugin
