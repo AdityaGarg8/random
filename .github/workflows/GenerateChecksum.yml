@@ -16,8 +16,5 @@ jobs:
 
       - name: Get kconfig
         run: |
-          curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg >/dev/null
-          sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list"
-          sudo apt update
-          sudo apt install t2-kernel-script
-          update_t2_kernel
+          wget https://github.com/Redecorating/apple_set_os-loader/releases/download/r33.9856dc4/bootx64.efi
+          md5sum ./bootx64.efi
