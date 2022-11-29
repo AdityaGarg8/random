@@ -16,4 +16,4 @@ jobs:
 
       - name: Get kconfig
         run: |
-          ls /sys/module/hfsplus
+          ls /sys/module
