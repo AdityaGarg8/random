@@ -18,7 +18,4 @@ jobs:
         run: |
           git clone https://github.com/linux-apfs/linux-apfs-rw.git
           cd linux-apfs-rw
-          for i in ${{ github.workspace }}/linux-apfs-rw/*
-          do
-          cat $i | grep "READWRITE"
-          done
+          grep -R "READWRITE" .
