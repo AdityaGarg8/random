@@ -16,6 +16,6 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone https://github.com/linux-apfs/linux-apfs-rw.git
-          cd linux-apfs-rw
-          grep -R "readwrite" .
+          git clone depth 1 https://github.com/torvalds/linux.git
+          cd linux/fs/hfsplus
+          grep -R "force" .
