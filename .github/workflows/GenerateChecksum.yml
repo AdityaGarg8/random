@@ -19,6 +19,7 @@ jobs:
           git clone --depth 3 https://github.com/AdityaGarg8/linux.git
           cd linux
           git format-patch -1 HEAD
+          ./scripts/get_maintainer.pl 0001*
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
