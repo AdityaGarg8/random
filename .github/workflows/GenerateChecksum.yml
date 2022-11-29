@@ -16,5 +16,9 @@ jobs:
 
       - name: Get kconfig
         run: |
-          sudo modprobe hfsplus
-          ls /sys/module
+          git clone https://github.com/linux-apfs/linux-apfs-rw.git
+          cd linux*
+          for i in ./*
+          do
+          cat $i | grep "READWRITE"
+          done
