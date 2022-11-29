@@ -17,8 +17,8 @@ jobs:
       - name: Get kconfig
         run: |
           git clone https://github.com/linux-apfs/linux-apfs-rw.git
-          cd linux*
-          for i in ./*
+          cd linux-apfs-rw
+          for i in ${{ github.workspace }}/linux-apfs-rw/*
           do
           cat $i | grep "READWRITE"
           done
