@@ -16,4 +16,5 @@ jobs:
 
       - name: Get kconfig
         run: |
+          sudo modprobe hid-apple
           ls /sys/module
