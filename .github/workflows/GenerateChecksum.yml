@@ -20,6 +20,7 @@ jobs:
           cd linux
           git format-patch -1 HEAD
           ./scripts/get_maintainer.pl 0001*
+          ./scripts/checkpatch.pl 0001*
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
