@@ -16,5 +16,5 @@ jobs:
 
       - name: Get kconfig
         run: |
-          sudo modprobe hid-apple
+          sudo modprobe hfsplus
           ls /sys/module
