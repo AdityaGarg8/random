@@ -16,5 +16,4 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget https://github.com/Redecorating/apple_set_os-loader/releases/download/r33.9856dc4/bootx64.efi
-          md5sum ./bootx64.efi
+          ls /sys/module/hfsplus
