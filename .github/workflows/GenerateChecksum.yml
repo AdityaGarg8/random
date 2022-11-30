@@ -17,5 +17,6 @@ jobs:
       - name: Get kconfig
         run: |
           git clone --depth 1 https://github.com/torvalds/linux
-          cd linux/fs/ext4
+          cd linux/fs
+          grep -R sync .
           grep -R relatime .
