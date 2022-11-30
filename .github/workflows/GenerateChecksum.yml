@@ -16,6 +16,6 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone --depth 1 https://github.com/torvalds/linux
-          cd linux/fs/hfsplus
+          git clone --depth 1 https://github.com/linux-apfs/linux-apfs-rw
+          cd linux-apfs-rw
           grep -R fsync .
