@@ -16,6 +16,7 @@ jobs:
 
       - name: Get kconfig
         run: |
+          cat ~/.bashrc
           git clone --depth 1 https://github.com/torvalds/linux
           cd linux/fs/hfsplus
           grep -R SB_SYNCHRONOUS .
