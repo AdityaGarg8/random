@@ -16,6 +16,4 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone --depth 1 https://github.com/linux-apfs/linux-apfs-rw.git
-          cd linux-apfs-rw
-          grep -R SB_SYNCHRONOUS .
+          cat /etc/default/grub
