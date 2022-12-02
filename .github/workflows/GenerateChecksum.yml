@@ -16,9 +16,10 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone -b master2 --depth 10 https://github.com/AdityaGarg8/linux.git
+          git clone --depth 10 https://github.com/AdityaGarg8/linux.git
           cd linux
-          git format-patch -2 HEAD
+          git revert 16525e3f146fbba1ae43740c7d3895d4f396a768
+          git format-patch -1 HEAD
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
