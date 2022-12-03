@@ -4,6 +4,7 @@
 #include <sys/types.h>
 #include <sys/mman.h>
 #include <fcntl.h>
+#include <byteswap.h>
 
 
 
@@ -28,7 +29,7 @@ int main(int argc, char *argv[])
 	
 	unsigned long attributes = *(unsigned long *)(&buffer[1028]);
 	attributes = bswap_32(attributes);
-	printf("attributes = 0x%8.8x\n", attributes);
+	printf("attributes = 0x%8.8lx\n", attributes);
 	
 	if(!(attributes & 0x00002000)) {
 		printf("kHFSVolumeJournaledBit not currently set in the volume attributes field.\n");
