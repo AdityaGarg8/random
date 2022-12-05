@@ -16,4 +16,11 @@ jobs:
 
       - name: Get kconfig
         run: |
-          ls /sys/module/nvme/parameters
+          git clone --depth 10 https://github.com/AdityaGarg8/linux.git
+          cd linux
+          git format-patch -1 HEAD
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: patch
+          path: ${{ github.workspace }}/linux/*.patch
