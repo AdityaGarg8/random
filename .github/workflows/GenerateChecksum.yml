@@ -16,4 +16,4 @@ jobs:
 
       - name: Get kconfig
         run: |
-          ls /sys/module/nvme
+          ls /sys/module/nvme/parameters
