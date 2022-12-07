@@ -17,7 +17,7 @@ jobs:
       - name: Get kconfig
         run: |
           docker pull debian:stable
-          docker run -t -v "$(pwd):/workspace" ${DOCKER_IMAGE} /bin/bash -c 'apt update && \
+          docker run -t -v "$(pwd):/workspace" debian:stable /bin/bash -c 'apt update && \
           apt install libpve-common-perl python3 python3-minimal asciidoc-base automake bc bison cpio debhelper dh-python file flex gcc git kmod libdw-dev libelf-dev libiberty-dev libnuma-dev libslang2-dev libssl-dev libtool lintian lz4 perl-modules rsync sed sphinx-common tar xmlto zlib1g-dev && \
           apt-get install -y tree build-essential fakeroot libncurses-dev bison flex libssl-dev libelf-dev \
           openssl dkms libudev-dev libpci-dev libiberty-dev autoconf wget xz-utils git \
