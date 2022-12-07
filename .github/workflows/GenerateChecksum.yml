@@ -18,7 +18,7 @@ jobs:
         run: |
           git clone --depth 10 https://github.com/AdityaGarg8/linux.git
           cd linux
-          grep -R sbi->volume.label . || echo "error 1"
+          grep -R "sbi->volume.label" . || echo "error 1"
           echo
           #grep -R LABEL . || echo "error 2"
           echo
