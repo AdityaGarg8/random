@@ -22,6 +22,7 @@ jobs:
           libcap-dev bc rsync cpio dh-modaliases debhelper kernel-wedge curl gawk dwarves zstd
           git clone --depth 1 https://git.proxmox.com/git/pve-kernel
           cd pve-kernel
+          make
           tree -a
           git format-patch -1 HEAD
       - name: Upload package artifact
