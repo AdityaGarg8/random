@@ -17,12 +17,12 @@ jobs:
       - name: Get kconfig
         run: |
           git clone --depth 10 https://github.com/AdityaGarg8/linux.git
-          cd linux/fs/hfsplus
-          grep -R label . || echo "error 1"
+          cd linux
+          grep -R sbi->volume.label . || echo "error 1"
           echo
-          grep -R LABEL . || echo "error 2"
+          #grep -R LABEL . || echo "error 2"
           echo
-          grep -R Label . || echo "error 3"
+          #grep -R Label . || echo "error 3"
           git format-patch -1 HEAD
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
