@@ -16,13 +16,9 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone --depth 10 https://github.com/AdityaGarg8/linux.git
-          cd linux
-          grep -R "sbi->volume.label" . || echo "error 1"
-          echo
-          #grep -R LABEL . || echo "error 2"
-          echo
-          #grep -R Label . || echo "error 3"
+          git clone --depth 1 https://git.proxmox.com/git/pve-kernel
+          cd pve-kernel
+          cat ./Makefile
           git format-patch -1 HEAD
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
