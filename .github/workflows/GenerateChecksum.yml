@@ -17,7 +17,7 @@ jobs:
       - name: Get kconfig
         run: |
           git clone --depth 10 https://github.com/AdityaGarg8/linux.git
-          cd linux/fs/ntfs3
+          cd linux/fs/hfsplus
           grep -R label . || echo "error 1"
           echo
           grep -R LABEL . || echo "error 2"
