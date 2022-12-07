@@ -16,16 +16,16 @@ jobs:
 
       - name: Get kconfig
         run: |
-          sudo apt update
-          sudo apt install asciidoc-base automake bc bison cpio debhelper dh-python file flex gcc git kmod libdw-dev libelf-dev libiberty-dev libnuma-dev libslang2-dev libssl-dev libtool lintian lz4 perl-modules rsync sed sphinx-common tar xmlto zlib1g-dev
-          sudo apt-get install -y tree build-essential fakeroot libncurses-dev bison flex libssl-dev libelf-dev \
+          docker pull debian:stable
+          docker run -t -v "$(pwd):/workspace" ${DOCKER_IMAGE} /bin/bash -c 'apt update && \
+          apt install libpve-common-perl python3 python3-minimal asciidoc-base automake bc bison cpio debhelper dh-python file flex gcc git kmod libdw-dev libelf-dev libiberty-dev libnuma-dev libslang2-dev libssl-dev libtool lintian lz4 perl-modules rsync sed sphinx-common tar xmlto zlib1g-dev && \
+          apt-get install -y tree build-essential fakeroot libncurses-dev bison flex libssl-dev libelf-dev \
           openssl dkms libudev-dev libpci-dev libiberty-dev autoconf wget xz-utils git \
-          libcap-dev bc rsync cpio dh-modaliases debhelper kernel-wedge curl gawk dwarves zstd
-          git clone --depth 1 https://git.proxmox.com/git/pve-kernel
-          cd pve-kernel
-          make
-          tree -a
-          git format-patch -1 HEAD
+          libcap-dev bc rsync cpio debhelper kernel-wedge curl gawk dwarves zstd && \
+          git clone --depth 1 https://git.proxmox.com/git/pve-kernel \
+          cd pve-kernel \
+          make \
+          tree -a'
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
