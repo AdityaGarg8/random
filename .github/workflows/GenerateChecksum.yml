@@ -16,16 +16,16 @@ jobs:
 
       - name: Get kconfig
         run: |
-          docker pull debian:stable
-          docker run -t -v "$(pwd):/workspace" debian:stable /bin/bash -c 'apt update && \
-          apt install libpve-common-perl python3 python3-minimal asciidoc-base automake bc bison cpio debhelper dh-python file flex gcc git kmod libdw-dev libelf-dev libiberty-dev libnuma-dev libslang2-dev libssl-dev libtool lintian lz4 perl-modules rsync sed sphinx-common tar xmlto zlib1g-dev && \
-          apt-get install -y tree build-essential fakeroot libncurses-dev bison flex libssl-dev libelf-dev \
-          openssl dkms libudev-dev libpci-dev libiberty-dev autoconf wget xz-utils git \
-          libcap-dev bc rsync cpio debhelper kernel-wedge curl gawk dwarves zstd && \
-          git clone --depth 1 https://git.proxmox.com/git/pve-kernel \
-          cd pve-kernel \
-          make \
-          tree -a'
+          git clone https://github.com/t2linux/linux-t2-patches.git
+          mkdir patches
+          cp ./linux-t2-patches/*patch /patches
+          cd patches
+          ls > list.conf
+          echo
+          cat list.conf
+          sed -i -e 's/^/patches\//' list.conf
+          echo
+          cat list.conf
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
