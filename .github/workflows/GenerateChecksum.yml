@@ -24,6 +24,7 @@ jobs:
           sed -i -e 's/^/pve\//' ../linux-t2-patches/list.conf
           echo
           wget https://github.com/AdityaGarg8/pve-edge-kernel/raw/master/debian/patches/series.linux
+          echo >> ./series.linux
           cat ../linux-t2-patches/list.conf >> ./series.linux
           cat ./series.linux
       - name: Upload package artifact
