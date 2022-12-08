@@ -28,7 +28,6 @@ jobs:
           cat ../linux-t2-patches/list.conf >> ./series.linux
           cat ./series.linux
           wget https://github.com/AdityaGarg8/pve-edge-kernel/raw/master/debian/config/config.pve
-          echo >> ./config.pve
           cat ../linux-t2-patches/extra_config >> ./config.pve
           cat ./config.pve
       - name: Upload package artifact
