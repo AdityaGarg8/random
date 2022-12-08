@@ -22,7 +22,7 @@ jobs:
           cd patches
           ls > ../linux-t2-patches/list.conf
           echo
-          cat ../linux/list.conf
+          cat ../linux-t2-patches/list.conf
           sed -i -e 's/^/patches\//' ../linux-t2-patches/list.conf
           echo
           cat ../linux-t2-patches/list.conf
