@@ -7,9 +7,9 @@ jobs:
       - name: Free up disk space for the CI
         uses: AdityaGarg8/remove-unwanted-software@v1
         with:
-          remove-android: 'true'
-          remove-dotnet: 'true'
-          remove-haskell: 'true'
+          remove-android: 'false'
+          remove-dotnet: 'false'
+          remove-haskell: 'false'
 
       - name: 'Checkout Repo'
         uses: actions/checkout@v3
@@ -18,7 +18,7 @@ jobs:
         run: |
           git clone https://github.com/t2linux/linux-t2-patches.git
           mkdir patches
-          cp ./linux-t2-patches/*patch /patches
+          cp ./linux-t2-patches/*patch ./patches
           cd patches
           ls > list.conf
           echo
