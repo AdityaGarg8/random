@@ -20,12 +20,12 @@ jobs:
           mkdir patches
           cp ./linux-t2-patches/*patch ./patches
           cd patches
-          ls > list.conf
+          ls > ../linux-t2-patches/list.conf
           echo
-          cat list.conf
-          sed -i -e 's/^/patches\//' list.conf
+          cat ../linux/list.conf
+          sed -i -e 's/^/patches\//' ../linux-t2-patches/list.conf
           echo
-          cat list.conf
+          cat ../linux-t2-patches/list.conf
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
