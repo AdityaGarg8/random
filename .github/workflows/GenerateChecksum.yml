@@ -18,7 +18,7 @@ jobs:
         run: |
           sudo apt update
           sudo apt install devscripts debhelper equivs git
-          apt list --installed | grep python
+          apt list --installed | cut -d "/" -f 1 | grep python
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
