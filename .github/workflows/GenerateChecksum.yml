@@ -16,20 +16,10 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone https://github.com/t2linux/linux-t2-patches.git
-          mkdir patches
-          cp ./linux-t2-patches/*patch ./patches
-          cd patches
-          ls > ../linux-t2-patches/list.conf
-          sed -i -e 's/^/pve\//' ../linux-t2-patches/list.conf
-          echo
-          wget https://github.com/AdityaGarg8/pve-edge-kernel/raw/master/debian/patches/series.linux
-          echo >> ./series.linux
-          cat ../linux-t2-patches/list.conf >> ./series.linux
-          cat ./series.linux
-          wget https://github.com/AdityaGarg8/pve-edge-kernel/raw/master/debian/config/config.pve
-          cat ../linux-t2-patches/extra_config >> ./config.pve
-          cat ./config.pve
+          sudo apt update
+          sudo apt install devscripts debhelper equivs git
+          apt list --installed | grep python
+          
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
