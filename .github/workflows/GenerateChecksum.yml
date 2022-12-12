@@ -16,9 +16,9 @@ jobs:
 
       - name: Get kconfig
         run: |
-          sudo apt update
-          sudo apt install devscripts debhelper equivs git
-          apt list --installed | cut -d "/" -f 1 | grep python | xargs
+          git clone --depth 5 https://github.com/AdityaGarg8/linux.git
+          cd linux
+          git format-patch -1 HEAD
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
