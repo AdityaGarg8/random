@@ -16,9 +16,11 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone --depth 5 https://github.com/AdityaGarg8/linux.git
-          cd linux
-          git format-patch -1 HEAD
+          curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg >/dev/null
+          sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list"
+          sudo apt update
+          sudo apt install t2-kernel-script
+          update_t2_kernel
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
