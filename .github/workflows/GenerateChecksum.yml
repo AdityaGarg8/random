@@ -16,14 +16,12 @@ jobs:
 
       - name: Get kconfig
         run: |
-          curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg >/dev/null
-          sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list"
-          sudo apt update
-          sudo apt install t2-kernel-script
-          update_t2_kernel
+          git clone --depth=10 -b wip/hybrid-graphics https://github.com/kekrby/linux-t2
+          cd linux-t2
+          git format-patch -6 HEAD
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
           name: patch
-          path: ${{ github.workspace }}/linux/*.patch
+          path: ${{ github.workspace }}/linux-t2/*.patch
