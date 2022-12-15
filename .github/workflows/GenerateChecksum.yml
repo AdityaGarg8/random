@@ -16,12 +16,12 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone --depth=10 -b wip/hybrid-graphics https://github.com/kekrby/linux-t2
-          cd linux-t2
-          git format-patch -6 HEAD
+          git clone --depth=10 -b bits/010-gmux https://github.com/Redecorating/linux.git
+          cd linux
+          git format-patch -8 HEAD
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
           name: patch
-          path: ${{ github.workspace }}/linux-t2/*.patch
+          path: ${{ github.workspace }}/linux/*.patch
