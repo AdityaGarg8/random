@@ -18,7 +18,9 @@ jobs:
         run: |
           git clone --depth=10 -b bits/010-gmux https://github.com/Redecorating/linux.git
           cd linux
-          git format-patch -8 HEAD
+          wget https://raw.githubusercontent.com/t2linux/linux-t2-patches/main/1004-HID-Recognize-sensors-with-application-collections-t.patch
+          ./scripts/checkpatch.pl 1004*
+          ./scripts/get_maintainer.pl 1004*
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
