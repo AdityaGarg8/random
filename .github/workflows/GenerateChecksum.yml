@@ -16,11 +16,11 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone --depth=10 -b bits/010-gmux https://github.com/Redecorating/linux.git
-          cd linux
-          wget https://raw.githubusercontent.com/t2linux/linux-t2-patches/main/1004-HID-Recognize-sensors-with-application-collections-t.patch
-          ./scripts/checkpatch.pl 1004*
-          ./scripts/get_maintainer.pl 1004*
+          curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg >/dev/null
+          sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list"
+          sudo apt update
+          sudo apt install t2-kernel-script
+          update_t2_kernel
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
