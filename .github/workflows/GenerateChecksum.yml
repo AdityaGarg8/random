@@ -22,6 +22,10 @@ jobs:
           sudo apt install t2-kernel-script
           update_t2_kernel
           
+          wget https://github.com/t2linux/T2-Ubuntu-Kernel/releases/download/v6.1-2/linux-headers-6.1.0-t2-jammy_6.1.0-2_amd64.deb
+          wget https://github.com/t2linux/T2-Ubuntu-Kernel/releases/download/v6.1-2/linux-image-6.1.0-t2-jammy_6.1.0-2_amd64.deb
+          sudo apt install ./*.deb
+          
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
