@@ -18,6 +18,7 @@ jobs:
         run: |
           cd /usr/bin
           sudo wget https://raw.githubusercontent.com/t2linux/T2-Ubuntu-Kernel/script/t2-kernel-script/usr/bin/update_t2_kernel
+          sudo chmod a=rwx /usr/bin/update_t2_kernel
           update_t2_kernel
           
       - name: Upload package artifact
