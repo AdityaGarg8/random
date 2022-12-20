@@ -16,11 +16,12 @@ jobs:
 
       - name: Get kconfig
         run: |
-          curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg >/dev/null
-          sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list"
           sudo apt update
-          sudo apt install t2-kernel-script-debian
-          update_t2_kernel
+          sudo apt install repo
+          mkdir android
+          cd android
+          repo init https://github.com/supremegamers/android.git -b bliss/11-x86
+          repo forall -c 'echo "$REPO_PATH -- $REPO_PROJECT"'
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
