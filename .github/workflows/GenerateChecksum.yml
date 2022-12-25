@@ -16,13 +16,15 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget https://github.com/mikeeq/mbp-fedora/releases/download/v6.0.9-f37/livecd-mbp-f37-gnome-20221122.zip
           wget https://github.com/mikeeq/mbp-fedora/releases/download/v6.0.9-f37/livecd-mbp-f37-gnome-20221122.z01
           wget https://github.com/mikeeq/mbp-fedora/releases/download/v6.0.9-f37/livecd-mbp-f37-gnome-20221122.z02
-          cat livecd-mbp-f37-gnome-20221122.z?? > Fedora.iso
-          sudo mount ./Fedora.iso /mnt
-          ls /mnt
-          
+          cat livecd-mbp-f37-gnome-20221122.z?? > Fedora.zip
+          rm ./livecd*
+          mv ./Fedora.zip ./livecd-mbp-f37-gnome-20221122.z01
+          wget https://github.com/mikeeq/mbp-fedora/releases/download/v6.0.9-f37/livecd-mbp-f37-gnome-20221122.zip
+          cat livecd-mbp-f37-gnome-20221122.z?? > Fedora.zip
+          unzip Fedora.zip
+
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
