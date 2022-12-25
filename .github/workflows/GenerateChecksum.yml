@@ -16,14 +16,13 @@ jobs:
 
       - name: Get kconfig
         run: |
-          curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg >/dev/null
-          sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list"
-          sudo apt update
-          sudo apt install t2-kernel-script
-          update_t2_kernel
+          wget https://github.com/mikeeq/mbp-fedora/releases/download/v6.0.9-f37/livecd-mbp-f37-gnome-20221122.zip
+          wget https://github.com/mikeeq/mbp-fedora/releases/download/v6.0.9-f37/livecd-mbp-f37-gnome-20221122.z01
+          wget https://github.com/mikeeq/mbp-fedora/releases/download/v6.0.9-f37/livecd-mbp-f37-gnome-20221122.z02
+          cat livecd-mbp-f37-gnome-20221122.z?? > Fedora.zip
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
           name: patch
-          path: ${{ github.workspace }}/linux/*.patch
+          path: ${{ github.workspace }}/Fedora.zip
