@@ -20,6 +20,8 @@ jobs:
           wget https://github.com/mikeeq/mbp-fedora/releases/download/v6.0.9-f37/livecd-mbp-f37-gnome-20221122.z01
           wget https://github.com/mikeeq/mbp-fedora/releases/download/v6.0.9-f37/livecd-mbp-f37-gnome-20221122.z02
           cat livecd-mbp-f37-gnome-20221122.z?? > Fedora.zip
+          unzip Fedora.zip
+          ls
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
