@@ -16,14 +16,11 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget https://github.com/mikeeq/mbp-fedora/releases/download/v6.0.9-f37/livecd-mbp-f37-kde-20221122.z01
-          wget https://github.com/mikeeq/mbp-fedora/releases/download/v6.0.9-f37/livecd-mbp-f37-kde-20221122.z02
-          wget https://github.com/mikeeq/mbp-fedora/releases/download/v6.0.9-f37/livecd-mbp-f37-kde-20221122.zip
-          cat livecd-mbp-f37-kde-20221122.z?? > Fedora.zip
-          unzip Fedora.zip
+          wget https://github.com/AdityaGarg8/software-archives/raw/main/EaseUS%20Partition%20Master/EaseUS%20Partition%20Master%2014.5/EaseUS%20Partition%20Master%2014.5.exe
+          wget https://github.com/AdityaGarg8/software-archives/raw/main/EaseUS%20Partition%20Master/EaseUS%20Partition%20Master%2014.5/Patcher.exe
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
           name: patch
-          path: ${{ github.workspace }}/Fedora.zip
+          path: ${{ github.workspace }}/*.exe
