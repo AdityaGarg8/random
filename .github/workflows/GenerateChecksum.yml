@@ -20,7 +20,7 @@ jobs:
           cd linux
           git config --global user.email "example@example.com"
           git config --global user.name "example"
-          git revert abe71d179d31ae9ec8d7ca5af7cb8232a47a1209
+          #git revert abe71d179d31ae9ec8d7ca5af7cb8232a47a1209
           git format-patch -8 HEAD
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
