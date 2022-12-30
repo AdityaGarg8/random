@@ -16,12 +16,9 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone -b bits/010-gmux https://github.com/Redecorating/linux
+          git clone https://github.com/AsahiLinux/linux.git
           cd linux
-          git config --global user.email "example@example.com"
-          git config --global user.name "example"
-          #git revert abe71d179d31ae9ec8d7ca5af7cb8232a47a1209
-          git format-patch -8 HEAD
+          git format-patch -26 b481ae93227ec8ca64809e992e365a0aafb75d13
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
