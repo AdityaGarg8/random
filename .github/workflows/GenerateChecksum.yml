@@ -16,7 +16,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone https://github.com/AdityaGarg8/linux.git
+          git clone --depth 5 https://github.com/AdityaGarg8/linux.git
           cd linux
           git format-patch -1 HEAD
       - name: Upload package artifact
