@@ -16,9 +16,9 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone https://github.com/AsahiLinux/linux.git
+          git clone https://github.com/AdityaGarg8/linux.git
           cd linux
-          git format-patch -26 b481ae93227ec8ca64809e992e365a0aafb75d13
+          git format-patch -1 HEAD
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
