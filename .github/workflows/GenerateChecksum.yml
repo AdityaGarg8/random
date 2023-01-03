@@ -16,9 +16,8 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone --depth 5 -b otp https://github.com/AdityaGarg8/linux.git
-          cd linux
-          ./scripts/get_maintainer.pl ./drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
+          wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.2.tar.xz
+          sha256sum ./*.tar.xz
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
