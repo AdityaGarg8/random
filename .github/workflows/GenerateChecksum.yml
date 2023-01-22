@@ -32,4 +32,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: patch
-          path: ${{ github.workspace }}/linux/*.patch
+          path: ${{ github.workspace }}/*.tar.gz
