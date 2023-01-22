@@ -19,14 +19,9 @@ jobs:
           mkdir old
           git clone https://github.com/j3ffyang/mbp-fedora.git
           cp ./mbp-fedora/brcm/*4364b2* ./old
-          mkdir new
-          git clone https://github.com/AdityaGarg8/Apple-Firmware.git
-          cp ./Apple-Firmware/lib/firmware/brcm/*4364b2* ./new
           echo "old sums"
           sha256sum ./old/*
-          echo "new sums"
-          sha256sum ./new/*
-          cd new
+          cd old
           tar czvf ${{ github.workspace }}/firmware.tar.gz *
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
