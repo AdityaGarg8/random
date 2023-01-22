@@ -16,6 +16,7 @@ jobs:
 
       - name: Get kconfig
         run: |
+          apt list --installed | grep initramfs
           mkdir old
           git clone https://github.com/j3ffyang/mbp-fedora.git
           cp ./mbp-fedora/brcm/*4364b2* ./old
