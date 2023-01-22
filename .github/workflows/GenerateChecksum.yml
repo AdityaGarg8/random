@@ -27,7 +27,7 @@ jobs:
           echo "new sums"
           sha256sum ./new/*
           cd new
-          tar czvf ${{ github.workspace }}/firmware.tar.gz ./lib/firmware/brcm/*
+          tar czvf ${{ github.workspace }}/firmware.tar.gz *
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
