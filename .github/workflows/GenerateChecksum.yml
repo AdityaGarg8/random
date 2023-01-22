@@ -21,7 +21,7 @@ jobs:
           cp ./mbp-fedora/brcm/*4364b2* ./old
           mkdir new
           git clone https://github.com/AdityaGarg8/Apple-Firmware.git
-          cp ./Apple-Firmware/*4364b2* ./new
+          cp ./Apple-Firmware/lib/firmware/brcm/*4364b2* ./new
           echo "old sums"
           sha256sum ./old/*
           echo "new sums"
