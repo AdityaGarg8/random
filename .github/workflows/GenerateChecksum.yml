@@ -16,14 +16,11 @@ jobs:
 
       - name: Get kconfig
         run: |
-          apt list --installed | grep initramfs
-          mkdir old
-          git clone https://github.com/j3ffyang/mbp-fedora.git
-          cp ./mbp-fedora/brcm/*4364b2* ./old
-          echo "old sums"
-          sha256sum ./old/*
-          cd old
-          tar czvf ${{ github.workspace }}/firmware.tar.gz *
+          curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg >/dev/null
+          sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list"
+          sudo apt update
+          sudo apt install t2-kernel-script
+          update_t2_kernel
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
