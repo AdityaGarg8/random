@@ -20,6 +20,8 @@ jobs:
           KERNEL_VERSION=6.2.3
           git clone --branch "v${KERNEL_VERSION}" "${KERNEL_REPOSITORY}"
           cd linux-stable
+          git config --global user.email "example@exampler.com"
+          git config --global user.name "Example"
           git revert --no-edit c02f733024d70105f22de8dd0a1252a0350cd516
           git revert --no-edit ba166e0ebdde3dfa833f0a3edaf2b2934d4a87f7
           git revert --no-edit 55b81a6c138629de4318d680ed80abcb81eec606
