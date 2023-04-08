@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Publish:
-    runs-on: ubuntu-22.04
+    runs-on: macos-12
     steps:
       - name: Free up disk space for the CI
         uses: AdityaGarg8/remove-unwanted-software@v1
@@ -16,17 +16,10 @@ jobs:
 
       - name: Get kconfig
         run: |
-          KERNEL_REPOSITORY=https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
-          KERNEL_VERSION=6.2.3
-          git clone --branch "v${KERNEL_VERSION}" "${KERNEL_REPOSITORY}"
-          cd linux-stable
-          git config --global user.email "example@exampler.com"
-          git config --global user.name "Example"
-          git revert --no-edit c02f733024d70105f22de8dd0a1252a0350cd516
-          git revert --no-edit ba166e0ebdde3dfa833f0a3edaf2b2934d4a87f7
-          git revert --no-edit 55b81a6c138629de4318d680ed80abcb81eec606
-          git revert --no-edit 3a4d18318f473e97d628f410215b3fac32d07aed
-          git format-patch -4 HEAD
+          git clone https://github.com/jwise/HoRNDIS.git
+          cd HoRNDIS
+          xcodebuild
+          ls
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
