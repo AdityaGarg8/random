@@ -18,7 +18,7 @@ jobs:
         run: |
           sudo apt update
           sudo apt install snapd
-          sudo snap install ubuntu-desktop-installer
+          sudo snap install ubuntu-desktop-installer --classic
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
