@@ -22,6 +22,7 @@ jobs:
           snap download core18
           snap download flutter --classic
           snap download ubuntu-desktop-installer
+          ls -l
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
