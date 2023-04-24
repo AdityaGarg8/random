@@ -20,7 +20,7 @@ jobs:
           cd seed
           snap download core
           snap download core18
-          snap download flutter --classic
+          snap download flutter
           snap download ubuntu-desktop-installer
           ls -l
       - name: Upload package artifact
