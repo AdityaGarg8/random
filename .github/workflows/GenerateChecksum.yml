@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Publish:
-    runs-on: macos-11
+    runs-on: ubuntu-22.04
     steps:
       - name: Free up disk space for the CI
         uses: AdityaGarg8/remove-unwanted-software@v1
@@ -16,10 +16,9 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone https://github.com/jwise/HoRNDIS.git
-          cd HoRNDIS
-          xcodebuild
-          ls
+          sudo apt update
+          sudo apt install snapd
+          sudo snap install ubuntu-desktop-installer
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
