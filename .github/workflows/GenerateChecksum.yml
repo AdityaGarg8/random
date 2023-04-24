@@ -23,7 +23,7 @@ jobs:
           snap download flutter
           snap download ubuntu-desktop-installer
           ls -l
-          ls | sed -n 3p
+          ls | grep .snap | sed -n 3p
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
