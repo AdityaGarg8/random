@@ -16,9 +16,12 @@ jobs:
 
       - name: Get kconfig
         run: |
-          sudo apt update
-          sudo apt install snapd
-          sudo snap install ubuntu-desktop-installer --classic
+          mkdir seed
+          cd seed
+          snap download core
+          snap download core18
+          snap download flutter --classic
+          snap download ubuntu-desktop-installer
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
