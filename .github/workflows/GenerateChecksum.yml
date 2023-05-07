@@ -23,6 +23,7 @@ jobs:
           zip -F kubuntu-23.04-6.3.1-t2-lunar.zip --out iso.zip
           unzip iso.zip
           ls -l
+          tree ./repo
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
