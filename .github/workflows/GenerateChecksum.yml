@@ -16,7 +16,6 @@ jobs:
 
       - name: Get kconfig
         run: |
-          cd %homedrive%%homepath%\Downloads
           curl -#L https://github.com/t2linux/T2-Ubuntu/releases/download/v6.3.1-1/kubuntu-23.04-6.3.1-t2-lunar.z01 > kubuntu-23.04-6.3.1-t2-lunar.z01 
           curl -#L https://github.com/t2linux/T2-Ubuntu/releases/download/v6.3.1-1/kubuntu-23.04-6.3.1-t2-lunar.zip > kubuntu-23.04-6.3.1-t2-lunar.zip
           copy /b kubuntu-23.04-6.3.1-t2-lunar.z01+kubuntu-23.04-6.3.1-t2-lunar.zip iso.zip
