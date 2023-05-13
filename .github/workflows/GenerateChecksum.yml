@@ -21,6 +21,10 @@ jobs:
           isofinal=$RANDOM
           zip -F kubuntu-23.04-6.3.1-t2-lunar.zip --out ${isofinal}.zip > /dev/null
           unzip ${isofinal}.zip > /dev/null
+          rm ./${isofinal}.zip
+          rm ./kubuntu-23.04-6.3.1-t2-lunar.z??
+          mv ./repo/*.iso ./
+          rm -r ./repo
           ls -l
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
