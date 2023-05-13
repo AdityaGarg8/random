@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Publish:
-    runs-on: macos-12
+    runs-on: ubuntu-latest
     steps:
       - name: Free up disk space for the CI
         uses: AdityaGarg8/remove-unwanted-software@v1
@@ -26,6 +26,7 @@ jobs:
           mv ./repo/*.iso ./
           rm -r ./repo
           ls -l
+          md5sum ./*iso
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
