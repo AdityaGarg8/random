@@ -18,7 +18,7 @@ jobs:
         run: |
           KERNEL_VERSION=6.1.30
           KERNEL_REPOSITORY=https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
-          git clone --depth 1 --single-branch --branch "v${KERNEL_VERSION}" \
+          git clone --branch "v${KERNEL_VERSION}" \
           "${KERNEL_REPOSITORY}"
           cd linux-stable
           git config --global user.name "No name"
