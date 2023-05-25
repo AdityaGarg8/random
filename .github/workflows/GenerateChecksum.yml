@@ -16,18 +16,16 @@ jobs:
 
       - name: Get kconfig
         run: |
-          cat << EOF > entrypoint.sh
-          cd /build
-          useradd builduser -m
-          passwd -d builduser
-          pacman -Syu --noconfirm --needed sudo base-devel
-          printf 'builduser ALL=(ALL) ALL\\n' | tee -a /etc/sudoers
-          chown -R builduser:builduser ./
-          sudo -u builduser gpg --keyserver keyserver.ubuntu.com --recv-keys 38DBBDC86092693E
-          uname -r
-          EOF
-
-          docker run -t -v $PWD:/build archlinux /bin/bash /build/entrypoint.sh
+          KERNEL_VERSION=6.1.30
+          KERNEL_REPOSITORY=https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+          git clone --depth 1 --single-branch --branch "v${KERNEL_VERSION}" \
+          "${KERNEL_REPOSITORY}"
+          cd linux-stable
+          git config --global user.name "No name"
+          git config --global user.email "noname@example.com"
+          git revert --no-edit f8a6c53ff1d91acd5a20eb627edbffd816eb9a4e
+          git revert --no-edit c35105f375b530bc27e03ea9250b1c26dd4cae86
+          git format-patch -2 HEAD
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
