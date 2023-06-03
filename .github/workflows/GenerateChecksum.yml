@@ -16,16 +16,11 @@ jobs:
 
       - name: Get kconfig
         run: |
-          KERNEL_VERSION=6.1.30
-          KERNEL_REPOSITORY=https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
-          git clone --branch "v${KERNEL_VERSION}" \
-          "${KERNEL_REPOSITORY}"
-          cd linux-stable
-          git config --global user.name "No name"
-          git config --global user.email "noname@example.com"
-          git revert --no-edit f8a6c53ff1d91acd5a20eb627edbffd816eb9a4e
-          git revert --no-edit c35105f375b530bc27e03ea9250b1c26dd4cae86
-          git format-patch -2 HEAD
+          git clone https://github.com/werman/noise-suppression-for-voice.git
+          cd noise-suppression-for-voice
+          cmake -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_VST_PLUGIN=OFF -DBUILD_VST3_PLUGIN=OFF -DBUILD_LV2_PLUGIN=OFF -DBUILD_LADSPA_PLUGIN=ON -DBUILD_AU_PLUGIN=OFF -DBUILD_AUV3_PLUGIN=OFF -DBUILD_TESTS=OFF
+          make -C build
+          sudo make -C build install
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
