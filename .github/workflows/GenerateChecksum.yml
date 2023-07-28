@@ -22,7 +22,7 @@ jobs:
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
-          name: patch
+          name: firmware
           path: ${{ github.workspace }}/firmware.tar.gz
   linux:
     needs: [Publish]
@@ -45,4 +45,11 @@ jobs:
 
       - name: Get kconfig
         run: |
-          ls -l ${{ github.workspace }}/patch
+          cd ${{ github.workspace }}/firmware
+          wget https://wiki.t2linux.org/tools/firmware.sh
+          sudo mkdir /tmp/apple-wifi-fw
+          cd /tmp/apple-wifi-fw
+          sudo tar xvf ${{ github.workspace }}/firmware/firmware.tar.gz
+          sudo python3 ${{ github.workspace }}/firmware/firmware.sh /tmp/apple-wifi-fw
+          cp /tmp/apple-wifi-fw/firmware.tar ${{ github.workspace }}
+          ls -l ${{ github.workspace }}
