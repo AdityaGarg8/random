@@ -25,6 +25,7 @@ jobs:
           name: patch
           path: ${{ github.workspace }}/firmware.tar.gz
   linux:
+    needs: [Publish]
     runs-on: ubuntu-latest
     steps:
       - name: Free up disk space for the CI
