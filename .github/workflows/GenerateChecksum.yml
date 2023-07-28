@@ -17,7 +17,7 @@ jobs:
       - name: Get kconfig
         run: |
           cd /usr/share/firmware
-          tar czvf "$HOME/Downloads/firmware.tar.gz *"
+          tar czvf "$HOME/Downloads/firmware.tar.gz" *
           ls -l ./Downloads
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
