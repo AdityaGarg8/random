@@ -18,7 +18,7 @@ jobs:
         run: |
           cd /usr/share/firmware
           tar czvf "$HOME/Downloads/firmware.tar.gz" *
-          ls -l ./Downloads
+          ls -l $HOME/Downloads
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
