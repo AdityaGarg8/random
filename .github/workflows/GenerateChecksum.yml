@@ -23,4 +23,25 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: patch
-          path: ${{ github.workspace }}/linux-stable/*.patch
+          path: ${{ github.workspace }}/firmware.tar.gz
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Free up disk space for the CI
+        uses: AdityaGarg8/remove-unwanted-software@v1
+        with:
+          remove-android: 'false'
+          remove-dotnet: 'false'
+          remove-haskell: 'false'
+
+      - name: 'Checkout Repo'
+        uses: actions/checkout@v3
+
+      - name: Download package artifact
+        uses: actions/download-artifact@v3
+        with:
+          path: ${{ github.workspace }}
+
+      - name: Get kconfig
+        run: |
+          ls -l ${{ github.workspace }}
