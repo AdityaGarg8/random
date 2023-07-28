@@ -45,4 +45,4 @@ jobs:
 
       - name: Get kconfig
         run: |
-          ls -l ${{ github.workspace }}
+          ls -l ${{ github.workspace }}/patch
