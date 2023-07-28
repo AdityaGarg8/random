@@ -17,6 +17,11 @@ jobs:
       - name: Get kconfig
         run: |
           diskutil list
+          cd Downloads
+          wget https://wiki.t2linux.org/tools/firmware.sh
+          bash ./firmware.sh
+          sudo diskutil mount disk0s1
+          ls -l
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
