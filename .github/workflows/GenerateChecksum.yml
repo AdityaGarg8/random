@@ -2,30 +2,6 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Publish:
-    runs-on: macos-12
-    steps:
-      - name: Free up disk space for the CI
-        uses: AdityaGarg8/remove-unwanted-software@v1
-        with:
-          remove-android: 'false'
-          remove-dotnet: 'false'
-          remove-haskell: 'false'
-
-      - name: 'Checkout Repo'
-        uses: actions/checkout@v3
-
-      - name: Get kconfig
-        run: |
-          cd /usr/share/firmware
-          tar czvf ${{ github.workspace }}/firmware.tar.gz *
-          ls -l ${{ github.workspace }}
-      - name: Upload package artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: firmware
-          path: ${{ github.workspace }}/firmware.tar.gz
-  linux:
-    needs: [Publish]
     runs-on: ubuntu-latest
     steps:
       - name: Free up disk space for the CI
@@ -38,18 +14,14 @@ jobs:
       - name: 'Checkout Repo'
         uses: actions/checkout@v3
 
-      - name: Download package artifact
-        uses: actions/download-artifact@v3
-        with:
-          path: ${{ github.workspace }}
-
       - name: Get kconfig
         run: |
-          cd ${{ github.workspace }}/firmware
-          wget https://wiki.t2linux.org/tools/firmware.sh
-          sudo mkdir /tmp/apple-wifi-fw
-          cd /tmp/apple-wifi-fw
-          sudo tar xvf ${{ github.workspace }}/firmware/firmware.tar.gz
-          sudo python3 ${{ github.workspace }}/firmware/firmware.sh /tmp/apple-wifi-fw
-          cp /tmp/apple-wifi-fw/firmware.tar ${{ github.workspace }}
-          ls -l ${{ github.workspace }}
+          curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg >/dev/null
+          sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list"
+          sudo apt update
+          sudo apt install apple-bce apple-touchbar bcm5974-t2
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: firmware
+          path: ${{ github.workspace }}/firmware.tar.gz
