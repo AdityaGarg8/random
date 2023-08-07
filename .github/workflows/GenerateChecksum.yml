@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Publish:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Free up disk space for the CI
         uses: AdityaGarg8/remove-unwanted-software@v1
@@ -16,10 +16,9 @@ jobs:
 
       - name: Get kconfig
         run: |
-          curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg >/dev/null
-          sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list"
-          sudo apt update
-          sudo apt install t2-apple-audio-dsp-mic t2-apple-audio-dsp-speakers161
+          ioreg -l | grep RequestedFiles | cut -d "/" -f 5 | rev | cut -c 4- | rev
+          ioreg -l | grep RequestedFiles | cut -d "/" -f 3 | cut -d "\"" -f 1
+          
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
