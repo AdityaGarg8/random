@@ -16,8 +16,8 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone https://github.com/AdityaGarg8/bcm5974-t2.git
-          cd bcm5974-t2
+          git clone https://github.com/t2linux/apple-bce-drv.git
+          cd apple-bce-drv
           make
           
       - name: Upload package artifact
