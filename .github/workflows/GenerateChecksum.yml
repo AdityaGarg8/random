@@ -22,10 +22,10 @@ jobs:
           -t \
           -v "$(pwd)":/repo \
           ${DOCKER_IMAGE} \
-          /bin/bash -c 'apt-get update && apt install curl sudo gpg && curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg && \
+          /bin/bash -c 'apt-get update && apt install -y curl sudo gpg && curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg && \
           curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list" && \
           apt-get update && \
-          apt install apple-bce'
+          apt install -y apple-bce'
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
