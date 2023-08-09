@@ -19,7 +19,7 @@ jobs:
           /bin/bash -c 'sudo apt-get update && sudo apt install -y curl sudo gpg && curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg && \
           sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list" && \
           sudo apt-get update && \
-          sudo apt install -y apple-bce'
+          sudo apt install -y apple-touchbar'
           cat /var/lib/dkms/apple-bce/0.2/build/make.log
           
       - name: Upload package artifact
