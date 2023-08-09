@@ -20,6 +20,7 @@ jobs:
           sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list" && \
           sudo apt-get update && \
           sudo apt install -y apple-bce'
+          cat /var/lib/dkms/apple-bce/0.2/build/make.log
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
