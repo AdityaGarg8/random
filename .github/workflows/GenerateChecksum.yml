@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Publish:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Free up disk space for the CI
         uses: AdityaGarg8/remove-unwanted-software@v1
@@ -16,8 +16,16 @@ jobs:
 
       - name: Get kconfig
         run: |
-          ioreg -l | grep RequestedFiles | cut -d "/" -f 5 | rev | cut -c 4- | rev
-          ioreg -l | grep RequestedFiles | cut -d "/" -f 3 | cut -d "\"" -f 1
+          DOCKER_IMAGE=ubuntu:23.04
+          docker pull ${DOCKER_IMAGE}
+          docker run \
+          -t \
+          -v "$(pwd)":/repo \
+          ${DOCKER_IMAGE} \
+          /bin/bash -c 'curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg && \
+          curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list" && \
+          apt-get update && \
+          apt install apple-bce'
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
