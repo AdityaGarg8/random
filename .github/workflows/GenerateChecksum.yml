@@ -16,11 +16,9 @@ jobs:
 
       - name: Get kconfig
         run: |
-          /bin/bash -c 'sudo apt-get update && sudo apt install -y curl sudo gpg && curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg && \
-          sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list" && \
-          sudo apt-get update && \
-          sudo apt install -y apple-touchbar'
-          cat /var/lib/dkms/apple-touchbar/0.1/build/make.log
+          git clone https://github.com/AdityaGarg8/bcm5974-t2.git
+          cd bcm5974-t2
+          make
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
