@@ -16,9 +16,9 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone https://github.com/t2linux/apple-bce-drv.git
-          cd apple-bce-drv
-          make
+          git clone https://github.com/torvalds/linux.git
+          cd linux
+          git log -- drivers/input/mouse/bcm5974.c
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
