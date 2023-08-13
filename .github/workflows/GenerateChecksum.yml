@@ -16,10 +16,13 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone https://github.com/torvalds/linux.git
-          cd linux
-          git log -- drivers/input/mouse/bcm5974.c
-          
+          KERNEL_REL=6.2.0
+          UBUNTU_REL=30.30
+          KERNEL_BRANCH="Ubuntu-${KERNEL_REL}-${UBUNTU_REL}"
+          KERNEL_REPOSITORY=git://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/lunar
+          git clone --depth 1 --single-branch --branch "${KERNEL_BRANCH}" "${KERNEL_REPOSITORY}"
+          cd lunar
+          grep -r CONFIG_BRCMFMAC .
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
