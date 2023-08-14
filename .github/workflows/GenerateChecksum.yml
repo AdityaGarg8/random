@@ -16,15 +16,17 @@ jobs:
 
       - name: Get kconfig
         run: |
-          KERNEL_REL=6.2.0
-          UBUNTU_REL=30.30
-          KERNEL_BRANCH="Ubuntu-${KERNEL_REL}-${UBUNTU_REL}"
-          KERNEL_REPOSITORY=git://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/lunar
-          git clone --depth 1 --single-branch --branch "${KERNEL_BRANCH}" "${KERNEL_REPOSITORY}"
+          git clone --depth=1 -b Ubuntu-6.2.0-27.28 git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/lunar
+          git clone --depth=1 https://github.com/mahboobkarimian/t2-paches-for-Ubuntu-kernel patches
           cd lunar
-          grep -r CONFIG_BRCMFMAC .
+          for patch in ../patches/*.patch; do
+          patch -Np1 < $patch
+          done
+          cp -r ./drivers/net/wireless/broadcom/brcm80211 ${{ github.workspace }}
+          cd ${{ github.workspace }}
+          zip -r brcm80211.zip brcm80211
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
           name: firmware
-          path: ${{ github.workspace }}/firmware.tar.gz
+          path: ${{ github.workspace }}/brcm80211.zip
