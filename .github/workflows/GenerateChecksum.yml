@@ -16,6 +16,8 @@ jobs:
 
       - name: Get kconfig
         run: |
+          sudo apt update
+          sudo apt install linux-generic
           git clone --depth=1 -b Ubuntu-6.2.0-30.30 git://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/lunar
           git clone --depth=1 https://github.com/mahboobkarimian/t2-paches-for-Ubuntu-kernel patches
           cd lunar
