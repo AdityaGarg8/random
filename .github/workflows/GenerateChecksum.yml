@@ -16,7 +16,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone --depth=1 -b Ubuntu-6.2.0-27.28 git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/lunar
+          git clone --depth=1 -b Ubuntu-6.2.0-27.28 git://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/lunar
           git clone --depth=1 https://github.com/mahboobkarimian/t2-paches-for-Ubuntu-kernel patches
           cd lunar
           for patch in ../patches/*.patch; do
