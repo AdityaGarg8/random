@@ -16,7 +16,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget 'https://cloudflare-ipfs.com/ipfs/bafykbzacecbajjtqqsxodre6bwrh22epsavrt43cghimdl6wj2y6gor2ieeli?filename=[]%20Lionel%20Raymon,%20Craig%20Davis,%20Maris%20Nora,%20Steven%20Harris,%20Anthony%20Trevor%20-%20Kaplan%20USMLE%20Step%201%20Lecture%20Notes%202009-2010:%20Pharmacology%20(2009,%20Kaplan).pdf'
+          wget 'https://libgen.rocks/get.php?md5=e434b6d80b37f5c49ba46cfd01480c9a&key=GZLU4PXSWLUYV6NV'
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
