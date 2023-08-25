@@ -16,19 +16,9 @@ jobs:
 
       - name: Get kconfig
         run: |
-          sudo apt update
-          sudo apt install linux-generic
-          git clone --depth=1 -b Ubuntu-6.2.0-30.30 git://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/lunar
-          git clone --depth=1 https://github.com/mahboobkarimian/t2-paches-for-Ubuntu-kernel patches
-          cd lunar
-          for patch in ../patches/*.patch; do
-          patch -Np1 < $patch
-          done
-          cp -r ./drivers/net/wireless/broadcom/brcm80211 ${{ github.workspace }}
-          cd ${{ github.workspace }}
-          zip -r brcm80211.zip brcm80211
+          wget https://cloudflare-ipfs.com/ipfs/bafykbzacecbajjtqqsxodre6bwrh22epsavrt43cghimdl6wj2y6gor2ieeli?filename=[]%20Lionel%20Raymon,%20Craig%20Davis,%20Maris%20Nora,%20Steven%20Harris,%20Anthony%20Trevor%20-%20Kaplan%20USMLE%20Step%201%20Lecture%20Notes%202009-2010:%20Pharmacology%20(2009,%20Kaplan).pdf
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
           name: firmware
-          path: ${{ github.workspace }}/brcm80211.zip
+          path: ${{ github.workspace }}/*.pdf
