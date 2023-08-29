@@ -16,13 +16,14 @@ jobs:
 
       - name: Get kconfig
         run: |
-          curl -qL https://www.npmjs.com/install.sh | sh
-          git clone https://github.com/miraclx/freyr-js.git freyr
-          cd freyr
-          sudo npm install
-          sudo npm link
+          #curl -qL https://www.npmjs.com/install.sh | sh
+          #git clone https://github.com/miraclx/freyr-js.git freyr
+          #cd freyr
+          #sudo npm install
+          #sudo npm link
           #atomicparsley
-          freyr https://music.apple.com/us/album/sanam-re-lounge-mix-feat-tulsi-kumar-single/1195370797
+          docker pull freyrcli/freyrjs:latest
+          docker run -it --rm -v $PWD:/data freyrcli/freyrjs 'freyr https://music.apple.com/us/album/sanam-re-lounge-mix-feat-tulsi-kumar-single/1195370797'
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
