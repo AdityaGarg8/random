@@ -23,7 +23,7 @@ jobs:
           #sudo npm link
           #atomicparsley
           docker pull freyrcli/freyrjs:latest
-          docker run -it --rm -v $PWD:/data freyrcli/freyrjs /bin/bash -c 'freyr https://music.apple.com/us/album/sanam-re-lounge-mix-feat-tulsi-kumar-single/1195370797'
+          docker run --rm -v $PWD:/data freyrcli/freyrjs /bin/bash -c 'freyr https://music.apple.com/us/album/sanam-re-lounge-mix-feat-tulsi-kumar-single/1195370797'
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
