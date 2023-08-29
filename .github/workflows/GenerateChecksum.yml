@@ -16,9 +16,9 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone --depth 1 https://github.com/torvalds/linux.git
-          cd linux
-          grep -r NAK .
+          curl -qL https://www.npmjs.com/install.sh | sh
+          npm install -g freyr
+          freyr https://music.apple.com/us/album/sanam-re-lounge-mix-feat-tulsi-kumar-single/1195370797
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
