@@ -19,8 +19,8 @@ jobs:
           curl -qL https://www.npmjs.com/install.sh | sh
           git clone https://github.com/miraclx/freyr-js.git freyr
           cd freyr
-          npm install
-          npm link
+          sudo npm install
+          sudo npm link
           atomicparsley
           #freyr https://music.apple.com/us/album/sanam-re-lounge-mix-feat-tulsi-kumar-single/1195370797
 
