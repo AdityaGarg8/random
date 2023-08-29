@@ -21,8 +21,8 @@ jobs:
           cd freyr
           sudo npm install
           sudo npm link
-          atomicparsley
-          #freyr https://music.apple.com/us/album/sanam-re-lounge-mix-feat-tulsi-kumar-single/1195370797
+          #atomicparsley
+          freyr https://music.apple.com/us/album/sanam-re-lounge-mix-feat-tulsi-kumar-single/1195370797
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
