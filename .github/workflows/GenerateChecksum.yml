@@ -43,7 +43,7 @@ jobs:
           git revert --no-edit 2c7cd280e5c4a626690315a6fbb70b49124d8354
           git revert --no-edit 50a7c8765ca69543ffdbf855de0fd69aea769ccf
           # drm/amdgpu: enable mcbp by default on gfx9
-          git format-patch -21 HEAD
+          git format-patch -20 HEAD
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
