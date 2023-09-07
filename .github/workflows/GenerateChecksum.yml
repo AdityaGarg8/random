@@ -16,10 +16,37 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget https://github.com/lemmyg/t2-apple-audio-dsp/releases/download/speakers-v0.2.0-1/t2-apple-audio-dsp-speakers161_0.2.0-1_amd64.deb
-          md5sum ./*.deb
+          git config --global user.name "Aditya Garg"
+          git config --global user.email "adityagarg@example.com"
+          KERNEL_REPOSITORY=https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+          git clone --single-branch --branch linux-6.5.y "${KERNEL_REPOSITORY}"
+          cd linux-stable
+          git revert --no-edit 2e54154b9f27262efd0cb4f903cc7d5ad1fe9628
+          git revert --no-edit b75efe88b20c2be28b67e2821a794cc183e32374
+          git revert --no-edit 064329c595da56eff6d7a7e7760660c726433139
+          git revert --no-edit b877934e5efc1ffd4f8098bb245853b3738e103f
+          git revert --no-edit c85c2c849ce776d5039a77d56936a216f9a07b57
+          git revert --no-edit d5b5d6cb1d5ea7e2cf804aac40c23a860a2c28c3
+          git revert --no-edit 613a7956deb3b1ffa2810c6d4c90ee9c3d743db
+          git revert --no-edit f2c58529eca6edecf9dc1cab41ab367a83bfba7a
+          git revert --no-edit 1966bbfdfe476d271b338336254854c5edd5a907
+          git revert --no-edit 1a3148b5f21b771c0ed362960fc97c92c6f9fc26
+          git revert --no-edit 27fc10d1095f7a7de7c917638d7134033a190dd8
+          git revert --no-edit a28eb4871acd4132a39a3e93b1e4f4bf500ffb41
+          git revert --no-edit 2dc84508f8c692d455b991a2feee85aa5d647568
+          git revert --no-edit d6149086b45e150c170beaa4546495fd1880724c
+          git revert --no-edit 150c213139fe122c941e3990af7fbe9bd60c5ae3
+          git revert --no-edit baf65745aad33812fe151d5c9a77cf360775bca4
+          git revert --no-edit fc8e84a2408fd7bea6265e51545a8bfab1f4592d
+          git revert --no-edit 803f31814f017de50f285efe90fecbb1668391a7
+          git revert --no-edit 67af691626425187822afe862614aefa304d3ff2
+          git revert --no-edit 2c7cd280e5c4a626690315a6fbb70b49124d8354
+          git revert --no-edit 50a7c8765ca69543ffdbf855de0fd69aea769ccf
+          # drm/amdgpu: enable mcbp by default on gfx9
+          git format-patch -21 HEAD
+
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
           name: firmware
-          path: ${{ github.workspace }}/*.pdf
+          path: ${{ github.workspace }}/linux-stable/*.patch
