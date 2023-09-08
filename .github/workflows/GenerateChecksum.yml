@@ -35,15 +35,37 @@ jobs:
           git revert --no-edit a28eb4871acd4132a39a3e93b1e4f4bf500ffb41
           git revert --no-edit 2dc84508f8c692d455b991a2feee85aa5d647568
           git revert --no-edit d6149086b45e150c170beaa4546495fd1880724c
-          #git revert --no-edit 150c213139fe122c941e3990af7fbe9bd60c5ae3 (drm/amdgpu: share drm device for pci amdgpu device with 1st partition device)
-          #git revert --no-edit baf65745aad33812fe151d5c9a77cf360775bca4
-          #git revert --no-edit fc8e84a2408fd7bea6265e51545a8bfab1f4592d
-          #git revert --no-edit 803f31814f017de50f285efe90fecbb1668391a7
-          #git revert --no-edit 67af691626425187822afe862614aefa304d3ff2
-          #git revert --no-edit 2c7cd280e5c4a626690315a6fbb70b49124d8354
-          #git revert --no-edit 50a7c8765ca69543ffdbf855de0fd69aea769ccf
-          # drm/amdgpu: enable mcbp by default on gfx9
-          git format-patch -14 HEAD
+          git revert --no-edit 150c213139fe122c941e3990af7fbe9bd60c5ae3 (drm/amdgpu: share drm device for pci amdgpu device with 1st partition device)
+          git revert --no-edit baf65745aad33812fe151d5c9a77cf360775bca4
+          git revert --no-edit fc8e84a2408fd7bea6265e51545a8bfab1f4592d
+          git revert --no-edit 803f31814f017de50f285efe90fecbb1668391a7
+          git revert --no-edit 67af691626425187822afe862614aefa304d3ff2
+          git revert --no-edit 2c7cd280e5c4a626690315a6fbb70b49124d8354
+          git revert --no-edit 50a7c8765ca69543ffdbf855de0fd69aea769ccf # drm/amdgpu: enable mcbp by default on gfx9
+          git revert --no-edit 02ff519e99fc90f6c9aed50def1b6d65e20c1875
+          git revert --no-edit 5efe0f3eed4f6eeb2a75285b48aee0a75399e6d8
+          git revert --no-edit 1e66a17ce546eabad753178bbd4175cb52bafca8
+          git revert --no-edit cd2e31a9ab93d13c412a36c6e26811e0f830985b
+          git revert --no-edit c35b6ea8f2ecfa9d775530b70d4e727869099a9c
+          git revert --no-edit 274d205cb59f43815542e04b42a9e6d0b9b95eff
+          git revert --no-edit cfc7d8314b7e8fd6bcafa31deaa21ac9ad19494f
+          git revert --no-edit 2aafcdd6a68f30c85ba6a9600e8a7447c0228e51
+          git revert --no-edit 2faa3653d6657aedf357ca74c4e58c5768899269
+          git revert --no-edit 2036b34d4af9e09ed07f79c4e3f27952463e6f4e
+          git revert --no-edit 5c6d52ff4b61e5267b25be714eb5a9ba2a338199
+          git revert --no-edit d4300362a66f2dacbf258e4ea233b79449821c24
+          git revert --no-edit 570b295248b00c3cf4cf59e397de5cb2361e10c2
+          git revert --no-edit af22d6a869cc26b519bfdcd54293c53f2e491870
+          git revert --no-edit 8ef84c1a68a83440b62f78a24f64ab100f6bff7a
+          git revert --no-edit b579ea632fcab97986f60d55a161c3e8e94a61cb
+          git revert --no-edit 7f03b1d14d51371fcbb8acba2f8bf037cd8807fa
+          git revert --no-edit 4ff96bcc0d40b66bf3ddd6010830e9a4f9b85d53
+          git revert --no-edit 2da0036ea99bccb27f7fe3cf2aa2900860e9be46
+          git revert --no-edit 1d7776cc148b9f2f3ebaf1181662ba695a29f639
+          git revert --no-edit 072030b1783056b5de8b0fac5303a5e9dbc6cfde
+          git revert --no-edit fc133acc43728ad9777d2c4cc43f0cafcb92a461
+          
+          git format-patch -43 HEAD
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
