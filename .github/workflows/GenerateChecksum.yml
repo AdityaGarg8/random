@@ -65,7 +65,7 @@ jobs:
           git revert --no-edit 072030b1783056b5de8b0fac5303a5e9dbc6cfde
           git revert --no-edit fc133acc43728ad9777d2c4cc43f0cafcb92a461
           
-          git format-patch -42 HEAD
+          git format-patch -39 HEAD
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
