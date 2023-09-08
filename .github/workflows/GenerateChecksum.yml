@@ -56,7 +56,7 @@ jobs:
           git revert --no-edit d4300362a66f2dacbf258e4ea233b79449821c24
           git revert --no-edit 570b295248b00c3cf4cf59e397de5cb2361e10c2
           git revert --no-edit af22d6a869cc26b519bfdcd54293c53f2e491870
-          git revert --no-edit 8ef84c1a68a83440b62f78a24f64ab100f6bff7a
+          #git revert --no-edit 8ef84c1a68a83440b62f78a24f64ab100f6bff7a # drm/amd/pm: Provide energy data in 15.625mJ units
           git revert --no-edit b579ea632fcab97986f60d55a161c3e8e94a61cb
           git revert --no-edit 7f03b1d14d51371fcbb8acba2f8bf037cd8807fa
           git revert --no-edit 4ff96bcc0d40b66bf3ddd6010830e9a4f9b85d53
