@@ -35,7 +35,7 @@ jobs:
           git revert --no-edit a28eb4871acd4132a39a3e93b1e4f4bf500ffb41
           git revert --no-edit 2dc84508f8c692d455b991a2feee85aa5d647568
           git revert --no-edit d6149086b45e150c170beaa4546495fd1880724c
-          git revert --no-edit 150c213139fe122c941e3990af7fbe9bd60c5ae3 # (drm/amdgpu: share drm device for pci amdgpu device with 1st partition device)
+          #git revert --no-edit 150c213139fe122c941e3990af7fbe9bd60c5ae3 # (drm/amdgpu: share drm device for pci amdgpu device with 1st partition device)
           git revert --no-edit baf65745aad33812fe151d5c9a77cf360775bca4
           git revert --no-edit fc8e84a2408fd7bea6265e51545a8bfab1f4592d
           git revert --no-edit 803f31814f017de50f285efe90fecbb1668391a7
@@ -65,7 +65,7 @@ jobs:
           git revert --no-edit 072030b1783056b5de8b0fac5303a5e9dbc6cfde
           git revert --no-edit fc133acc43728ad9777d2c4cc43f0cafcb92a461
           
-          git format-patch -43 HEAD
+          git format-patch -42 HEAD
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
