@@ -19,7 +19,7 @@ jobs:
           git config --global user.name "Aditya Garg"
           git config --global user.email "adityagarg@example.com"
           KERNEL_REPOSITORY=https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
-          git clone --single-branch --branch linux-6.5.y "${KERNEL_REPOSITORY}"
+          git clone --single-branch --branch v6.5-rc1 "${KERNEL_REPOSITORY}"
           cd linux-stable
           git revert --no-edit 2e54154b9f27262efd0cb4f903cc7d5ad1fe9628
           git revert --no-edit b75efe88b20c2be28b67e2821a794cc183e32374
@@ -35,14 +35,14 @@ jobs:
           git revert --no-edit a28eb4871acd4132a39a3e93b1e4f4bf500ffb41
           git revert --no-edit 2dc84508f8c692d455b991a2feee85aa5d647568
           git revert --no-edit d6149086b45e150c170beaa4546495fd1880724c
-          #git revert --no-edit 150c213139fe122c941e3990af7fbe9bd60c5ae3 # (drm/amdgpu: share drm device for pci amdgpu device with 1st partition device)
+          git revert --no-edit 150c213139fe122c941e3990af7fbe9bd60c5ae3 # (drm/amdgpu: share drm device for pci amdgpu device with 1st partition device)
           git revert --no-edit baf65745aad33812fe151d5c9a77cf360775bca4
           git revert --no-edit fc8e84a2408fd7bea6265e51545a8bfab1f4592d
           git revert --no-edit 803f31814f017de50f285efe90fecbb1668391a7
           git revert --no-edit 67af691626425187822afe862614aefa304d3ff2
           git revert --no-edit 2c7cd280e5c4a626690315a6fbb70b49124d8354
-          #git revert --no-edit 50a7c8765ca69543ffdbf855de0fd69aea769ccf # drm/amdgpu: enable mcbp by default on gfx9
-          #git revert --no-edit 02ff519e99fc90f6c9aed50def1b6d65e20c1875 # drm/amdgpu: make mcbp a per device setting
+          git revert --no-edit 50a7c8765ca69543ffdbf855de0fd69aea769ccf # drm/amdgpu: enable mcbp by default on gfx9
+          git revert --no-edit 02ff519e99fc90f6c9aed50def1b6d65e20c1875 # drm/amdgpu: make mcbp a per device setting
           git revert --no-edit 5efe0f3eed4f6eeb2a75285b48aee0a75399e6d8
           git revert --no-edit 1e66a17ce546eabad753178bbd4175cb52bafca8
           git revert --no-edit cd2e31a9ab93d13c412a36c6e26811e0f830985b
@@ -56,7 +56,7 @@ jobs:
           git revert --no-edit d4300362a66f2dacbf258e4ea233b79449821c24
           git revert --no-edit 570b295248b00c3cf4cf59e397de5cb2361e10c2
           git revert --no-edit af22d6a869cc26b519bfdcd54293c53f2e491870
-          #git revert --no-edit 8ef84c1a68a83440b62f78a24f64ab100f6bff7a # drm/amd/pm: Provide energy data in 15.625mJ units
+          git revert --no-edit 8ef84c1a68a83440b62f78a24f64ab100f6bff7a # drm/amd/pm: Provide energy data in 15.625mJ units
           git revert --no-edit b579ea632fcab97986f60d55a161c3e8e94a61cb
           git revert --no-edit 7f03b1d14d51371fcbb8acba2f8bf037cd8807fa
           git revert --no-edit 4ff96bcc0d40b66bf3ddd6010830e9a4f9b85d53
@@ -65,7 +65,7 @@ jobs:
           git revert --no-edit 072030b1783056b5de8b0fac5303a5e9dbc6cfde
           git revert --no-edit fc133acc43728ad9777d2c4cc43f0cafcb92a461
           
-          git format-patch -39 HEAD
+          git format-patch -43 HEAD
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
