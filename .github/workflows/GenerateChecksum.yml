@@ -41,7 +41,7 @@ jobs:
           git revert --no-edit 803f31814f017de50f285efe90fecbb1668391a7
           git revert --no-edit 67af691626425187822afe862614aefa304d3ff2
           git revert --no-edit 2c7cd280e5c4a626690315a6fbb70b49124d8354
-          git revert --no-edit 50a7c8765ca69543ffdbf855de0fd69aea769ccf # drm/amdgpu: enable mcbp by default on gfx9
+          #git revert --no-edit 50a7c8765ca69543ffdbf855de0fd69aea769ccf # drm/amdgpu: enable mcbp by default on gfx9
           git revert --no-edit 02ff519e99fc90f6c9aed50def1b6d65e20c1875
           git revert --no-edit 5efe0f3eed4f6eeb2a75285b48aee0a75399e6d8
           git revert --no-edit 1e66a17ce546eabad753178bbd4175cb52bafca8
