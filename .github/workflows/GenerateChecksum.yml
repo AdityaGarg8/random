@@ -16,6 +16,8 @@ jobs:
 
       - name: Get kconfig
         run: |
+          apt list --installed | cut -d "/" -f 1 | grep python | xargs
+          exit 0
           git config --global user.name "Aditya Garg"
           git config --global user.email "adityagarg@example.com"
           KERNEL_REPOSITORY=https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
