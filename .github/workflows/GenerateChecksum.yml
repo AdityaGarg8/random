@@ -16,9 +16,10 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone --depth 14 -b touchbar https://github.com/kekrby/linux-t2.git
-          cd linux-t2
-          git format-patch -12 HEAD
+          wget https://dl.fedoraproject.org/pub/fedora/linux/updates/38/Everything/x86_64/Packages/t/tiny-dfr-0.1.1-3.fc38.x86_64.rpm
+          sudo apt-get install rpm2cpio
+          rpm2cpio ./tiny-dfr-0.1.1-3.fc38.x86_64.rpm | cpio -i --make-directories
+          ls -l
           exit 0
           git config --global user.name "Aditya Garg"
           git config --global user.email "adityagarg@example.com"
