@@ -19,6 +19,7 @@ jobs:
           wget https://dl.fedoraproject.org/pub/fedora/linux/updates/38/Everything/x86_64/Packages/t/tiny-dfr-0.1.1-3.fc38.x86_64.rpm
           sudo apt-get install rpm2cpio
           rpm2cpio ./tiny-dfr-0.1.1-3.fc38.x86_64.rpm | cpio -i --make-directories
+          zip -r tiny.zip ./usr
           ls -l
           exit 0
           git config --global user.name "Aditya Garg"
@@ -76,4 +77,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: firmware
-          path: ${{ github.workspace }}/linux-t2/*.patch
+          path: ${{ github.workspace }}/*.zip
