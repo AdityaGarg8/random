@@ -16,6 +16,8 @@ jobs:
 
       - name: Get kconfig
         run: |
+          sudo apt update -y
+          sudo apt-get install -y libpango-1.0-0
           git clone https://github.com/kekrby/tiny-dfr.git
           cd tiny-dfr
           cargo b --release
