@@ -17,7 +17,7 @@ jobs:
       - name: Get kconfig
         run: |
           git clone https://github.com/kekrby/tiny-dfr.git
-          cd tiny-drf
+          cd tiny-dfr
           cargo b --release
           exit 0
           git config --global user.name "Aditya Garg"
