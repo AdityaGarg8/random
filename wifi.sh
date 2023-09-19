@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
 # Copyright (C) 2022 Aditya Garg <gargaditya08@live.com>
+# Copyright (C) 2022 Orlando Chamberlain <redecorating@protonmail.com>
 #
 # The python script is based upon the original work by The Asahi Linux Contributors.
 
@@ -14,21 +15,21 @@ case "$os" in
 		echo "Detected macOS"
 		echo "Mounting the EFI partition"
 		sudo diskutil mount disk0s1
-		echo "Getting Wi-Fi firmware"
+		echo "Getting Wi-Fi and Bluetooth firmware"
 		cd /usr/share/firmware
 		if [[ ${1-default} = -v ]]
 		then
-			tar czvf /Volumes/EFI/wifi.tar.gz wifi/*
+			tar czvf /Volumes/EFI/firmware.tar.gz *
 		else
-			tar czf /Volumes/EFI/wifi.tar.gz wifi/*
+			tar czf /Volumes/EFI/firmware.tar.gz *
 		fi
 		echo "Copying this script to EFI"
 		cd - >/dev/null
-		cp "$0" "/Volumes/EFI/wifi.sh"|| (echo -e "\nFailed to copy script.\nPlease copy the script manually to the EFI partition using Finder\nMake sure the name of the script is wifi.sh in the EFI partition\n" && echo && read -p "Press enter after you have copied" && echo)
+		cp "$0" "/Volumes/EFI/firmware.sh"|| (echo -e "\nFailed to copy script.\nPlease copy the script manually to the EFI partition using Finder\nMake sure the name of the script is wifi.sh in the EFI partition\n" && echo && read -p "Press enter after you have copied" && echo)
 		echo "Unmounting the EFI partition"
 		sudo diskutil unmount disk0s1
 		echo
-		echo -e "Run the following commands or run this script itself in Linux now to set up Wi-Fi :-\n\nsudo umount /dev/nvme0n1p1\nsudo mkdir /tmp/apple-wifi-efi\nsudo mount /dev/nvme0n1p1 /tmp/apple-wifi-efi\nbash /tmp/apple-wifi-efi/wifi.sh\n"
+		echo -e "Run the following commands or run this script itself in Linux now to set up Wi-Fi :-\n\nsudo umount /dev/nvme0n1p1\nsudo mkdir /tmp/apple-wifi-efi\nsudo mount /dev/nvme0n1p1 /tmp/apple-wifi-efi\nbash /tmp/apple-wifi-efi/firmware.sh\n"
 		;;
 	(Linux)
 		echo "Detected Linux"
@@ -44,21 +45,21 @@ case "$os" in
 			sudo mount /dev/nvme0n1p1 /tmp/apple-wifi-efi 2>/dev/null || true
 		fi
 		mountpoint=$(findmnt -n -o TARGET /dev/nvme0n1p1)
-		echo "Getting WiFi firmware"
+		echo "Getting Wi-Fi and Bluetooth firmware"
 		sudo mkdir /tmp/apple-wifi-fw
 		cd /tmp/apple-wifi-fw
 		if [[ ${1-default} = -v ]]
 		then
-			sudo tar xvf $mountpoint/wifi.tar.gz
+			sudo tar xvf $mountpoint/firmware.tar.gz
 		else
-			sudo tar xf $mountpoint/wifi.tar.gz 2>/dev/null
+			sudo tar xf $mountpoint/firmware.tar.gz 2>/dev/null
 		fi
-		echo "Setting up WiFi"
+		echo "Setting up Wi-Fi and Bluetooth"
 		if [[ ${1-default} = -v ]]
 		then
-			sudo python3 $mountpoint/wifi.sh /tmp/apple-wifi-fw/wifi firmware.tar
+			sudo python3 $mountpoint/firmware.sh /tmp/apple-wifi-fw
 		else
-			sudo python3 $mountpoint/wifi.sh /tmp/apple-wifi-fw/wifi firmware.tar >/dev/null
+			sudo python3 $mountpoint/firmware.sh /tmp/apple-wifi-fw >/dev/null
 		fi
 		cd /lib/firmware
 		if [[ ${1-default} = -v ]]
@@ -69,6 +70,8 @@ case "$os" in
 		fi
 		sudo modprobe -r brcmfmac
 		sudo modprobe brcmfmac
+		sudo modprobe -r hci_bcm4377
+		sudo modprobe hci_bcm4377
 		echo "Cleaning up"
 		sudo rm -r /tmp/apple-wifi-fw
 		echo "Keeping a copy of the firmware and the script in the EFI partition shall allow you to set up Wi-Fi again in the future by running this script or the commands told in the macOS step in Linux only, without the macOS step. Do you want to keep a copy? (y/N)"
@@ -76,7 +79,7 @@ case "$os" in
 		if [[ ($input != y) && ($input != Y) ]]
 		then
 			echo "Removing the copy from the EFI partition"
-			sudo rm $mountpoint/wifi.tar.gz $mountpoint/wifi.sh
+			sudo rm $mountpoint/firmware.tar.gz $mountpoint/firmware.sh
 		fi
 		echo "Running post-installation scripts"
 		exec sudo sh -c "umount /dev/nvme0n1p1 && mount -a && rmdir /tmp/apple-wifi-efi && echo Done!"
@@ -89,59 +92,125 @@ exit 0
 """
 
 # SPDX-License-Identifier: MIT
-import tarfile, io, os
-from hashlib import sha256
+import logging, os, os.path, re, sys
+from collections import namedtuple, defaultdict
 
-class FWFile(object):
-    def __init__(self, name, data):
-        self.name = name
-        self.data = data
-        self.sha = sha256(data).hexdigest()
+#from .core import FWFile
 
-    def __repr__(self):
-        return f"FWFile({self.name!r}, <{self.sha[:16]}>)"
+log = logging.getLogger("asahi_firmware.bluetooth")
 
-    def __eq__(self, other):
-        if other is None:
-            return False
-        return self.sha == other.sha
+BluetoothChip = namedtuple(
+    "BluetoothChip", ("chip", "stepping", "board_type", "vendor")
+)
 
-    def __hash__(self):
-        return hash(self.sha)
 
-class FWPackage(object):
-    def __init__(self, target):
-        self.tarfile = tarfile.open(target, mode="w")
-        self.hashes = {}
-        self.manifest = []
+class BluetoothFWCollection(object):
+    VENDORMAP = {
+        "MUR": "m",
+        "USI": "u",
+        "GEN": None,
+    }
+    STRIP_SUFFIXES = [
+        "ES2"
+    ]
 
-    def close(self):
-        self.tarfile.close()
+    def __init__(self, source_path):
+        self.fwfiles = defaultdict(lambda: [None, None])
+        self.load(source_path)
 
-    def add_file(self, name, data):
-        ti = tarfile.TarInfo(name)
-        fd = None
-        if data.sha in self.hashes:
-            ti.type = tarfile.SYMTYPE
-            ti.linkname = os.path.relpath(self.hashes[data.sha], os.path.dirname(name))
-            self.manifest.append(f"LINK {name} {ti.linkname}")
+    def load(self, source_path):
+        for fname in os.listdir(source_path):
+            root, ext = os.path.splitext(fname)
+
+            # index for bin and ptb inside self.fwfiles
+            if ext == ".bin":
+                idx = 0
+            elif ext == ".ptb":
+                idx = 1
+            else:
+                # skip firmware for older (UART) chips
+                continue
+
+            # skip T2 _DEV firmware
+            if "_DEV" in root:
+                continue
+
+            chip = self.parse_fname(root)
+            if chip is None:
+                continue
+
+            if self.fwfiles[chip][idx] is not None:
+                log.warning(f"duplicate entry for {chip}: {self.fwfiles[chip][idx].name} and now {fname + ext}")
+                continue
+
+            path = os.path.join(source_path, fname)
+            with open(path, "rb") as f:
+                data = f.read()
+
+            self.fwfiles[chip][idx] = FWFile(fname, data)
+
+    def parse_fname(self, fname):
+        fname = fname.split("_")
+
+        match = re.fullmatch("bcm(43[0-9]{2})([a-z][0-9])", fname[0].lower())
+        if not match:
+            log.warning(f"Unexpected firmware file: {fname}")
+            return None
+        chip, stepping = match.groups()
+
+        # board type is either preceeded by PCIE_macOS or by PCIE
+        try:
+            pcie_offset = fname.index("PCIE")
+        except:
+            log.warning(f"Can't find board type in {fname}")
+            return None
+
+        if fname[pcie_offset + 1] == "macOS":
+            board_type = fname[pcie_offset + 2]
         else:
-            ti.type = tarfile.REGTYPE
-            ti.size = len(data.data)
-            fd = io.BytesIO(data.data)
-            self.hashes[data.sha] = name
-            self.manifest.append(f"FILE {name} SHA256 {data.sha}")
+            board_type = fname[pcie_offset + 1]
+        for i in self.STRIP_SUFFIXES:
+            board_type = board_type.rstrip(i)
+        board_type = "apple," + board_type.lower()
 
-        self.tarfile.addfile(ti, fd)
+        # make sure we can identify exactly one vendor
+        otp_values = set()
+        for vendor, otp_value in self.VENDORMAP.items():
+            if vendor in fname:
+                otp_values.add(otp_value)
+        if len(otp_values) != 1:
+            log.warning(f"Unable to determine vendor ({otp_values}) in {fname}")
+            return None
+        vendor = otp_values.pop()
 
-    def add_files(self, it):
-        for name, data in it:
-            self.add_file(name, data)
+        return BluetoothChip(
+            chip=chip, stepping=stepping, board_type=board_type, vendor=vendor
+        )
 
-    def __del__(self):
-        self.tarfile.close()
+    def files(self):
+        for chip, (bin, ptb) in self.fwfiles.items():
+            fname_base = f"brcm/brcmbt{chip.chip}{chip.stepping}-{chip.board_type}"
+            if chip.vendor is not None:
+                fname_base += f"-{chip.vendor}"
 
-import sys, os, os.path, pprint, statistics
+            if bin is None:
+                log.warning(f"no bin for {chip}")
+                continue
+            else:
+                yield fname_base + ".bin", bin
+
+            if ptb is None:
+                log.warning(f"no ptb for {chip}")
+                continue
+            else:
+                yield fname_base + ".ptb", ptb
+
+
+# SPDX-License-Identifier: MIT
+import sys, os, os.path, pprint, statistics, logging
+#from .core import FWFile
+
+log = logging.getLogger("asahi_firmware.wifi")
 
 class FWNode(object):
     def __init__(self, this=None, leaves=None):
@@ -181,6 +250,8 @@ class WiFiFWCollection(object):
         for dirpath, dirnames, filenames in os.walk(source_path):
             if "perf" in dirnames:
                 dirnames.remove("perf")
+            if "assert" in dirnames:
+                dirnames.remove("assert")
             subpath = dirpath.lstrip(source_path)
             for name in sorted(filenames):
                 if not any(name.endswith("." + i) for i in self.EXTMAP):
@@ -275,19 +346,72 @@ class WiFiFWCollection(object):
     def print(self):
         self.root.print()
 
-if __name__ == "__main__":
-    col = WiFiFWCollection(sys.argv[1])
-    if len(sys.argv) > 2:
+# SPDX-License-Identifier: MIT
+import tarfile, io, logging
+from hashlib import sha256
 
-        pkg = FWPackage(sys.argv[2])
-        pkg.add_files(sorted(col.files()))
-        pkg.close()
+class FWFile(object):
+    def __init__(self, name, data):
+        self.name = name
+        self.data = data
+        self.sha = sha256(data).hexdigest()
 
-        for i in pkg.manifest:
-            print(i)
-    else:
-        for name, fwfile in col.files():
-            if isinstance(fwfile, str):
-                print(name, "->", fwfile)
-            else:
-                print(name, f"({len(fwfile.data)} bytes)")
+    def __repr__(self):
+        return f"FWFile({self.name!r}, <{self.sha[:16]}>)"
+
+    def __eq__(self, other):
+        if other is None:
+            return False
+        return self.sha == other.sha
+
+    def __hash__(self):
+        return hash(self.sha)
+
+class FWPackage(object):
+    def __init__(self, target):
+        self.path = target
+        self.tarfile = tarfile.open(target, mode="w")
+        self.hashes = {}
+        self.manifest = []
+
+    def close(self):
+        self.tarfile.close()
+
+    def add_file(self, name, data):
+        ti = tarfile.TarInfo(name)
+        fd = None
+        if data.sha in self.hashes:
+            ti.type = tarfile.LNKTYPE
+            ti.linkname = self.hashes[data.sha]
+            self.manifest.append(f"LINK {name} {ti.linkname}")
+        else:
+            ti.type = tarfile.REGTYPE
+            ti.size = len(data.data)
+            fd = io.BytesIO(data.data)
+            self.hashes[data.sha] = name
+            self.manifest.append(f"FILE {name} SHA256 {data.sha}")
+
+        logging.info(f"+ {self.manifest[-1]}")
+        self.tarfile.addfile(ti, fd)
+
+    def add_files(self, it):
+        for name, data in it:
+            self.add_file(name, data)
+
+    def save_manifest(self, filename):
+        with open(filename, "w") as fd:
+            for i in self.manifest:
+                fd.write(i + "\n")
+
+    def __del__(self):
+        self.tarfile.close()
+
+
+
+
+pkg = FWPackage("firmware.tar")
+col = WiFiFWCollection(sys.argv[1]+"/wifi")
+pkg.add_files(sorted(col.files()))
+col = BluetoothFWCollection(sys.argv[1]+"/bluetooth")
+pkg.add_files(sorted(col.files()))
+pkg.close()
