@@ -16,15 +16,10 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git config --global user.name "Aditya Garg"
-          git config --global user.email "adityagarg@example.com"
-          KERNEL_REPOSITORY=https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
-          git clone --single-branch --branch v6.5-rc1 "${KERNEL_REPOSITORY}"
-          cd linux-stable
-          git revert --no-edit bd49f19039c1806cd10cff8aaec7f90ebf28f0e9
-          git revert --no-edit cb841d27b8767fd88096d06186b5f5de990fd6d0
-          
-          git format-patch -2 HEAD
+          curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg >/dev/null
+          sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list"
+          sudo apt update
+          sudo apt install apple-touchbar
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
