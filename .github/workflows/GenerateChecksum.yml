@@ -16,10 +16,11 @@ jobs:
 
       - name: Get kconfig
         run: |
+          cd ${{ github.workspace }}
           wget -o park.pdf https://cloudflare-ipfs.com/ipfs/bafykbzacecybfe3tmttd5oskhlggcsnifdcboakv2um7upewvt6phi5wazsz2?filename=K.%20Park%20-%20Park%27s%20Textbook%20of%20Preventive%20and%20Social%20Medicine-Banarsidas%20Bhanot%20Publishers%20%282023%29.pdf
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
           name: firmware
-          path: ${{ github.workspace }}/*.pdf
+          path: ${{ github.workspace }}/park.pdf
