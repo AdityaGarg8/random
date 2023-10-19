@@ -17,6 +17,7 @@ jobs:
       - name: Get kconfig
         run: |
           cat /etc/apt/sources.list
+          sudo sed -i "s/lunar/mantic/g" /etc/apt/sources.list
           sudo apt update
           sudo apt upgrade -y
 
