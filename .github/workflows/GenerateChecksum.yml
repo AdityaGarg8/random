@@ -16,27 +16,10 @@ jobs:
 
       - name: Get kconfig
         run: |
-          cat /etc/apt/sources.list
-          cat <<EOF | sudo tee /etc/apt/sources.list
-          deb http://archive.ubuntu.com/ubuntu/ mantic main restricted universe multiverse
-          deb-src http://archive.ubuntu.com/ubuntu/ mantic main restricted universe multiverse
-          deb http://archive.ubuntu.com/ubuntu/ mantic-security main restricted universe multiverse
-          deb-src http://archive.ubuntu.com/ubuntu/ mantic-security main restricted universe multiverse
-          deb http://archive.ubuntu.com/ubuntu/ mantic-updates main restricted universe multiverse
-          deb-src http://archive.ubuntu.com/ubuntu/ mantic-updates main restricted universe multiverse
-          EOF
-          curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg >/dev/null
-          sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list"
-          sudo apt update -y
-          sudo apt-get install -y gir1.2-coglpango-1.0 gir1.2-pango-1.0 libcogl-pango-dev libghc-gi-pango-dev \
-          libghc-pango-dev libghc-yi-frontend-pango-dev libpango1.0-dev libudev-dev libinput-dev apple-touchbar \
-          libcairo2-dev git cargo
-          git clone -b svg https://github.com/AdityaGarg8/tiny-dfr.git
-          cd tiny-dfr
-          cargo b --release
+          wget https://github.com/AdityaGarg8/linux/commit/f1b09f91a8ea00206e99e7c78d0d682bdc01282a.patch
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
           name: firmware
-          path: ${{ github.workspace }}/park.pdf
+          path: ${{ github.workspace }}/*.patch
