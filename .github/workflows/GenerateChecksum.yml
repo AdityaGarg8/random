@@ -16,7 +16,8 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget https://github.com/AdityaGarg8/linux/commit/f1b09f91a8ea00206e99e7c78d0d682bdc01282a.patch
+          LTS_VER=6.1
+          curl -sL https://kernel.org/ | grep ${LTS_VER} | grep tar.xz | cut -d "/" -f 8 | cut -d "\"" -f 1 | cut -d "-" -f 2 | rev | cut -c 8- | rev
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
