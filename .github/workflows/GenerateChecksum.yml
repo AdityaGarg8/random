@@ -16,15 +16,11 @@ jobs:
 
       - name: Get kconfig
         run: |
-          sudo apt update
-          sudo apt install python3-pip google-chrome-stable
-          git clone https://github.com/AdityaGarg8/ESET-KeyGen/
-          cd ESET-KeyGen
-          sudo pip install -r requirements.txt
-          sudo python3 main.py --account --cli
-          sudo python3 main.py --cli
+          git clone -b wip/touchbar-t1 --depth 20 https://github.com/kekrby/linux-t2.git
+          cd linux-t2
+          git format-patch -16 HEAD
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
           name: firmware
-          path: ${{ github.workspace }}/*.patch
+          path: ${{ github.workspace }}/linux-t2/*.patch
