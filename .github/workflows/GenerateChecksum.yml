@@ -17,7 +17,7 @@ jobs:
       - name: Get kconfig
         run: |
           sudo apt update
-          sudo apt install python3-pip
+          sudo apt install python3-pip google-chrome-stable
           git clone https://github.com/AdityaGarg8/ESET-KeyGen/
           cd ESET-KeyGen
           sudo pip install -r requirements.txt
