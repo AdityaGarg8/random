@@ -16,12 +16,14 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone https://github.com/AdityaGarg8/ESET-KeyGen/
+          git clone -b ci https://github.com/AdityaGarg8/ESET-KeyGen/
           cd ESET-KeyGen
           sudo apt update
           sudo apt install python3-pip
           sudo pip install -r requirements.txt
           sudo python3 main.py --account --force
+          sudo python3 main.py --account --force
+          sudo python3 main.py --force
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
