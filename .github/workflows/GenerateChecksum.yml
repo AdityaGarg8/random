@@ -16,9 +16,12 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone -b wip/touchbar-t1 --depth 20 https://github.com/kekrby/linux-t2.git
-          cd linux-t2
-          git format-patch -16 HEAD
+          git clone https://github.com/AdityaGarg8/ESET-KeyGen/
+          cd ESET-KeyGen
+          sudo apt update
+          sudo apt install python3-pip
+          sudo pip install -r requirements.txt
+          sudo python3 main.py --account --force
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
