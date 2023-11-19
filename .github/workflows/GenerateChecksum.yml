@@ -16,7 +16,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone -b ci https://github.com/AdityaGarg8/ESET-KeyGen/
+          git clone https://github.com/rzc0d3r/ESET-KeyGen.git
           cd ESET-KeyGen
           sudo apt update
           sudo apt install python3-pip
