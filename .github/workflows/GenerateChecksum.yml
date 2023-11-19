@@ -24,7 +24,10 @@ jobs:
           sudo python3 main.py --account --force
           sudo python3 main.py --account --force
           sudo python3 main.py --force
-          ls -l
+          echo "Account" >> $GITHUB_STEP_SUMMARY
+          cat ./"ESET ACCOUNTS.txt" >> $GITHUB_STEP_SUMMARY
+          echo "Key" >> $GITHUB_STEP_SUMMARY
+          cat ./"ESET KEYS" >> $GITHUB_STEP_SUMMARY
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
