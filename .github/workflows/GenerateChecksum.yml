@@ -24,6 +24,7 @@ jobs:
           sudo python3 main.py --account --force
           sudo python3 main.py --account --force
           sudo python3 main.py --force
+          ls -l
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
