@@ -10,5 +10,4 @@ jobs:
       - name: Get the kernel upgrade script
         id: publish
         run: |
-         sudo apt install git
-         git clone https://github.com/torvalds/linux
+         uname -r
