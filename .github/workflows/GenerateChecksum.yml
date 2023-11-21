@@ -10,4 +10,4 @@ jobs:
       - name: Get the kernel upgrade script
         id: publish
         run: |
-         uname -r
+         uname -r | grep azure
