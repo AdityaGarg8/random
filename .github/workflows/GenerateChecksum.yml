@@ -10,4 +10,10 @@ jobs:
       - name: Get the kernel upgrade script
         id: publish
         run: |
-         uname -r | grep generic
+         official = $(uname -r | grep generic || true)
+         if [[ $official = "" ]]
+         then
+         echo "t2"
+         else
+         echo "off"
+         fi
