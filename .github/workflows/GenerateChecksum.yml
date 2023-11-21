@@ -10,7 +10,7 @@ jobs:
       - name: Get the kernel upgrade script
         id: publish
         run: |
-         official=$(uname -r | grep generic || azure)
+         official=$(uname -r | grep azure || true)
          if [[ $official = "" ]]
          then
          echo "t2"
