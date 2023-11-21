@@ -16,20 +16,25 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone https://github.com/rzc0d3r/ESET-KeyGen.git
-          cd ESET-KeyGen
-          sudo apt update
-          sudo apt install python3-pip
-          sudo pip install -r requirements.txt
-          sudo python3 main.py --account --cli
-          sudo python3 main.py --account --cli
-          sudo python3 main.py --cli
-          echo "Account:" >> $GITHUB_STEP_SUMMARY
-          cat ./*ACCOUNTS.txt >> $GITHUB_STEP_SUMMARY
-          echo -e "\nKey:" >> $GITHUB_STEP_SUMMARY
-          cat ./*KEYS.txt >> $GITHUB_STEP_SUMMARY
+          REPO=https://github.com/kekrby/tiny-dfr.git
+          COMMIT_HASH=85c565a0eb6572249db8ffa46e37be7ac9fc400a
+          VERSION=0.2.0-2
+          curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg >/dev/null
+          sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list"
+          sudo apt update -y
+          #sudo apt upgrade -y
+          sudo apt-get install -y gir1.2-coglpango-1.0 gir1.2-pango-1.0 libcogl-pango-dev libghc-gi-pango-dev \
+          libghc-pango-dev libghc-yi-frontend-pango-dev libpango1.0-dev libudev-dev libinput-dev
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git clone -b wip/t1-support ${REPO}
+          cd tiny-dfr
+          git checkout ${COMMIT_HASH}
+          wget https://raw.githubusercontent.com/AdityaGarg8/t2-ubuntu-repo/main/.github/patches/0002-Use-older-version-of-cairo.patch
+          git am ./*.patch
+          cargo b --release
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
           name: firmware
-          path: ${{ github.workspace }}/linux-t2/*.patch
+          path: ${{ github.workspace }}/tiny-dfr/target/release/tiny-dfr
