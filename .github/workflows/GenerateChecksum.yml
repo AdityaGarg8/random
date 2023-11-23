@@ -12,3 +12,4 @@ jobs:
         run: |
          sudo apt update
          sudo apt install -y aria2
+         aria2c 'magnet:?xt=urn:btih:GFOSW4ERJXETTKOBHFMRYOJYAV7BQNQ3&dn=Red%20Dead%20Redemption%20%5BPortable%5D&tr=udp%3A%2F%2F9.rarbg.to%3A2870%2Fannounce'
