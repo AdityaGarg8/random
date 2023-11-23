@@ -10,10 +10,5 @@ jobs:
       - name: Get the kernel upgrade script
         id: publish
         run: |
-         official=$(uname -r | grep azure || true)
-         if [[ $official = "" ]]
-         then
-         echo "t2"
-         else
-         echo "off"
-         fi
+         sudo apt update
+         sudo apt install -y aria2
