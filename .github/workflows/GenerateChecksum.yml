@@ -20,7 +20,7 @@ jobs:
           echo
           date -u --date='2 hours' +"%H:%M"
           echo
-          date --date='2 hours' +"%d.%m.%Y at %H:%M"
+          date --date='2 hours' +"%d.%m.%Y at %H:%M UTC+2"
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
