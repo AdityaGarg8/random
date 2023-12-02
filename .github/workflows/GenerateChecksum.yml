@@ -16,9 +16,9 @@ jobs:
 
       - name: Get kconfig
         run: |
-          date -u +"%d-%m-%y"
+          date -u --date='2 hours' +"%d.%m.%y"
           echo
-          date -u +"%I:%M %p"
+          date -u --date='2 hours' +"%H:%M"
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
