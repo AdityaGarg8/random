@@ -18,7 +18,7 @@ jobs:
         run: |
           date +"%d-%m-%y"
           echo
-          date
+          date "+%T"
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
