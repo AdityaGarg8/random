@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Publish:
-    runs-on: ubuntu-22.04
+    runs-on: windows-latest
     steps:
       - name: Free up disk space for the CI
         uses: AdityaGarg8/remove-unwanted-software@v1
@@ -16,11 +16,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          date -u --date='2 hours' +"%d.%m.%y"
-          echo
-          date -u --date='2 hours' +"%H:%M"
-          echo
-          date --date='2 hours' +"%d.%m.%Y at %H:%M UTC+2"
+          pip --version
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
