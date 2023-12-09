@@ -16,10 +16,9 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone https://github.com/proxmox/pve-kernel.git
-          cd pve*
-          cd patches/kernel
-          ls | sed 's/^/pve\//'
+          git clone https://git.proxmox.com/git/pve-kernel.git
+          cd pve-kernel
+          tree
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
