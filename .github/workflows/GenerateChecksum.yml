@@ -18,6 +18,7 @@ jobs:
         run: |
           git clone https://git.proxmox.com/git/pve-kernel.git
           cd pve-kernel
+          grep -r "CONFIG_"
           tree
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
