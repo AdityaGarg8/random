@@ -16,12 +16,30 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone https://git.proxmox.com/git/pve-kernel.git
-          cd pve-kernel
-          grep -r "CONFIG_"
-          tree
+          git clone -b linux-6.6.y https://github.com/gregkh/linux.git
+          cd linux
+          git config --global user.name "Tester tester"
+          git config --global user.email "tester@example.com"
+          git revert --no-edit 117917b0be2e9bc893859a70cfff17e48020ada8
+          git revert --no-edit d05614ebad8c2eff20f40ca1f55e36a76d4b0dd8
+          git revert --no-edit 86cd446a7727f92db999b55c66e9a59cf7a0545a
+          git revert --no-edit 5e03e4a4911d9f9aaa49b5b3f9f02fa13dd1078a
+          git revert --no-edit 6832e5396d68c182871447d438af259d08ee7d36
+          git revert --no-edit 122af8e0d04f941e662ca2131925b1732394173f
+          git revert --no-edit a8728dbb4ba279ca7436649d62d4dfe6d21a130b
+          git revert --no-edit a29a8e06dc8e7f95f97de112ef43c53cdc1a72cd
+          git revert --no-edit 316d6072bcc07aad792718054092f5eb542293ff
+          git revert --no-edit 11831e89aae642e8991adfda46c20286ff629348
+          git revert --no-edit 1191c0f6e938aa16f01edd72f5735cfb5a732180
+          git revert --no-edit 7fa19a72cc79c1fa62af0818a73f47e68d57612f
+          git revert --no-edit 8ffa40285eb7561a2ce12ff31c7f59e0ca395d87
+          git revert --no-edit c4307207dc42c80e34eb9c496ac8dbd2bfff1778
+          git revert --no-edit 6dfccebfecc4b99f64d25351bb6ac69f1a6926e2
+          git revert --no-edit 5ffd8c73d1d0f38706951c4ab8710cb6c6cdde45
+          git revert --no-edit f6f4be2c39dd841f5fb88fb1248283d37237a6c9
+          
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
           name: firmware
-          path: ${{ github.workspace }}/pve-kernel
+          path: ${{ github.workspace }}/linux/*.patch
