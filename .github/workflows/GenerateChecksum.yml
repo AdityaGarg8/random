@@ -16,7 +16,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget https://github.com/AdityaGarg8/pve-kernel/commit/134a6f44a4e0c307567d209ba9aeb7e7caa220f0.patch
+          wget https://github.com/AdityaGarg8/pve-kernel/commit/ed1678bcea8bbac24c993499e1799fd9f3d61dab.patch
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
