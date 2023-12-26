@@ -22,7 +22,7 @@ jobs:
           pip install -r requirements.txt
           pip install pyinstaller
           pyinstaller --onefile main.py
-          chmod a+x ./dist/main
+          tree /F
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
