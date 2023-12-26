@@ -21,7 +21,7 @@ jobs:
           cd ESET-KeyGen
           pip install -r requirements.txt
           pip install pyinstaller
-          pyinstaller --onefile --windowed main.py
+          pyinstaller --onefile main.py
           chmod a+x ./dist/main
           
       - name: Upload package artifact
