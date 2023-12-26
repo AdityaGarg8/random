@@ -16,15 +16,13 @@ jobs:
 
       - name: Get kconfig
         run: |
-          brew install tree
           git clone https://github.com/rzc0d3r/ESET-KeyGen.git
           cd ESET-KeyGen
           pip install pyinstaller
           pyinstaller --onefile main.py
-          tree
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
           name: firmware
-          path: ${{ github.workspace }}/bcm
+          path: ${{ github.workspace }}/ESET-KeyGen/build*
