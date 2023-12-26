@@ -16,6 +16,7 @@ jobs:
 
       - name: Get kconfig
         run: |
+          brew install tree
           git clone https://github.com/rzc0d3r/ESET-KeyGen.git
           cd ESET-KeyGen
           pip install pyinstaller
