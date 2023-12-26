@@ -23,7 +23,6 @@ jobs:
           pip install pyinstaller
           pyinstaller --onefile --windowed main.py
           chmod a+x ./dist/main
-          ./dist/main --cli
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
