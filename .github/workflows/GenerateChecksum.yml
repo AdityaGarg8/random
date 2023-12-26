@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Publish:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Free up disk space for the CI
         uses: AdityaGarg8/remove-unwanted-software@v1
@@ -16,8 +16,11 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget https://github.com/AdityaGarg8/t2-ubuntu-repo/raw/main/bcm5974-t2_0.1.1_amd64.deb
-          dpkg-deb -R ./bcm5974* ./bcm
+          git clone https://github.com/rzc0d3r/ESET-KeyGen.git
+          cd ESET-KeyGen
+          pip install pyinstaller
+          pyinstaller --onefile main.py
+          tree
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
