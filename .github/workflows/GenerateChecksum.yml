@@ -16,12 +16,13 @@ jobs:
 
       - name: Get kconfig
         run: |
-          python -m pip install --upgrade pip
-          git clone https://github.com/rzc0d3r/ESET-KeyGen.git
-          cd ESET-KeyGen
-          pip install -r requirements.txt
-          pip install pyinstaller
-          pyinstaller --onefile --windowed main.py
+          #python -m pip install --upgrade pip
+          #git clone https://github.com/rzc0d3r/ESET-KeyGen.git
+          #cd ESET-KeyGen
+          #pip install -r requirements.txt
+          #pip install pyinstaller
+          #pyinstaller --onefile --windowed main.py
+          go get github.com/machinebox/appify
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
