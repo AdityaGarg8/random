@@ -20,9 +20,10 @@ jobs:
           git clone https://github.com/rzc0d3r/ESET-KeyGen.git
           cd ESET-KeyGen
           pip install -r requirements.txt
-          python3 main.py --cli
-          #pip install pyinstaller
-          #pyinstaller --onefile --windowed main.py
+          pip install pyinstaller
+          pyinstaller --onefile --windowed main.py
+          cd dist
+          main.exe
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
