@@ -23,7 +23,7 @@ jobs:
           pip install pyinstaller
           pyinstaller --onefile --windowed main.py
           cd dist
-          main.exe
+          .\main.exe
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
