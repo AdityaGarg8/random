@@ -20,8 +20,8 @@ jobs:
           git clone https://github.com/rzc0d3r/ESET-KeyGen.git
           cd ESET-KeyGen
           pip install -r requirements.txt
-          pip install colorama
-          python3 main.py
+          [System.Text.Encoding]::Default
+          #python3 main.py
           #pip install pyinstaller
           #pyinstaller --onefile --windowed main.py
           #cd dist
