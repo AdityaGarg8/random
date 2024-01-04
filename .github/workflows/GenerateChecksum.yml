@@ -32,6 +32,8 @@ jobs:
           git clone ${REPO}
           cd tiny-dfr
           git checkout ${COMMIT_HASH}
+          wget https://github.com/AdityaGarg8/t2-ubuntu-repo/raw/main/.github/patches/0002-Use-older-version-of-cairo.patch
+          git am ./*.patch
           cargo b --release
           
       - name: Upload package artifact
