@@ -32,8 +32,6 @@ jobs:
           git clone ${REPO}
           cd tiny-dfr
           git checkout ${COMMIT_HASH}
-          cp ${{ github.workspace }}/.github/patches/*.patch ./
-          git am ./*.patch
           cargo b --release
           
       - name: Upload package artifact
