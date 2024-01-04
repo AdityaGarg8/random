@@ -11,7 +11,7 @@ jobs:
           remove-dotnet: 'true'
           remove-haskell: 'true'
           remove-codeql: 'true'
-          remove-docker-images: 'true'
+          remove-docker-images: 'false'
 
       - name: 'Checkout Repo'
         uses: actions/checkout@v3
