@@ -11,7 +11,7 @@ jobs:
           remove-dotnet: 'true'
           remove-haskell: 'true'
           remove-codeql: 'true'
-          remove-docker-images: 'false'
+          remove-docker-images: 'true'
 
       - name: 'Checkout Repo'
         uses: actions/checkout@v3
@@ -22,7 +22,6 @@ jobs:
           git clone https://github.com/rzc0d3r/ESET-KeyGen.git
           cd ESET-KeyGen
           pip install -r requirements.txt
-          [System.Text.Encoding]::Default
           #python3 main.py
           #pip install pyinstaller
           #pyinstaller --onefile --windowed main.py
