@@ -23,7 +23,7 @@ jobs:
           git clone --depth 1 https://github.com/torvalds/linux
           git clone https://github.com/t2linux/linux-t2-patches.git
           cd linux
-          cp ../linux-t2-patches 100* ./
+          cp ../linux-t2-patches/100* ./
           git am 1001*
           git am 1002*
           patch -Np1 < 1003-add-modalias-to-apple-bce.patch
