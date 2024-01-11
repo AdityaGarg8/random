@@ -18,14 +18,21 @@ jobs:
 
       - name: Get kconfig
         run: |
-          curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg >/dev/null
-          sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list"
-          sudo apt update
-          sudo apt install apple-touchbar
-          
+          git config --global user.name "Test test"
+          git config --global user.email "exasa@example.com"
+          git clone --depth 1 https://github.com/torvalds/linux
+          git clone https://github.com/t2linux/linux-t2-patches.git
+          cd linux
+          cp ../linux-t2-patches 100* ./
+          git am 1001*
+          git am 1002*
+          patch -Np1 < 1003-add-modalias-to-apple-bce.patch
+          git add .
+          git commit -m "add modalias to apple-bce"
+          git format-patch -1 HEAD
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
           name: firmware
-          path: /usr/src/apple*
+          path: linux/0001*
