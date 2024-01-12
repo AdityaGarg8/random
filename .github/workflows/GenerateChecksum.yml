@@ -18,18 +18,8 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git config --global user.name "Test test"
-          git config --global user.email "exasa@example.com"
-          git clone --depth 1 https://github.com/torvalds/linux
-          git clone https://github.com/t2linux/linux-t2-patches.git
-          cd linux
-          cp ../linux-t2-patches/100* ./
-          git am 1001*
-          git am 1002*
-          patch -Np1 < 1003-add-modalias-to-apple-bce.patch
-          git add .
-          git commit -m "add modalias to apple-bce"
-          git format-patch -1 HEAD
+          aria2c 'magnet:?xt=urn:btih:BAROJYFDC4FDFPRHDEZSJG273LPN4ULO&dn=The%20Last%20of%20Us%20%5BDODI%20Repack%5D&tr=udp%3A%2F%2F9.rarbg.to%3A2870%2Fannounce'
+          ls
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
