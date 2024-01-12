@@ -18,7 +18,10 @@ jobs:
 
       - name: Get kconfig
         run: |
-          aria2c 'magnet:?xt=urn:btih:BAROJYFDC4FDFPRHDEZSJG273LPN4ULO&dn=The%20Last%20of%20Us%20%5BDODI%20Repack%5D&tr=udp%3A%2F%2F9.rarbg.to%3A2870%2Fannounce'
+          wget https://github.com/webtorrent/webtorrent-desktop/releases/download/v0.24.0/webtorrent-desktop_0.24.0_amd64.deb
+          sudo apt install -y ./webtorrent-desktop_0.24.0_amd64.deb
+          rm ./webtorrent-desktop_0.24.0_amd64.deb
+          webtorrent https://github.com/AdityaGarg8/random/releases/download/Tlou/0000000000000000000000000.torrent
           ls
 
       - name: Upload package artifact
