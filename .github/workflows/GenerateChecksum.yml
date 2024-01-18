@@ -2,27 +2,27 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Publish:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Free up disk space for the CI
         uses: AdityaGarg8/remove-unwanted-software@v2
         with:
-          remove-android: 'true'
-          remove-dotnet: 'true'
-          remove-haskell: 'true'
-          remove-codeql: 'true'
-          remove-docker-images: 'true'
+          remove-android: 'false'
+          remove-dotnet: 'false'
+          remove-haskell: 'false'
+          remove-codeql: 'false'
+          remove-docker-images: 'false'
 
       - name: 'Checkout Repo'
         uses: actions/checkout@v3
 
       - name: Get kconfig
         run: |
-          wget https://github.com/webtorrent/webtorrent-desktop/releases/download/v0.24.0/webtorrent-desktop_0.24.0_amd64.deb
-          sudo apt install -y ./webtorrent-desktop_0.24.0_amd64.deb
-          rm ./webtorrent-desktop_0.24.0_amd64.deb
-          webtorrent https://github.com/AdityaGarg8/random/releases/download/Tlou/0000000000000000000000000.torrent
-          ls
+          curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg >/dev/null
+          sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list"
+          sudo apt update
+          sudo apt install t2-kernel-script
+          update_t2_kernel
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
