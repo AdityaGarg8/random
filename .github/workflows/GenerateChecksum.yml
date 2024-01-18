@@ -23,6 +23,8 @@ jobs:
           sudo apt update
           sudo apt install t2-kernel-script
           update_t2_kernel
+          sudo apt install t2-kernel-script-lts
+          update_t2_kernel
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
