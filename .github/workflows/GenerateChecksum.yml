@@ -18,8 +18,15 @@ jobs:
 
       - name: Get kconfig
         run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
           wget https://wiki.t2linux.org/tools/firmware.sh
-          python3 ./firmware.sh /usr/share/firmware firmware.tar
+          mv firmware.sh main.py
+          pyinstaller --onefile --clean main.py
+          chmod a+x ./dist/main
+          mv /dist/main ./
+          ./main /usr/share/firmware firmware.tar
           tar xvf firmware.tar
           cd brcm
           ls
