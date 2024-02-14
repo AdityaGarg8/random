@@ -24,7 +24,7 @@ jobs:
           mv firmware.sh main.py
           pyinstaller --onefile --clean main.py
           chmod a+x ./dist/main
-          mv /dist/main ./
+          mv ./dist/main ./
           ./main /usr/share/firmware firmware.tar
           tar xvf firmware.tar
           cd brcm
