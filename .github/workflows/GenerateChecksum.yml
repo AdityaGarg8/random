@@ -37,4 +37,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: firmware
-          path: ${{ github.workspace }}/fw.txt
+          path: /usr/local/bin/dpkg*
+          #path: ${{ github.workspace }}/fw.txt
