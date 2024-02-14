@@ -20,7 +20,6 @@ jobs:
         run: |
           brew install dpkg
           ls /usr/local/bin
-          ls /usr/bin
           python -m pip install --upgrade pip
           pip install pyinstaller
           wget https://wiki.t2linux.org/tools/firmware.sh
