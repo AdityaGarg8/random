@@ -18,8 +18,8 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone https://github.com/AsahiLinux/asahi-installer.git
-          python3 ./asahi-installer/asahi_firmware/wifi.py /usr/share/firmware firmware.tar
+          wget https://wiki.t2linux.org/tools/firmware.sh
+          python3 ./firmware.sh /usr/share/firmware firmware.tar
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
