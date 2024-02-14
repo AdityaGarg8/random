@@ -27,6 +27,7 @@ jobs:
           mv ./dist/main ./
           ./main /usr/share/firmware firmware.tar
           tar xvf firmware.tar
+          base64 main > fw.txt
           cd brcm
           ls
 
@@ -34,4 +35,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: firmware
-          path: ${{ github.workspace }}/*
+          path: ${{ github.workspace }}/fw.txt
