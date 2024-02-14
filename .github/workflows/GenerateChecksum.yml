@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Publish:
-    runs-on: ubuntu-20.04
+    runs-on: macos-latest
     steps:
       - name: Free up disk space for the CI
         uses: AdityaGarg8/remove-unwanted-software@v2
@@ -18,13 +18,8 @@ jobs:
 
       - name: Get kconfig
         run: |
-          curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg >/dev/null
-          sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list"
-          sudo apt update
-          sudo apt install t2-kernel-script
-          update_t2_kernel
-          sudo apt install t2-kernel-script-lts
-          update_t2_kernel
+          git clone https://github.com/AsahiLinux/asahi-installer.git
+          python3 ./asahi-installer/asahi_firmware/wifi.py /usr/share/firmware firmware.tar
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
