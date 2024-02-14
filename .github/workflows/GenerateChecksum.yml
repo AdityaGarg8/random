@@ -21,6 +21,8 @@ jobs:
           wget https://wiki.t2linux.org/tools/firmware.sh
           python3 ./firmware.sh /usr/share/firmware firmware.tar
           tar xvf firmware.tar
+          ls
+          exit
           cd firmware
           ls
 
