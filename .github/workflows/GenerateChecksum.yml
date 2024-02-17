@@ -18,8 +18,6 @@ jobs:
 
       - name: Get kconfig
         run: |
-          brew install dpkg
-          ls /usr/local/bin
           python -m pip install --upgrade pip
           pip install pyinstaller
           wget https://wiki.t2linux.org/tools/firmware.sh
