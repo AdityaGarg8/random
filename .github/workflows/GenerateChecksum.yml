@@ -26,5 +26,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: firmware
-          path: /boot.*6.7.6*
+          path: /boot/config-6.7.6-x64v4-xanmod1
           #path: ${{ github.workspace }}/fw.txt
