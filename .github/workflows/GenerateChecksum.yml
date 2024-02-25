@@ -18,7 +18,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget -qO - https://dl.xanmod.org/archive.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg
+          curl -s --compressed "https://dl.xanmod.org/archive.key" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg
           echo 'deb [signed-by=/usr/share/keyrings/xanmod-archive-keyring.gpg] http://deb.xanmod.org releases main' | sudo tee /etc/apt/sources.list.d/xanmod-release.list
           sudo apt update && sudo apt install linux-xanmod-x64v3
           ls /boot
