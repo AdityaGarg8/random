@@ -19,7 +19,7 @@ jobs:
       - name: Get kconfig
         run: |
           wget https://excellmedia.dl.sourceforge.net/project/xanmod/releases/main/6.7.6-xanmod1/6.7.6-x64v4-xanmod1/linux-image-6.7.6-x64v4-xanmod1_6.7.6-x64v4-xanmod1-0~20240223.gf3b2e64_amd64.deb
-          sudo apt install ./*.deb
+          sudo apt install ./linux-image-6.7.6-x64v4-xanmod1_6.7.6-x64v4-xanmod1-0~20240223.gf3b2e64_amd64.deb
           ls /boot
 
       - name: Upload package artifact
