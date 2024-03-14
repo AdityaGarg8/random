@@ -23,8 +23,8 @@ jobs:
           cd linux
           git config --global user.name "Aditya Garg"
           git config --global user.email "gargaditya08@live.com"
-          cp ../linux-t2-patches 1001* ./
-          cp ../linux-t2-patches 900* ./
+          cp ../linux-t2-patches/1001* ./
+          cp ../linux-t2-patches/900* ./
           git apply ./*.patch
           git add .
           git commit -m "Add apple-bce driver"
