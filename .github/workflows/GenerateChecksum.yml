@@ -18,13 +18,21 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget https://excellmedia.dl.sourceforge.net/project/xanmod/releases/main/6.7.6-xanmod1/6.7.6-x64v4-xanmod1/linux-image-6.7.6-x64v4-xanmod1_6.7.6-x64v4-xanmod1-0~20240223.gf3b2e64_amd64.deb
-          sudo apt install ./linux-image-6.7.6-x64v4-xanmod1_6.7.6-x64v4-xanmod1-0~20240223.gf3b2e64_amd64.deb
-          ls /boot
+          git clone --depth 1 https://github.com/torvalds/linux.git
+          git clone -b devel/6.8 https://github.com/t2linux/linux-t2-patches.git
+          cd linux
+          git config --global user.name "Aditya Garg"
+          git config --global user.email "gargaditya08@live.com"
+          cp ../linux-t2-patches 1001* ./
+          cp ../linux-t2-patches 900* ./
+          git apply ./*.patch
+          git add .
+          git commit -m "Add apple-bce driver"
+          git format-patch -1 HEAD
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
           name: firmware
-          path: /boot/config-6.7.6-x64v4-xanmod1
-          #path: ${{ github.workspace }}/fw.txt
+          #path: /boot/config-6.7.6-x64v4-xanmod1
+          path: ${{ github.workspace }}/linux/*.patch
