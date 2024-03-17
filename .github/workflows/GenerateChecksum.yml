@@ -19,4 +19,5 @@ jobs:
          sudo apt install gh -y
          gh release list -R AdityaGarg8/t2-ubuntu-repo
          gh release download packages -D package -R AdityaGarg8/t2-ubuntu-repo
+         cd package
          ls
