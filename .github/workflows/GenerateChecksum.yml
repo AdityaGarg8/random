@@ -18,6 +18,8 @@ jobs:
 
       - name: Get kconfig
         run: |
+          sudo apt update
+          sudo apt install curl
           curl -s --compressed "https://github.com/AdityaGarg8/t2-ubuntu-repo/releases/download/packages/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg >/dev/null
           sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://github.com/AdityaGarg8/t2-ubuntu-repo/releases/download/packages/t2.list"
           sudo apt update
