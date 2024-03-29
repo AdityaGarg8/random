@@ -24,6 +24,7 @@ jobs:
           echo "deb [signed-by=/etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg] https://github.com/AdityaGarg8/t2-ubuntu-repo/releases/download jammy" | sudo tee /etc/apt/sources.list.d/t2.list
           sudo apt update
           sudo apt install tiny-dfr
+          sudo touchbar --switch
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
