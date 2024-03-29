@@ -27,6 +27,7 @@ jobs:
           sudo apt install linux-t2
           sudo apt install linux-t2-lts
           sudo apt autoremove
+          apt list --installed | grep linux
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
