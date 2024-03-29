@@ -25,7 +25,7 @@ jobs:
           echo "deb [signed-by=/etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg] https://github.com/AdityaGarg8/t2-ubuntu-repo/releases/download/jammy ./" | sudo tee -a /etc/apt/sources.list.d/t2.list
           sudo apt update
           sudo apt install linux-t2
-          sudo apt install linux-t2-lts
+          sudo apt remove linux-t2
           sudo apt autoremove
           apt list --installed | grep linux
 
