@@ -25,10 +25,7 @@ jobs:
           echo "deb [signed-by=/etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg] https://github.com/AdityaGarg8/t2-ubuntu-repo/releases/download/jammy ./" | sudo tee -a /etc/apt/sources.list.d/t2.list
           sudo apt update
           sudo apt install linux-t2
-          sleep 90
-          sudo apt update
-          sudo apt upgrade
-          sudo apt autoremove
+          sudo apt install linux-t2-lts
           apt list --installed | grep linux
 
       - name: Upload package artifact
