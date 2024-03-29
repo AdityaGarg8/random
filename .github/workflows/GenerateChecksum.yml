@@ -24,7 +24,7 @@ jobs:
           sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list"
           echo "deb [signed-by=/etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg] https://github.com/AdityaGarg8/t2-ubuntu-repo/releases/download/jammy ./" | sudo tee -a /etc/apt/sources.list.d/t2.list
           sudo apt update
-          sudo apt install tiny-dfr
+          sudo apt install tiny-dfr linux-apfs
           sudo touchbar --switch
 
       - name: Upload package artifact
