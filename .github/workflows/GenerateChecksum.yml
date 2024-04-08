@@ -22,6 +22,7 @@ jobs:
           archrel=1
           wget https://github.com/archlinux/linux/archive/refs/tags/v${pkgver}-arch${archrel}.tar.gz
           sha256sum ./*.tar.gz
+          echo
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
