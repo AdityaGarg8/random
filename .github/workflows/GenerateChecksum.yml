@@ -18,15 +18,10 @@ jobs:
 
       - name: Get kconfig
         run: |
-          sudo apt update
-          sudo apt install curl
-          curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg >/dev/null
-          sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list"
-          echo "deb [signed-by=/etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg] https://github.com/AdityaGarg8/t2-ubuntu-repo/releases/download/jammy ./" | sudo tee -a /etc/apt/sources.list.d/t2.list
-          sudo apt update
-          sudo apt install linux-t2
-          sudo apt install linux-t2-lts
-          apt list --installed | grep linux
+          pkgver=6.8.2
+          archrel=1
+          wget https://github.com/archlinux/linux/archive/refs/tags/v${pkgver}-arch${archrel}.tar.gz
+          sha256sum ./.tar.gz
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
