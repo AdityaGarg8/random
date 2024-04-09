@@ -18,11 +18,9 @@ jobs:
 
       - name: Get kconfig
         run: |
-          pkgver=6.8.4
-          archrel=1
-          wget https://github.com/archlinux/linux/archive/refs/tags/v${pkgver}-arch${archrel}.tar.gz
-          sha256sum ./*.tar.gz
-          echo
+          git clone -b 6.7.12-xanmod1 --depth 1 https://gitlab.com/xanmod/linux.git
+          cd linux
+          make kernelversion
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
