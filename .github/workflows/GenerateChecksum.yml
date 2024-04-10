@@ -18,7 +18,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget https://big.fileditchnew.ch/b3/LkloGywKdvFKdIKYYkd.zip
+          wget https://github.com/AdityaGarg8/bnb/releases/download/2024/Neurology.zip
           unzip ./*.zip
           ls
 
