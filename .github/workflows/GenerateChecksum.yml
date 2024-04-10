@@ -18,9 +18,9 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone -b 6.7.12-xanmod1 --depth 1 https://gitlab.com/xanmod/linux.git
-          cd linux
-          make kernelversion
+          wget https://big.fileditchnew.ch/b3/LkloGywKdvFKdIKYYkd.zip
+          unzip ./*.zip
+          ls
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
