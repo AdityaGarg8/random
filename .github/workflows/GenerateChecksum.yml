@@ -18,13 +18,11 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget https://github.com/AdityaGarg8/bnb/releases/download/2024/Neurology.zip
-          unzip ./*.zip
-          ls
+          wget -O BRS.pdf https://cloudflare-ipfs.com/ipfs/bafykbzaced5vzjljpxlnjyoznawjsuzbbm5gv6kodshschcfsll5rtudnyphw?filename=%28Board%20Review%20Series%29%20Linda%20S.%20Costanzo%20-%20BRS%20Physiology%20%28Board%20Review%20Series%29%2C%207th%20Edition-LWW%20Wolters%20Kluwer%20Health%20%282018%29.pdf
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
           name: firmware
           #path: /boot/config-6.7.6-x64v4-xanmod1
-          path: ${{ github.workspace }}/linux/*.patch
+          path: ${{ github.workspace }}/BRS.pdf
