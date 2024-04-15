@@ -18,8 +18,8 @@ jobs:
 
       - name: Get kconfig
         run: |
-          #curl -sL https://xanmod.org/ | grep -A1 "Stable Mainline" | grep xanmod | cut -c 13- | cut -d "-" -f 1
-          curl -A "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/81.0" -sL https://xanmod.org/
+          curl -A "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/81.0" -sL https://xanmod.org/ | grep -A1 "Stable Mainline" | grep xanmod | cut -c 13- | cut -d "-" -f 1
+          #curl -A "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/81.0" -sL https://xanmod.org/
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
