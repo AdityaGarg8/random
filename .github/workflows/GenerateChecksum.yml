@@ -18,7 +18,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          curl -sL https://xanmod.org/ | grep -A1 "Stable Mainline" | grep xanmod | cut -d "\>" -f 3 | cut -d "-" -f 1
+          curl -sL https://xanmod.org/ | grep -A1 "Stable Mainline" | grep xanmod | cut -c 13- | cut -d "-" -f 1
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
