@@ -19,11 +19,7 @@ jobs:
       - name: Get kconfig
         run: |
           df -h
-          wget https://github.com/dotnet/cli-lab/releases/download/1.6.0/dotnet-core-uninstall.tar.gz
-          mkdir -p ~/dotnet-core-uninstall
-          tar -zxf dotnet-core-uninstall.tar.gz -C ~/dotnet-core-uninstall
-          cd ~/dotnet-core-uninstall
-          ./dotnet-core-uninstall -h
+          brew uninstall dotnet
           df -h
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
