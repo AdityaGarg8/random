@@ -7,11 +7,11 @@ jobs:
       - name: Free up disk space for the CI
         uses: AdityaGarg8/remove-unwanted-software@v2
         with:
-          remove-android: 'true'
-          remove-dotnet: 'true'
-          remove-haskell: 'true'
-          remove-codeql: 'true'
-          remove-docker-images: 'true'
+          remove-android: 'false'
+          remove-dotnet: 'false'
+          remove-haskell: 'false'
+          remove-codeql: 'false'
+          remove-docker-images: 'false'
 
       - name: 'Checkout Repo'
         uses: actions/checkout@v3
@@ -19,7 +19,22 @@ jobs:
       - name: Get kconfig
         run: |
           df -h
-          
+          echo dotnet
+          echo
+          sudo rm -rvf /usr/share/dotnet
+          echo android
+          echo
+          sudo rm -rvf /usr/local/lib/android
+          echo ghc
+          echo
+          sudo rm -rvf /opt/ghc
+          sudo rm -rvf /usr/local/.ghcup
+          echo codeql
+          echo
+          sudo rm -rvf /opt/hostedtoolcache/CodeQL
+          echo cache
+          echo
+          sudo rm -rvf "$AGENT_TOOLSDIRECTORY"
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
