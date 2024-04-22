@@ -19,6 +19,7 @@ jobs:
       - name: Get kconfig
         run: |
           df -h
+          sudo rm -rf ~/.dotnet/dotnet
           sudo rm -rf /usr/local/bin/dotnet
           df -h
       - name: Upload package artifact
