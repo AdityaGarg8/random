@@ -21,20 +21,25 @@ jobs:
           df -h
           echo dotnet
           echo
-          sudo rm -rvf /usr/share/dotnet
+          sudo rm -rvf /usr/local/share/dotnet
+          df -h
           echo android
           echo
           sudo rm -rvf /usr/local/lib/android
+          df -h
           echo ghc
           echo
           sudo rm -rvf /opt/ghc
           sudo rm -rvf /usr/local/.ghcup
+          df -h
           echo codeql
           echo
           sudo rm -rvf /opt/hostedtoolcache/CodeQL
+          df -h
           echo cache
           echo
-          sudo rm -rvf "$AGENT_TOOLSDIRECTORY"
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+          df -h
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
