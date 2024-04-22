@@ -19,7 +19,7 @@ jobs:
       - name: Get kconfig
         run: |
           df -h
-          ls /use/local/bin
+          ls /usr/local/bin
           df -h
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
