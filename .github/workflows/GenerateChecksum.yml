@@ -19,7 +19,7 @@ jobs:
       - name: Get kconfig
         run: |
           df -h
-          brew uninstall dotnet
+          ls /use/local/bin
           df -h
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
