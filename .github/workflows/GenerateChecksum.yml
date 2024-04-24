@@ -20,7 +20,7 @@ jobs:
         run: |
           sudo apt install transmission-daemon
           wget https://github.com/t2linux/T2-Ubuntu/releases/download/v6.8.7-1/kubuntu-22.04-6.8.7-t2-jammy.z01
-          transmission-create -t https://tracker.yemekyedim.com:443/announce -o ubuntu.torrent kubuntu-22.04-6.8.7-t2-jammy.z01
+          transmission-create -t udp://tracker.eddie4.nl:6969/announce -o ubuntu.torrent kubuntu-22.04-6.8.7-t2-jammy.z01
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
