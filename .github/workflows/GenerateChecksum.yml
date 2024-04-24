@@ -41,6 +41,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: seed
         run: |
+          /etc/init.d/transmission-daemon stop
+          transmission-daemon --no-auth
           transmission-remote --add ubuntu.torrent
           transmission-remote -l
           sleep 1000
