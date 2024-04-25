@@ -18,31 +18,10 @@ jobs:
 
       - name: Get kconfig
         run: |
-          sudo apt install transmission-daemon
-          wget https://github.com/t2linux/T2-Ubuntu/releases/download/v6.8.7-1/kubuntu-22.04-6.8.7-t2-jammy.z01
-          transmission-create -t udp://tracker.eddie4.nl:6969/announce -o ubuntu.torrent kubuntu-22.04-6.8.7-t2-jammy.z01
+          wget https://releases.ubuntu.com/24.04/ubuntu-24.04-desktop-amd64.iso
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
           name: firmware
           #path: /boot/config-6.7.6-x64v4-xanmod1h
-          path: ${{ github.workspace }}/ubuntu.torrent
-      - name: Release
-        uses: softprops/action-gh-release@v2
-        with:
-          #files: ${{ github.workspace }}/ISO/*.tar.gz
-          #files: ${{ github.workspace }}/ISO/*.iso
-          files: ${{ github.workspace }}/ubuntu.torrent
-          tag_name: torrent
-          #body_path: ${{ github.workspace }}/.github/workflows/instructions.txt
-          draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: seed
-        run: |
-          /etc/init.d/transmission-daemon stop
-          transmission-daemon --no-auth
-          transmission-remote --add ubuntu.torrent
-          transmission-remote -l
-          sleep 1000
+          path: ${{ github.workspace }}/ubuntu-24.04-desktop-amd64.iso
