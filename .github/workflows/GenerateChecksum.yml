@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Free up disk space for the CI
-        uses: AdityaGarg8/remove-unwanted-software@v2
+        uses: AdityaGarg8/remove-unwanted-software@v3
         with:
           remove-android: 'false'
           remove-dotnet: 'false'
