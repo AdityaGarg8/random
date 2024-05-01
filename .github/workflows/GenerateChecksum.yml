@@ -18,14 +18,13 @@ jobs:
 
       - name: Get kconfig
         run: |
-          curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg >/dev/null
-          sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list"
-          sudo apt update
-          sudo apt install apple-bce
-          cat /usr/src/apple-bce-0.2/dkms.conf
+          git clone --depth 1 https://github.com/torvalds/linux
+          cd linux
+          wget https://raw.githubusercontent.com/t2linux/linux-t2-patches/main/1001-Add-apple-bce-driver.patch
+          git apply 1001*
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
           name: firmware
           #path: /boot/config-6.7.6-x64v4-xanmod1h
-          path: ${{ github.workspace }}/ubuntu-24.04-desktop-amd64.iso
+          path: ${{ github.workspace }}/linux/drivers/staging/apple-bce
