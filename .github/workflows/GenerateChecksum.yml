@@ -23,7 +23,7 @@ jobs:
           wget https://raw.githubusercontent.com/t2linux/linux-t2-patches/main/1001-Add-apple-bce-driver.patch
           git apply 1001*
       - name: Upload package artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: firmware
           #path: /boot/config-6.7.6-x64v4-xanmod1h
