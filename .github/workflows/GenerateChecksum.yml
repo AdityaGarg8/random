@@ -19,8 +19,9 @@ jobs:
       - name: Get kconfig
         run: |
           git clone --depth 1 https://github.com/torvalds/linux
+          git clone -b aur https://github.com/AdityaGarg8/apple-bce-drv.git
+          cp -r ./apple-bce-drv ./linux/drivers/staging/apple-bce
           cd linux
-          git clone -b aur https://github.com/AdityaGarg8/apple-bce-drv.git ./drivers/staging/apple-bce
           rm ./drivers/staging/apple-bce/.gitignore
           rm -rf ./drivers/staging/apple-bce/.git
           rm ./drivers/staging/apple-bce/dkms.conf
