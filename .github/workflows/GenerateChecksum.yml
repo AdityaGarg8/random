@@ -14,7 +14,7 @@ jobs:
           remove-docker-images: 'false'
 
       - name: 'Checkout Repo'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Get kconfig
         run: |
