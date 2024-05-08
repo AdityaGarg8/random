@@ -27,8 +27,8 @@ jobs:
           echo "Architecture: amd64" >> control
           echo "Description: Wi-Fi and Bluetooth firmware for T2 and Apple Silicon Macs" >> control
           mkdir firmware
-          cp ./firmware.tar /firmware
-          cp ./control ./firmware
+          mv ./firmware.tar ./firmware
+          mv ./control ./firmware
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
