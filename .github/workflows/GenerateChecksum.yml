@@ -23,9 +23,27 @@ jobs:
           python3 firmware.sh /usr/share/firmware ${{ github.workspace }}/firmware.tar
           tar -xf ${{ github.workspace }}/firmware.tar
           cd ${{ github.workspace }}
-          echo 2
-          cd ${{ github.workspace }}/brcm
-          ls
+          mkdir deb
+          cd deb
+          mkdir DEBIAN
+          mkdir usr
+          cd usr
+          mkdir lib
+          cd lib
+          mkdir firmware
+          cd ..
+          cd ..
+          cd DEBIAN
+          echo "Package: apple-firmware" > control
+          echo "Version: 14.4.1" >> control
+          echo "Maintainer: Aditya Garg" >> control
+          echo "Architecture: amd64" >> control
+          echo "Description: Wi-Fi and Bluetooth firmware for T2 and Apple Silicon Macs" >> control
+          sudo chmod a+x ./control
+          cd ..
+          cp -r ${{ github.workspace }}/brcm ${{ github.workspace }}/deb/usr/lib/firmware
+          dpkg-deb --build --root-owner-group -Zgzip deb
+          dpkg-name ./deb.deb
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
