@@ -24,7 +24,13 @@ jobs:
           mkdir brcm
           cd brcm
           tar -xf ${{ github.workspace }}/firmware.tar
+          cd ${{ github.workspace }}
+          ls
+          echo "1"
           cd ${{ github.workspace }}/brcm
+          ls
+          echo 2
+          cd ${{ github.workspace }}/brcm/brcm
           ls
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
