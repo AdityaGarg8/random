@@ -27,6 +27,7 @@ jobs:
           #path: /boot/config-6.7.6-x64v4-xanmod1h
           path: ${{ github.workspace }}/firmware.tar
   Publish-Firmware:
+    needs: [Retrieve-Firmware]
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout Repo'
