@@ -40,7 +40,7 @@ jobs:
           echo "Architecture: amd64" >> control
           echo "Description: Wi-Fi and Bluetooth firmware for T2 and Apple Silicon Macs" >> control
           sudo chmod a+x ./control
-          cd ..
+          cd ${{ github.workspace }}
           cp -r ${{ github.workspace }}/brcm ${{ github.workspace }}/deb/usr/lib/firmware
           dpkg-deb --build --root-owner-group -Zgzip deb
           dpkg-name ./deb.deb
