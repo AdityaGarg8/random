@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Publish:
-    runs-on: ubuntu-latest
+    runs-on: macos-14
     steps:
       - name: Free up disk space for the CI
         uses: AdityaGarg8/remove-unwanted-software@v3
@@ -18,19 +18,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone --depth 1 https://github.com/torvalds/linux
-          git clone -b aur https://github.com/AdityaGarg8/apple-bce-drv.git
-          cp -r ./apple-bce-drv ./linux/drivers/staging/apple-bce
-          cd linux
-          rm ./drivers/staging/apple-bce/.gitignore
-          rm -rf ./drivers/staging/apple-bce/.git
-          rm ./drivers/staging/apple-bce/dkms.conf
-          rm ./drivers/staging/apple-bce/README.md
-          git config --global user.name "Aditya Garg"
-          git config --global user.email "gargaditya08@live.com"
-          git add .
-          git commit -m "Add apple-bce driver"
-          git format-patch -1 HEAD
+          sw_vers
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
