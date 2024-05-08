@@ -20,12 +20,21 @@ jobs:
         run: |
           wget https://wiki.t2linux.org/tools/firmware.sh
           python3 firmware.sh /usr/share/firmware ${{ github.workspace }}/firmware.tar
+          ver=$(sw_vers -productVersion)
+          echo "Package: apple-firmware" > control
+          echo "Version: ${ver}" >> control
+          echo "Maintainer: Aditya Garg" >> control
+          echo "Architecture: amd64" >> control
+          echo "Description: Wi-Fi and Bluetooth firmware for T2 and Apple Silicon Macs" >> control
+          mkdir firmware
+          mv ./firmware.tar /firmware
+          mv ./control ./firmware
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
           name: firmware
           #path: /boot/config-6.7.6-x64v4-xanmod1h
-          path: ${{ github.workspace }}/firmware.tar
+          path: ${{ github.workspace }}/firmware
   Publish-Firmware:
     needs: [Retrieve-Firmware]
     runs-on: ubuntu-latest
@@ -42,6 +51,8 @@ jobs:
           GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
       - name: Get kconfig
         run: |
+          ls
+          exit 0
           GPG_SIGNING_EMAIL=${{ secrets.GPG_SIGNING_EMAIL }}
           tar -xf ${{ github.workspace }}/firmware.tar
           cd ${{ github.workspace }}
@@ -56,11 +67,6 @@ jobs:
           cd ..
           cd ..
           cd DEBIAN
-          echo "Package: apple-firmware" > control
-          echo "Version: 14.4.1" >> control
-          echo "Maintainer: Aditya Garg" >> control
-          echo "Architecture: amd64" >> control
-          echo "Description: Wi-Fi and Bluetooth firmware for T2 and Apple Silicon Macs" >> control
           sudo chmod a+x ./control
           cd ${{ github.workspace }}
           cp -r ${{ github.workspace }}/brcm ${{ github.workspace }}/deb/usr/lib/firmware
