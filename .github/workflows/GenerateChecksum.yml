@@ -21,7 +21,7 @@ jobs:
           brew install dpkg
           wget https://wiki.t2linux.org/tools/firmware.sh
           python3 firmware.sh /usr/share/firmware ${{ github.workspace }}/firmware.tar
-          tar -xfC ${{ github.workspace }}/brcm firmware.tar
+          tar -xC ${{ github.workspace }}/brcm -f firmware.tar
           cd brcm
           ls
       - name: Upload package artifact
