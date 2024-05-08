@@ -34,11 +34,15 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: firmware
-
+      - name: Configure GPG Key
+        run: |
+          echo -n "$GPG_SIGNING_KEY" | base64 -di | gpg --import
+          echo -n "$GPG_SIGNING_KEY" | base64 -di > key
+        env:
+          GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
       - name: Get kconfig
         run: |
-          ls
-          exit 0
+          GPG_SIGNING_EMAIL=${{ secrets.GPG_SIGNING_EMAIL }}
           tar -xf ${{ github.workspace }}/firmware.tar
           cd ${{ github.workspace }}
           mkdir deb
