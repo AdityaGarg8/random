@@ -20,7 +20,7 @@ jobs:
         run: |
           wget https://mirrors.kernel.org/linuxmint/stable/21.3/linuxmint-21.3-cinnamon-64bit.iso
           sudo mount linuxmint-21.3-cinnamon-64bit.iso /mnt
-          sudo cp /mnt/casper/filesystem.squashfs/${{ github.workspace }}
+          sudo cp /mnt/casper/filesystem.squashfs ${{ github.workspace }}
           ls
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
