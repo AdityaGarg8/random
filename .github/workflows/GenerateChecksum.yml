@@ -18,7 +18,11 @@ jobs:
 
       - name: Get kconfig
         run: |
-          sudo apt-get upgrade -y -qq -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
+          wget https://github.com/t2linux/T2-Mint/releases/download/v6.8.9-1/linuxmint-21.3-cinnamon-6.8.9-t2-jammy.z01
+          wget https://github.com/t2linux/T2-Mint/releases/download/v6.8.9-1/linuxmint-21.3-cinnamon-6.8.9-t2-jammy.zip
+          zip -F linuxmint-21.3-cinnamon-6.8.9-t2-jammy.zip --out final.zip
+          unzip final.zip
+          tree ${{ github.workspace }}
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
