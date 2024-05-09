@@ -18,10 +18,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget https://mirrors.kernel.org/linuxmint/stable/21.3/linuxmint-21.3-cinnamon-64bit.iso
-          sudo mount linuxmint-21.3-cinnamon-64bit.iso /mnt
-          sudo cp /mnt/casper/filesystem.squashfs ${{ github.workspace }}
-          ls
+          sudo apt-get upgrade -y -qq -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
