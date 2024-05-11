@@ -18,9 +18,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget https://mirrors.kernel.org/linuxmint/debian/lmde-6-cinnamon-64bit.iso
-          sudo mount lmde-6-cinnamon-64bit.iso /mnt
-          tree /mnt
+          cat /etc/resolv.conf
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
