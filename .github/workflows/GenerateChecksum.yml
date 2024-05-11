@@ -18,7 +18,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          lsb_release
+          lsb_release -a
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
