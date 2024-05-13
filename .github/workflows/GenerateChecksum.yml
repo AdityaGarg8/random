@@ -29,7 +29,7 @@ jobs:
           /bin/bash -c 'apt-get update && \
           DEBIAN_FRONTEND=noninteractive apt-get install -y -qq -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" lsb-release && \
           lsb_release -c | cut -d ":" -f 2 | xargs && \
-          lsb_release -d | cut -d ":" -f 2 | xargs'
+          lsb_release -i | cut -d ":" -f 2 | xargs'
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
