@@ -18,7 +18,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          DOCKER_IMAGE=ubuntu:24.04
+          DOCKER_IMAGE=debian:12
           docker pull ${DOCKER_IMAGE}
           docker run \
           -e GH_TOKEN=${{ secrets.GITHUB_TOKEN }} \
