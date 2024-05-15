@@ -27,7 +27,7 @@ jobs:
       - name: Get the source code
         id: publish
         run: |
-          DOCKER_IMAGE=debian:12
+          DOCKER_IMAGE=debian:unstable
           docker pull ${DOCKER_IMAGE}
           docker run \
           -e GH_TOKEN=${{ secrets.GITHUB_TOKEN }} \
