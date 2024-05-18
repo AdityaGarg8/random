@@ -18,21 +18,10 @@ jobs:
 
       - name: Get kconfig
         run: |
-          DOCKER_IMAGE=debian:12
-          docker pull ${DOCKER_IMAGE}
-          docker run \
-          -e GH_TOKEN=${{ secrets.GITHUB_TOKEN }} \
-          -e GPG_SIGNING_EMAIL=${{ secrets.GPG_SIGNING_EMAIL }} \
-          -t \
-          -v "$(pwd)":/repo \
-          ${DOCKER_IMAGE} \
-          /bin/bash -c 'apt-get update && \
-          DEBIAN_FRONTEND=noninteractive apt-get install -y -qq -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" lsb-release && \
-          lsb_release -c | cut -d ":" -f 2 | xargs && \
-          lsb_release -i | cut -d ":" -f 2 | xargs'
+          wget https://nightly.link/t2linux/EndeavourOS-ISO-t2/actions/runs/8866649470/built-iso.zip
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
           name: firmware
           #path: /boot/config-6.7.6-x64v4-xanmod1h
-          path: ${{ github.workspace }}/firmware
+          path: ${{ github.workspace }}/built-iso.zip
