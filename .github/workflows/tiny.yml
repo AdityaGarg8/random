@@ -27,7 +27,7 @@ jobs:
       - name: Get the source code
         id: publish
         run: |
-          DOCKER_IMAGE=debian:unstable
+          DOCKER_IMAGE=debian:12
           docker pull ${DOCKER_IMAGE}
           docker run \
           -e GH_TOKEN=${{ secrets.GITHUB_TOKEN }} \
@@ -38,6 +38,6 @@ jobs:
           /bin/bash -c 'apt-get update && \
           DEBIAN_FRONTEND=noninteractive apt-get install -y -qq -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" lsb-release wget && \
           wget https://github.com/AdityaGarg8/t2-ubuntu-repo/releases/download/bookworm/tiny-dfr_0.2.0-8-bookworm_amd64.deb && \
-          apt install ./tiny-dfr_0.2.0-8-bookworm_amd64.deb && \
+          apt-get install -y -qq -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" ./tiny-dfr_0.2.0-8-bookworm_amd64.deb && \
           lsb_release -c | cut -d ":" -f 2 | xargs && \
           lsb_release -d | cut -d ":" -f 2 | xargs'
