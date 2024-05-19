@@ -36,8 +36,8 @@ jobs:
           -v "$(pwd)":/repo \
           ${DOCKER_IMAGE} \
           /bin/bash -c 'apt-get update && \
-          DEBIAN_FRONTEND=noninteractive apt-get install -y -qq -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" lsb-release && \
-          echo "deb http://ftp.debian.org/debian/ experimental main non-free non-free-firmware contrib" >> /etc/apt/sources.list.d/experimental.list && \
-          apt update && apt install -t experimental -y linux-image-amd64 && ls /boot && \
+          DEBIAN_FRONTEND=noninteractive apt-get install -y -qq -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" lsb-release wget && \
+          wget https://github.com/AdityaGarg8/t2-ubuntu-repo/releases/download/bookworm/tiny-dfr_0.2.0-8-bookworm_amd64.deb && \
+          apt install ./tiny-dfr_0.2.0-8-bookworm_amd64.deb && \
           lsb_release -c | cut -d ":" -f 2 | xargs && \
           lsb_release -d | cut -d ":" -f 2 | xargs'
