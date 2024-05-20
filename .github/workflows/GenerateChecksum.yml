@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: ubuntu-latest
+    runs-on: macos-13
     steps:
       - name: Free up disk space for the CI
         uses: AdityaGarg8/remove-unwanted-software@v3
@@ -18,7 +18,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget https://nightly.link/t2linux/EndeavourOS-ISO-t2/actions/runs/8866649470/built-iso.zip
+          sysctl -a | grep machdep.cpu
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
