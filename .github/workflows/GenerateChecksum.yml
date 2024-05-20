@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: macos-14
+    runs-on: macos-13
     steps:
       - name: Free up disk space for the CI
         uses: AdityaGarg8/remove-unwanted-software@v3
@@ -18,7 +18,18 @@ jobs:
 
       - name: Get kconfig
         run: |
-          sysctl -a | grep machdep.cpu
+          MAIL=developermail
+          wget -q https://github.com/AdityaGarg8/ESET-KeyGen/releases/download/vtestfinal/ESET-KeyGen_vtestfinal_macos_amd64
+          chmod a+x ESET-KeyGen_vtestfinal_macos_amd64
+          echo "==> Testing amd64"
+          echo
+          ./ESET-KeyGen_vtestfinal_macos_amd64 --chrome --key --email-api ${MAIL} --skip-webdriver-menu --skip-update-check
+          echo
+          wget -q https://github.com/AdityaGarg8/ESET-KeyGen/releases/download/vtestfinal/ESET-KeyGen_vtestfinal_macos_arm64
+          echo "== Testing arm64"
+          echo
+          ./ESET-KeyGen_vtestfinal_macos_arm64 --chrome --key --email-api ${MAIL} --skip-webdriver-menu --skip-update-check
+          
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
