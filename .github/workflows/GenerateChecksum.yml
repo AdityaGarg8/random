@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: macos-13
+    runs-on: ubuntu-latest
     steps:
       - name: Free up disk space for the CI
         uses: AdityaGarg8/remove-unwanted-software@v3
@@ -18,12 +18,10 @@ jobs:
 
       - name: Get kconfig
         run: |
-          MAIL=developermail
-          wget -q https://github.com/AdityaGarg8/ESET-KeyGen/releases/download/vtestfinal/ESET-KeyGen_vtestfinal_macos_amd64
-          chmod a+x ESET-KeyGen_vtestfinal_macos_amd64
-          echo "==> Testing amd64"
-          echo
-          ./ESET-KeyGen_vtestfinal_macos_amd64 --chrome --key --email-api ${MAIL} --skip-webdriver-menu --skip-update-check || true
+          wget https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-12.5.0-amd64-gnome.iso
+          sudo mount debian-live-12.5.0-amd64-gnome.iso /mnt
+          cd /mnt
+          tree
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
