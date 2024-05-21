@@ -18,8 +18,8 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget -q https://cdimage.ubuntu.com/kubuntu/releases/jammy/release/kubuntu-22.04.4-desktop-amd64.iso
-          sudo mount kubuntu-22.04.4-desktop-amd64.iso /mnt
+          wget -q https://cdimage.ubuntu.com/ubuntu-unity/releases/24.04/release/ubuntu-unity-24.04-desktop-amd64.iso
+          sudo mount ubuntu-unity-24.04-desktop-amd64.iso /mnt
           cd /mnt
           tree
           
