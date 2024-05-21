@@ -18,8 +18,8 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget -q https://cdimage.ubuntu.com/ubuntu-unity/releases/24.04/release/ubuntu-unity-24.04-desktop-amd64.iso
-          sudo mount ubuntu-unity-24.04-desktop-amd64.iso /mnt
+          wget -q https://mirrors.kernel.org/linuxmint/debian/lmde-6-cinnamon-64bit.iso
+          sudo mount lmde-6-cinnamon-64bit.iso /mnt
           cd /mnt
           tree
           
