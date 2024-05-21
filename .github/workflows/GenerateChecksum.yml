@@ -18,8 +18,8 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget -q https://mirrors.kernel.org/linuxmint/debian/lmde-6-cinnamon-64bit.iso
-          sudo mount lmde-6-cinnamon-64bit.iso /mnt
+          wget -q https://gsl-syd.mm.fcix.net/ubuntu-releases/noble/ubuntu-24.04-desktop-amd64.iso
+          sudo mount ubuntu-24.04-desktop-amd64.iso /mnt
           cd /mnt
           tree
           
@@ -27,5 +27,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: firmware
-          #path: /boot/config-6.7.6-x64v4-xanmod1h
-          path: ${{ github.workspace }}/built-iso.zip
+          path: /mnt/casper/*.manifest
+          #path: ${{ github.workspace }}/built-iso.zip
