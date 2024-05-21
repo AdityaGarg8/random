@@ -18,8 +18,8 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget -q https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-12.5.0-amd64-gnome.iso
-          sudo mount debian-live-12.5.0-amd64-gnome.iso /mnt
+          wget -q https://gsl-syd.mm.fcix.net/ubuntu-releases/noble/ubuntu-24.04-desktop-amd64.iso
+          sudo mount ubuntu-24.04-desktop-amd64.iso /mnt
           cd /mnt
           tree
           
