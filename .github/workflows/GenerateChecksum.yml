@@ -18,8 +18,8 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget -q https://gsl-syd.mm.fcix.net/ubuntu-releases/noble/ubuntu-24.04-desktop-amd64.iso
-          sudo mount ubuntu-24.04-desktop-amd64.iso /mnt
+          wget -q https://gsl-syd.mm.fcix.net/ubuntu-releases/jammy/ubuntu-22.04.4-desktop-amd64.iso
+          sudo mount ubuntu-22.04.4-desktop-amd64.iso /mnt
           cd /mnt
           tree
           
