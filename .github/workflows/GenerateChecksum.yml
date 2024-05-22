@@ -18,14 +18,16 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget -q https://gsl-syd.mm.fcix.net/ubuntu-releases/23.10/ubuntu-23.10.1-desktop-amd64.iso
-          sudo mount ubuntu-23.10.1-desktop-amd64.iso /mnt
+          wget -q https://gsl-syd.mm.fcix.net/ubuntu-releases/noble/ubuntu-24.04-desktop-amd64.iso
+          sudo mount ubuntu-24.04-desktop-amd64.iso /mnt
           cd /mnt
           tree
+          cp /mnt/casper/*.squashfs ${{ github.workspace }}
+          rm -v ${{ github.workspace }}/minimal.squashfs
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
           name: firmware
-          path: /mnt/casper/*.manifest
-          #path: ${{ github.workspace }}/built-iso.zip
+          #path: /mnt/casper/*.manifest
+          path: ${{ github.workspace }}/*.squashfs
