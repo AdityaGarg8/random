@@ -18,12 +18,12 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget -q https://gsl-syd.mm.fcix.net/ubuntu-releases/noble/ubuntu-24.04-desktop-amd64.iso
-          sudo mount ubuntu-24.04-desktop-amd64.iso /mnt
-          cd /mnt
-          tree
-          cp /mnt/casper/*.squashfs ${{ github.workspace }}
-          rm -v ${{ github.workspace }}/minimal.squashfs
+          sudo apt update
+          sudo apt install rsync
+          mkdir repo
+          rsync -av --delete-after https://mirror.funami.tech/arch-mact2/os/x86_64 ${{ github.workspace }}/repo
+          cd repo
+          ls -l
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
