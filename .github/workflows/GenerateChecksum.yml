@@ -21,7 +21,7 @@ jobs:
           sudo apt update
           sudo apt install rsync
           mkdir repo
-          wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://mirror.funami.tech/arch-mact2/os/x86_64
+          wget -q -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://mirror.funami.tech/arch-mact2/os/x86_64
           cd repo
           ls -l
           
