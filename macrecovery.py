@@ -1,35 +1,43 @@
 #!/usr/bin/env python3
+# pylint: disable=C0301,C0116,C0103,R0903
 
 """
 Gather recovery information for Macs.
 
 Copyright (c) 2019, vit9696
+
+macrecovery is a tool that helps to automate recovery interaction. It can be
+used to download diagnostics and recovery as well as analyse MLB.
+
+Requires python to run. Run with `-h` argument to see all available arguments.
+
+Upstream: https://github.com/acidanthera/OpenCorePkg/tree/master/Utilities/macrecovery
+pylint -> Your code has been rated at -0.08/10 ;(
 """
 
 import argparse
+import binascii
 import hashlib
 import json
 import linecache
 import os
 import random
 import struct
-import string
 import sys
 
 try:
     from urllib.request import Request, HTTPError, urlopen
     from urllib.parse import urlparse
 except ImportError:
-    print('ERROR: Python 2 is not supported, please use Python 3')
-    sys.exit(1)
+    from urllib2 import Request, HTTPError, urlopen
+    from urlparse import urlparse
 
 SELF_DIR = os.path.dirname(os.path.realpath(__file__))
 
-# MacPro7,1
-RECENT_MAC = 'Mac-27AD2F918AE68F61'
+RECENT_MAC = 'Mac-7BA5B2D9E42DDD94'
 MLB_ZERO = '00000000000000000'
-MLB_VALID = 'F5K105303J9K3F71M'
-MLB_PRODUCT = 'F5K00000000K3F700'
+MLB_VALID = 'C02749200YGJ803AX'
+MLB_PRODUCT = '00000000000J80300'
 
 TYPE_SID = 16
 TYPE_K = 64
@@ -47,7 +55,9 @@ INFO_REQURED = [INFO_PRODUCT, INFO_IMAGE_LINK, INFO_IMAGE_HASH, INFO_IMAGE_SESS,
 
 def run_query(url, headers, post=None, raw=False):
     if post is not None:
-        data = '\n'.join(entry + '=' + post[entry] for entry in post).encode()
+        data = '\n'.join([entry + '=' + post[entry] for entry in post])
+        if sys.version_info[0] >= 3:
+            data = data.encode('utf-8')
     else:
         data = None
     req = Request(url=url, headers=headers, data=data)
@@ -62,11 +72,12 @@ def run_query(url, headers, post=None, raw=False):
 
 
 def generate_id(id_type, id_value=None):
-    return id_value or ''.join(random.choices(string.hexdigits[:16].upper(), k=id_type))
+    valid_chars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
+    return ''.join(random.choice(valid_chars) for i in range(id_type)) if not id_value else id_value
 
 
 def product_mlb(mlb):
-    return '00000000000' + mlb[11:15] + '00'
+    return '00000000000' + mlb[11] + mlb[12] + mlb[13] + mlb[14] + '00'
 
 
 def mlb_from_eeee(eeee):
@@ -75,6 +86,13 @@ def mlb_from_eeee(eeee):
         sys.exit(1)
 
     return f'00000000000{eeee}00'
+
+
+def int_from_unsigned_bytes(byte_list, byteorder):
+    if byteorder == 'little':
+        byte_list = byte_list[::-1]
+    encoded = binascii.hexlify(byte_list)
+    return int(encoded, 16)
 
 
 # zhangyoufu https://gist.github.com/MCJack123/943eaca762730ca4b7ae460b731b68e7#gistcomment-3061078 2021-10-08
@@ -110,8 +128,8 @@ def verify_chunklist(cnkpath):
         if signature_method == 1:
             data = f.read(256)
             assert len(data) == 256
-            signature = int.from_bytes(data, 'little')
-            plaintext = int(f'0x1{"f"*404}003031300d060960864801650304020105000420{"0"*64}', 16) | int.from_bytes(digest, 'big')
+            signature = int_from_unsigned_bytes(data, 'little')
+            plaintext = 0x1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff003031300d0609608648016503040201050004200000000000000000000000000000000000000000000000000000000000000000 | int_from_unsigned_bytes(digest, 'big')
             assert pow(signature, 0x10001, Apple_EFI_ROM_public_key_1) == plaintext
         elif signature_method == 2:
             data = f.read(32)
@@ -176,9 +194,7 @@ def get_image_info(session, bid, mlb=MLB_ZERO, diag=False, os_type='default', ci
         try:
             key, value = line.split(': ')
             info[key] = value
-        except KeyError:
-            continue
-        except ValueError:
+        except Exception:
             continue
 
     for k in INFO_REQURED:
@@ -198,48 +214,34 @@ def save_image(url, sess, filename='', directory=''):
     }
 
     if not os.path.exists(directory):
-        os.makedirs(directory)
+        os.mkdir(directory)
 
     if filename == '':
         filename = os.path.basename(purl.path)
-    if filename.find(os.sep) >= 0 or filename == '':
+    if filename.find('/') >= 0 or filename == '':
         raise RuntimeError('Invalid save path ' + filename)
 
-    print(f'Saving {url} to {directory}{os.sep}{filename}...')
+    print(f'Saving {url} to {directory}/{filename}...')
 
     with open(os.path.join(directory, filename), 'wb') as fh:
         response = run_query(url, headers, raw=True)
-        headers = dict(response.headers)
-        totalsize = -1
-        for header in headers:
-            if header.lower() == 'content-length':
-                totalsize = int(headers[header])
-                break
+        total_size = int(response.headers['content-length']) / float(2 ** 20)
+        # print(total_size)
+        if total_size < 1:
+            total_size = response.headers['content-length']
+            print("Note: The total download size is %s bytes" % total_size)
+        else:
+            print("Note: The total download size is %0.2f MB" % total_size)
         size = 0
-        oldterminalsize = 0
         while True:
             chunk = response.read(2**20)
             if not chunk:
                 break
             fh.write(chunk)
             size += len(chunk)
-            terminalsize = os.get_terminal_size().columns
-            if oldterminalsize != terminalsize:
-                # Use -2 for better resize stability on Windows
-                print(f'\r{"":<{terminalsize - 2}}', end='')
-                oldterminalsize = terminalsize
-            if totalsize > 0:
-                progress = size / totalsize
-                barwidth = terminalsize // 3
-                print(f'\r{size / (2**20):.1f}/{totalsize / (2**20):.1f} MB ', end='')
-                if terminalsize > 55:
-                    print(f'|{"=" * int(barwidth * progress):<{barwidth}}|', end='')
-                print(f' {progress*100:.1f}% downloaded', end='')
-            else:
-                # Fallback if Content-Length isn't available
-                print(f'\r{size / (2**20)} MB downloaded...', end='')
+            print(f'\r{size / (2**20)} MBs downloaded...', end='')
             sys.stdout.flush()
-        print('\nDownload complete!')
+        print('\rDownload complete!\t\t\t\t\t')
 
     return os.path.join(directory, os.path.basename(filename))
 
@@ -248,8 +250,10 @@ def verify_image(dmgpath, cnkpath):
     print('Verifying image with chunklist...')
 
     with open(dmgpath, 'rb') as dmgf:
-        for cnkcount, (cnksize, cnkhash) in enumerate(verify_chunklist(cnkpath), 1):
-            print(f'\r{f"Chunk {cnkcount} ({cnksize} bytes)":<{os.get_terminal_size().columns - 2}}', end='')
+        cnkcount = 0
+        for cnksize, cnkhash in verify_chunklist(cnkpath):
+            cnkcount += 1
+            print(f'\rChunk {cnkcount} ({cnksize} bytes)', end='')
             sys.stdout.flush()
             cnk = dmgf.read(cnksize)
             if len(cnk) != cnksize:
@@ -258,7 +262,7 @@ def verify_image(dmgpath, cnkpath):
                 raise RuntimeError(f'Invalid chunk {cnkcount}: hash mismatch')
         if dmgf.read(1) != b'':
             raise RuntimeError('Invalid image: larger than chunklist')
-        print('\nImage verification complete!')
+        print('\rImage verification complete!\t\t\t\t\t')
 
 
 def action_download(args):
@@ -294,10 +298,10 @@ def action_download(args):
     if args.verbose:
         print(info)
     print(f'Downloading {info[INFO_PRODUCT]}...')
-    cnkname = '' if args.basename == '' else args.basename + '.chunklist'
-    cnkpath = save_image(info[INFO_SIGN_LINK], info[INFO_SIGN_SESS], cnkname, args.outdir)
     dmgname = '' if args.basename == '' else args.basename + '.dmg'
     dmgpath = save_image(info[INFO_IMAGE_LINK], info[INFO_IMAGE_SESS], dmgname, args.outdir)
+    cnkname = '' if args.basename == '' else args.basename + '.chunklist'
+    cnkpath = save_image(info[INFO_SIGN_LINK], info[INFO_SIGN_SESS], cnkname, args.outdir)
     try:
         verify_image(dmgpath, cnkpath)
         return 0
@@ -370,7 +374,7 @@ def action_selfcheck(args):
     if product_default[INFO_PRODUCT] != valid_default[INFO_PRODUCT]:
         # Product-only MLB can give the same value with valid default MLB.
         # This is not an error for all models, but for our chosen code it is.
-        print(f'ERROR: Valid and product MLB give mismatch, got {product_default[INFO_PRODUCT]} and {valid_default[INFO_PRODUCT]}')
+        print('ERROR: Valid and product MLB give mismatch, got {product_default[INFO_PRODUCT]} and {valid_default[INFO_PRODUCT]}')
         return 1
 
     print('SUCCESS: Found no discrepancies with MLB validation algorithm!')
@@ -466,9 +470,17 @@ def action_guess(args):
     return None
 
 
+# https://stackoverflow.com/questions/2280334/shortest-way-of-creating-an-object-with-arbitrary-attributes-in-python
+class gdata:
+    """
+    A string to make pylint happy ;)
+    """
+    def __init__(self, **kwargs):
+        self.__dict__.update(kwargs)
+
 def main():
     parser = argparse.ArgumentParser(description='Gather recovery information for Macs')
-    parser.add_argument('action', choices=['download', 'selfcheck', 'verify', 'guess'],
+    parser.add_argument('--action', choices=['download', 'selfcheck', 'verify', 'guess'], default='',
                         help='Action to perform: "download" - performs recovery downloading,'
                         ' "selfcheck" checks whether MLB serial validation is possible, "verify" performs'
                         ' MLB serial verification, "guess" tries to find suitable mac model for MLB.')
@@ -485,6 +497,8 @@ def main():
     parser.add_argument('-os', '--os-type', type=str, default='default', choices=['default', 'latest'],
                         help=f'use specified os type, defaults to default {MLB_ZERO}')
     parser.add_argument('-diag', '--diagnostics', action='store_true', help='download diagnostics image')
+    parser.add_argument('-s', '--shortname', type=str, default='',
+                        help='available options: high-sierra, mojave, catalina, big-sur, monterey, ventura')
     parser.add_argument('-v', '--verbose', action='store_true', help='print debug information')
     parser.add_argument('-db', '--board-db', type=str, default=os.path.join(SELF_DIR, 'boards.json'),
                         help='use custom board list for checking, defaults to boards.json')
@@ -507,7 +521,44 @@ def main():
     if args.action == 'guess':
         return action_guess(args)
 
-    assert False
+    # No action specified, so present a download menu instead
+    # https://github.com/acidanthera/OpenCorePkg/blob/master/Utilities/macrecovery/boards.json
+    products = [
+            {"name": "High Sierra (10.13)", "b": "Mac-7BA5B2D9E42DDD94", "m": "00000000000J80300", "short": "high-sierra"},
+            {"name": "Mojave (10.14)", "b": "Mac-7BA5B2DFE22DDD8C", "m": "00000000000KXPG00", "short": "mojave"},
+            {"name": "Catalina (10.15)", "b": "Mac-00BE6ED71E35EB86", "m": "00000000000000000", "short": "catalina"},
+            {"name": "Big Sur (11.7)", "b": "Mac-2BD1B31983FE1663", "m": "00000000000000000", "short": "big-sur"},
+            {"name": "Monterey (12.6)", "b": "Mac-65CE76090165799A", "m": "00000000000000000", "os_type": "latest", "short": "monterey"},
+            {"name": "Ventura (13) - RECOMMENDED", "b": "Mac-4B682C642B45593E", "m": "00000000000000000", "os_type": "latest", "short": "ventura"},
+            {"name": "Sonoma (14) ", "b": "Mac-A61BADE1FDAD7B05", "m": "00000000000000000", "short": "sonoma"}
+    ]
+    for index, product in enumerate(products):
+        name = product["name"]
+        print('%s. %12s' % (index + 1, name))
+    # test locally using args.shortname = 'mojave'
+    if not args.shortname or args.shortname == '':
+        answer = input('\nChoose a product to download (1-%s): ' % len(products))
+        try:
+            index = int(answer) - 1
+            if index < 0:
+                raise ValueError
+        except (ValueError, IndexError):
+            pass
+    else:
+        index = 0
+        for product in products:
+            if args.shortname == product['short']:
+                break
+            else:
+                index = index+1
+    product = products[index]
+    try:
+        os_type = product["os_type"]
+    except:
+        os_type = "default"
+    args = gdata(mlb = product["m"], board_id = product["b"], diagnostics =
+            False, os_type = os_type, verbose=False, basename="", outdir=".")
+    action_download(args)
 
 
 if __name__ == '__main__':
