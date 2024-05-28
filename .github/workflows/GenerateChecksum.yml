@@ -18,12 +18,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          sudo apt update
-          sudo apt install rsync
-          mkdir repo
-          #wget -q -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://mirror.funami.tech/arch-mact2/os/x86_64
-          cd repo
-          ls -l
+          python3 macrecovery.py download
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
