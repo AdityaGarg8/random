@@ -18,7 +18,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          python3 macrecovery.py download
+          python3 macrecovery.py --action download --board-id Mac-F60DEB81FF30ACF6 --os latest
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
