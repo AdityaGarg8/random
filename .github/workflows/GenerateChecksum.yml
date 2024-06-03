@@ -18,7 +18,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          cat <<EOF
+          cat <<EOF >test.txt
           this is a test line
                4 spaces
           EOF
@@ -28,4 +28,4 @@ jobs:
         with:
           name: firmware
           #path: /mnt/casper/*.manifest
-          path: ${{ github.workspace }}/*.squashfs
+          path: ${{ github.workspace }}/test.txt
