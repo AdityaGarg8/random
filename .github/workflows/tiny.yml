@@ -24,7 +24,7 @@ jobs:
       - name: Get the source code
         id: publish
         run: |
-          DOCKER_IMAGE=sickcodes/docker-osx:monterey
+          DOCKER_IMAGE=fedora:latest
           docker pull ${DOCKER_IMAGE}
           docker run \
           -e GH_TOKEN=${{ secrets.GITHUB_TOKEN }} \
@@ -32,4 +32,4 @@ jobs:
           -t \
           -v "$(pwd)":/repo \
           ${DOCKER_IMAGE} \
-          /bin/bash -c 'ls /usr/share/firmware'
+          /bin/bash -c 'dnf copr enable sharpenedblade/t2linux && dnf install -y linux-apfs-rw'
