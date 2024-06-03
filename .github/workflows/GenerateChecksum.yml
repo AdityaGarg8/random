@@ -16,6 +16,10 @@ jobs:
       - name: 'Checkout Repo'
         uses: actions/checkout@v4
 
+      - name: Webhook
+        uses: joelwmale/webhook-action@master
+        with:
+          url: ${{ secrets.COPR_WEBHOOK }}
       - name: Get kconfig
         run: |
           sudo apt update
