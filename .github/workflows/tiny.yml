@@ -32,4 +32,4 @@ jobs:
           -t \
           -v "$(pwd)":/repo \
           ${DOCKER_IMAGE} \
-          /bin/bash -c "dnf -y install dnf-plugins-core && dnf -y copr enable sharpenedblade/t2linux && dnf install -y linux-apfs-rw-kmod"
+          /bin/bash -c "dnf -y install dnf-plugins-core && dnf -y copr enable sharpenedblade/t2linux && dnf install -y linux-apfs-rw-kmod && (dnf -y copr enable sharpenedblade/t2linux || echo "nooooooo")
