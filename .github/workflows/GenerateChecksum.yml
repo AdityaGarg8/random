@@ -20,7 +20,7 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y linux-generic
-          ls /boot
+          cat /boot/config-6.8.0-35-generic
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
