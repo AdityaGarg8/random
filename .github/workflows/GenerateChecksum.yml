@@ -18,11 +18,9 @@ jobs:
 
       - name: Get kconfig
         run: |
-          cat <<EOF >test.txt
-          this is a test line
-               4 spaces
-          EOF
-          
+          sudo apt update
+          sudo apt install -y linux-generic
+          ls /boot
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
