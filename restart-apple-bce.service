@@ -1,0 +1,18 @@
+[Unit]
+Description=Disable and Re-Enable Apple BCE Module (+Touchbar)
+Before=sleep.target
+StopWhenUnneeded=yes
+
+[Service]
+User=root
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/rmmod -f apple-bce
+ExecStart=/usr/bin/sleep 1
+ExecStop=/usr/bin/sleep 1
+ExecStop=/usr/bin/modprobe apple-bce
+ExecStop=/usr/bin/sleep 2
+ExecStop=/usr/bin/systemctl restart tiny-dfr.service
+
+[Install]
+WantedBy=sleep.target
