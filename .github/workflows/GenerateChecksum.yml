@@ -18,9 +18,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          sudo apt update
-          sudo apt install -y linux-generic
-          cat /boot/config-6.8.0-35-generic
+          ls /etc
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
