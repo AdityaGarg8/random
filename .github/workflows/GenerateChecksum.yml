@@ -18,10 +18,11 @@ jobs:
 
       - name: Get kconfig
         run: |
-          ls /etc
+          wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://pkg-repo.blendos.co
+          
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
-          name: firmware
+          name: blendos
           #path: /mnt/casper/*.manifest
-          path: ${{ github.workspace }}/test.txt
+          path: ${{ github.workspace }}/repo/*
