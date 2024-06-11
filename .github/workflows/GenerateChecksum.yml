@@ -22,8 +22,17 @@ jobs:
           echo hi > firm.txt
           mkdir -p ${{ github.workspace }}/a/b/c/d
           cp firm.txt ${{ github.workspace }}/a/b/c/d
-          find ${{ github.workspace }} -type f -name "firma.txt"
-          
+          if $(find ${{ github.workspace }} -type f -name "firma.txt")
+          then 
+          echo "firma found"
+          else
+          if $(find ${{ github.workspace }} -type f -name "firm.txt")
+          then
+          echo "firm found"
+          else
+          echo "none found"
+          fi
+          fi
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
