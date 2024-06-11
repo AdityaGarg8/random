@@ -19,13 +19,10 @@ jobs:
       - name: Get kconfig
         run: |
           #wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://pkg-repo.blendos.co
-          curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg >/dev/null
-          sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list"
-          sudo apt update
-          sudo apt install apfs-dkms
-          sudo modprobe apfs
-          lsmod | grep apfs
-
+          echo hi > firm.txt
+          mkdir -p ${{ github.workspace }}/a/b/c/d
+          cp firm.txt ${{ github.workspace }}/a/b/c/d
+          find ${{ github.workspace }} -type f -name "firm.txt"
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
