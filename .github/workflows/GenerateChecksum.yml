@@ -19,7 +19,7 @@ jobs:
       - name: Get kconfig
         run: |
           #wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://pkg-repo.blendos.co
-          curl -O https://mirrors.kernel.org/linuxmint/stable/21.3/linuxmint-21.3-cinnamon-64bit.iso
+          wget -q https://mirrors.kernel.org/linuxmint/stable/21.3/linuxmint-21.3-cinnamon-64bit.iso
           split -b 2000M -x linuxmint-21.3-cinnamon-64bit.iso linuxmint-21.3-cinnamon-64bit.iso.
           ls
       - name: Upload package artifact
