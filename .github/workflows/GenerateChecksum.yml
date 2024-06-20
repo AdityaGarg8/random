@@ -19,10 +19,11 @@ jobs:
       - name: Get kconfig
         run: |
           #wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://pkg-repo.blendos.co
-          wget -q https://mirrors.kernel.org/linuxmint/stable/21.3/linuxmint-21.3-cinnamon-64bit.iso
-          mkdir -p work/test
-          split -b 2000M -x ${{ github.workspace }}/linuxmint-21.3-cinnamon-64bit.iso ${{ github.workspace }}/work/test/linuxmint-21.3-cinnamon-64bit.iso.
-          tree
+          wget -q https://github.com/AdityaGarg8/T2-UBUNTU-NEW/releases/download/v6.9.5-1/ubuntu-24.04-6.9.5-t2-noble.iso.00
+          wget -q https://github.com/AdityaGarg8/T2-UBUNTU-NEW/releases/download/v6.9.5-1/ubuntu-24.04-6.9.5-t2-noble.iso.01
+          cat ubuntu-24.04-6.9.5-t2-noble.iso.* > ubuntu-24.04-6.9.5-t2-noble.iso
+          sha256sum ubuntu-24.04-6.9.5-t2-noble.iso
+          ls
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
