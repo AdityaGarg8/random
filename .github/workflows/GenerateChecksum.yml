@@ -19,10 +19,20 @@ jobs:
       - name: Get kconfig
         run: |
           #wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://pkg-repo.blendos.co
+          git clone --depth 1 https://github.com/torvalds/linux
+          cd linux
           wget https://github.com/AdityaGarg8/linux/commit/174c3fbddab3cd578161a7d4783aec2bfb24d244.patch
+          wget https://raw.githubusercontent.com/t2linux/linux-t2-patches/main/2008-i915-4-lane-quirk-for-mbp15-1.patch
+          git apply *.patch
+          git config --global user.name "example example"
+          git config --global user.email "example@example.com"
+          rm *.patch
+          git add .
+          git commit -m "i915: 4 lane quirk for mbp15,1"
+          git format-patch -1 HEAD
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
           name: blendos
           #path: /mnt/casper/*.manifest
-          path: ${{ github.workspace }}/*patch
+          path: ${{ github.workspace }}/linux/*patch
