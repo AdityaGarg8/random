@@ -19,26 +19,10 @@ jobs:
       - name: Get kconfig
         run: |
           #wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://pkg-repo.blendos.co
-          git clone --depth 1 https://github.com/torvalds/linux
-          git clone https://github.com/t2linux/linux-t2-patches.git
-          cp ./linux-t2-patches/300* ./linux
-          cd linux
-          git config --global user.name "example example"
-          git config --global user.email "example@example.com"
-          git am 3001*
-          git am 3002*
-          git apply 3003*
-          wget https://github.com/AdityaGarg8/linux/commit/32bae77465c583dde16b3fbf1acba8854f7519f9.patch
-          git apply 32bae77465c583dde16b3fbf1acba8854f7519f9.patch
-          git commit -a -m "applesmc: switch to acpi_device (from platform)"
-          git am 3004*
-          git am 3005*
-          git am 3006*
-          git am 3007*
-          git am 3008*
-          git am 3009*
-          rm *.patch
-          git format-patch -9 HEAD
+          wget https://wiki.t2linux.org/tools/distro-metadata.json
+          cat distro-metadata.json
+          python3 update.py
+          cat distro-metadata.json
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
