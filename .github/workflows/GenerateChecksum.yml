@@ -48,7 +48,6 @@ jobs:
           tag: "latest"
           force_push_tag: true
       - name: Release
-        if: github.ref == 'refs/heads/Mainline'
         uses: softprops/action-gh-release@v2
         with:
           files: |
