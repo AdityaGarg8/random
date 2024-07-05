@@ -52,3 +52,8 @@ jobs:
           sudo python3 ${{ github.workspace }}/firmware/firmware.sh /tmp/apple-wifi-fw
           cp /tmp/apple-wifi-fw/firmware.tar ${{ github.workspace }}
           ls -l ${{ github.workspace }}
+      - uses: rickstaa/action-create-tag@v1
+        id: "tag_create"
+        with:
+          tag: "latest"
+          tag_exists_error: false
