@@ -16,9 +16,8 @@ jobs:
 
       - name: Get kconfig
         run: |
-          cd /usr/share/firmware
-          tar czvf ${{ github.workspace }}/firmware.tar.gz *
-          ls -l ${{ github.workspace }}
+          echo ${{ github.sha }}
+          echo ${{ github.workflow_sha }}
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
