@@ -46,4 +46,14 @@ jobs:
         id: "tag_create"
         with:
           tag: "latest"
-          tag_exists_error: false
+          force_push_tag: true
+      - name: Release
+        if: github.ref == 'refs/heads/Mainline'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ${{ github.workspace }}/kernel
+          tag_name: latest
+          draft: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
