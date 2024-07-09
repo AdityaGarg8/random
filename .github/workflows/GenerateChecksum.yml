@@ -1,59 +1,53 @@
 name: Generate md5 sums
 on: [push]
 jobs:
-  Publish:
-    runs-on: macos-12
+  Retrieve-Firmware:
+    runs-on: ubuntu-24.04
     steps:
       - name: Free up disk space for the CI
-        uses: AdityaGarg8/remove-unwanted-software@v1
+        uses: AdityaGarg8/remove-unwanted-software@v3
         with:
-          remove-android: 'false'
-          remove-dotnet: 'false'
-          remove-haskell: 'false'
+          remove-android: 'true'
+          remove-dotnet: 'true'
+          remove-haskell: 'true'
+          remove-codeql: 'true'
+          remove-docker-images: 'true'
 
       - name: 'Checkout Repo'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Get kconfig
         run: |
-          echo ${{ github.sha }}
-          echo ${{ github.workflow_sha }}
+          #wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://pkg-repo.blendos.co
+          DOCKER_IMAGE=debian:12
+          docker pull ${DOCKER_IMAGE}
+          docker run \
+          -t \
+          -v "$(pwd)":/repo \
+          ${DOCKER_IMAGE} \
+          /bin/bash -c 'cd /repo && \
+          apt-get update'
+          
+          DOCKER_IMAGE=debian:unstable
+          docker pull ${DOCKER_IMAGE}
+          docker run \
+          -t \
+          -v "$(pwd)":/repo \
+          ${DOCKER_IMAGE} \
+          /bin/bash -c 'cd /repo && \
+          apt-get update'
+          
+          DOCKER_IMAGE=debian:sid
+          docker pull ${DOCKER_IMAGE}
+          docker run \
+          -t \
+          -v "$(pwd)":/repo \
+          ${DOCKER_IMAGE} \
+          /bin/bash -c 'cd /repo && \
+          apt-get update'
       - name: Upload package artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
-          name: firmware
-          path: ${{ github.workspace }}/firmware.tar.gz
-  linux:
-    needs: [Publish]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Free up disk space for the CI
-        uses: AdityaGarg8/remove-unwanted-software@v1
-        with:
-          remove-android: 'false'
-          remove-dotnet: 'false'
-          remove-haskell: 'false'
-
-      - name: 'Checkout Repo'
-        uses: actions/checkout@v3
-
-      - name: Download package artifact
-        uses: actions/download-artifact@v3
-        with:
-          path: ${{ github.workspace }}
-
-      - uses: rickstaa/action-create-tag@v1
-        id: "tag_create"
-        with:
-          tag: "latest"
-          force_push_tag: true
-      - name: Release
-        if: github.ref == 'refs/heads/Mainline'
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            ${{ github.workspace }}/kernel
-          tag_name: latest
-          draft: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: blendos
+          #path: /mnt/casper/*.manifest
+          path: ${{ github.workspace }}/linux/*.patch
