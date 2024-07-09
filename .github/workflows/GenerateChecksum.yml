@@ -26,7 +26,7 @@ jobs:
           -v "$(pwd)":/repo \
           ${DOCKER_IMAGE} \
           /bin/bash -c 'cd /repo && \
-          apt-get update && apt install -y linux-image-amd64'
+          apt-get update && apt download linux-image-amd64 && sha256sum ./*.deb'
           
           DOCKER_IMAGE=debian:unstable
           docker pull ${DOCKER_IMAGE}
@@ -35,7 +35,7 @@ jobs:
           -v "$(pwd)":/repo \
           ${DOCKER_IMAGE} \
           /bin/bash -c 'cd /repo && \
-          apt-get update && apt install -y linux-image-amd64'
+          apt-get update && apt download linux-image-amd64 && sha256sum ./*.deb'
           
           DOCKER_IMAGE=debian:sid
           docker pull ${DOCKER_IMAGE}
@@ -44,7 +44,7 @@ jobs:
           -v "$(pwd)":/repo \
           ${DOCKER_IMAGE} \
           /bin/bash -c 'cd /repo && \
-          apt-get update && apt install -y linux-image-amd64'
+          apt-get update && apt download linux-image-amd64 && sha256sum ./*.deb'
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
