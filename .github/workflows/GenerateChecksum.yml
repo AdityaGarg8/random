@@ -35,7 +35,7 @@ jobs:
           -v "$(pwd)":/repo \
           ${DOCKER_IMAGE} \
           /bin/bash -c 'cd /repo && \
-          apt-get update && apt install -y lsb-release && lsb_release -a'
+          apt-get update && apt install -y lsb-release && lsb_release -c'
           
           DOCKER_IMAGE=debian:sid
           docker pull ${DOCKER_IMAGE}
@@ -44,7 +44,7 @@ jobs:
           -v "$(pwd)":/repo \
           ${DOCKER_IMAGE} \
           /bin/bash -c 'cd /repo && \
-          apt-get update && apt install -y lsb-release && lsb_release -a'
+          apt-get update && apt install -y lsb-release && lsb_release -c'
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
