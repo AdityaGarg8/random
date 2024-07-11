@@ -19,35 +19,14 @@ jobs:
       - name: Get kconfig
         run: |
           #wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://pkg-repo.blendos.co
-          DOCKER_IMAGE=debian:12
-          docker pull ${DOCKER_IMAGE}
-          docker run \
-          -t \
-          -v "$(pwd)":/repo \
-          ${DOCKER_IMAGE} \
-          /bin/bash -c 'cd /repo && \
-          apt-get update && apt download linux-image-amd64 && sha256sum ./*.deb && rm ./*.deb'
-          
-          DOCKER_IMAGE=debian:unstable
-          docker pull ${DOCKER_IMAGE}
-          docker run \
-          -t \
-          -v "$(pwd)":/repo \
-          ${DOCKER_IMAGE} \
-          /bin/bash -c 'cd /repo && \
-          apt-get update && apt install -y lsb-release && lsb_release -a'
-          
-          DOCKER_IMAGE=debian:sid
-          docker pull ${DOCKER_IMAGE}
-          docker run \
-          -t \
-          -v "$(pwd)":/repo \
-          ${DOCKER_IMAGE} \
-          /bin/bash -c 'cd /repo && \
-          apt-get update && apt install -y lsb-release && lsb_release -a'
+          wget https://kernel.ubuntu.com/mainline/v6.9.3/amd64/linux-headers-6.9.3-060903-generic_6.9.3-060903.202405300957_amd64.deb
+          wget https://kernel.ubuntu.com/mainline/v6.9.3/amd64/linux-headers-6.9.3-060903_6.9.3-060903.202405300957_all.deb
+          wget https://kernel.ubuntu.com/mainline/v6.9.3/amd64/linux-image-unsigned-6.9.3-060903-generic_6.9.3-060903.202405300957_amd64.deb
+          wget https://kernel.ubuntu.com/mainline/v6.9.3/amd64/linux-modules-6.9.3-060903-generic_6.9.3-060903.202405300957_amd64.deb
+          sudo apt install ./*.deb
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
-          name: blendos
-          #path: /mnt/casper/*.manifest
-          path: ${{ github.workspace }}/linux/*.patch
+          name: config
+          path: /boot/config*
+          #path: ${{ github.workspace }}/linux/*.patch
