@@ -22,7 +22,8 @@ jobs:
           git clone --depth 1 https://github.com/torvalds/linux
           cd linux/drivers/staging
           git clone https://github.com/t2linux/apple-bce-drv.git
-          sudo mv -r apple-bce-drv apple-bce
+          cp -r apple-bce-drv apple-bce
+          sudo rm -r apple-bce-drv
           cd apple-bce
           sudo rm -r .git
           sudo rm .gitignore
