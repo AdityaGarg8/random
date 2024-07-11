@@ -19,14 +19,22 @@ jobs:
       - name: Get kconfig
         run: |
           #wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://pkg-repo.blendos.co
-          wget https://kernel.ubuntu.com/mainline/v6.9.3/amd64/linux-headers-6.9.3-060903-generic_6.9.3-060903.202405300957_amd64.deb
-          wget https://kernel.ubuntu.com/mainline/v6.9.3/amd64/linux-headers-6.9.3-060903_6.9.3-060903.202405300957_all.deb
-          wget https://kernel.ubuntu.com/mainline/v6.9.3/amd64/linux-image-unsigned-6.9.3-060903-generic_6.9.3-060903.202405300957_amd64.deb
-          wget https://kernel.ubuntu.com/mainline/v6.9.3/amd64/linux-modules-6.9.3-060903-generic_6.9.3-060903.202405300957_amd64.deb
-          sudo apt install ./*.deb
+          git clone --depth 1 https://github.com/torvalds/linux
+          cd linux/drivers/staging
+          git clone https://github.com/t2linux/apple-bce-drv.git ./apple-bce
+          cd apple-bce
+          sudo rm -r .git
+          sudo rm .gitignore
+          sudo rm README.md
+          cd ${{ github.workspace }}/linux
+          git config --global user.name "FIRST_NAME LAST_NAME"
+          git config --global user.email "MY_NAME@example.com"
+          git add .
+          git commit -m Add apple-bce driver
+          git format-patch -1 HEAD
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
           name: config
-          path: /boot/config*
-          #path: ${{ github.workspace }}/linux/*.patch
+          #path: /boot/config*
+          path: ${{ github.workspace }}/linux/*.patch
