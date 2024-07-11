@@ -19,21 +19,32 @@ jobs:
       - name: Get kconfig
         run: |
           #wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://pkg-repo.blendos.co
-          git clone --depth 1 https://github.com/torvalds/linux
-          cd linux/drivers/staging
-          git clone https://github.com/t2linux/apple-bce-drv.git
-          cp -r apple-bce-drv apple-bce
-          sudo rm -r apple-bce-drv
-          cd apple-bce
-          sudo rm -r .git
-          sudo rm .gitignore
-          sudo rm README.md
-          cd ${{ github.workspace }}/linux
-          git config --global user.name "FIRST_NAME LAST_NAME"
-          git config --global user.email "MY_NAME@example.com"
-          git add .
-          git commit -m "Add apple-bce driver"
-          git format-patch -1 HEAD
+          DOCKER_IMAGE=ubuntu:24.04
+          docker pull ${DOCKER_IMAGE}
+          docker run \
+          -t \
+          -v "$(pwd)":/repo \
+          ${DOCKER_IMAGE} \
+          /bin/bash -c 'cd /repo && \
+          which modprobe && which rmmod'
+          
+          DOCKER_IMAGE=debian:unstable
+          docker pull ${DOCKER_IMAGE}
+          docker run \
+          -t \
+          -v "$(pwd)":/repo \
+          ${DOCKER_IMAGE} \
+          /bin/bash -c 'cd /repo && \
+          which modprobe && which rmmod'
+          
+          DOCKER_IMAGE=debian:sid
+          docker pull ${DOCKER_IMAGE}
+          docker run \
+          -t \
+          -v "$(pwd)":/repo \
+          ${DOCKER_IMAGE} \
+          /bin/bash -c 'cd /repo && \
+          which modprobe && which rmmod'
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
