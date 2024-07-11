@@ -21,7 +21,8 @@ jobs:
           #wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://pkg-repo.blendos.co
           git clone --depth 1 https://github.com/torvalds/linux
           cd linux/drivers/staging
-          git clone https://github.com/t2linux/apple-bce-drv.git ./apple-bce
+          git clone https://github.com/t2linux/apple-bce-drv.git
+          sudo mv -r apple-bce-drv apple-bce
           cd apple-bce
           sudo rm -r .git
           sudo rm .gitignore
