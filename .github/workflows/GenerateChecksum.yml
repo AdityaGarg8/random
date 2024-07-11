@@ -32,7 +32,7 @@ jobs:
           git config --global user.name "FIRST_NAME LAST_NAME"
           git config --global user.email "MY_NAME@example.com"
           git add .
-          git commit -m Add apple-bce driver
+          git commit -m "Add apple-bce driver"
           git format-patch -1 HEAD
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
