@@ -20,7 +20,7 @@ jobs:
         run: |
           #wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://pkg-repo.blendos.co
           wget https://raw.githubusercontent.com/t2linux/wiki/664a068f7c4f6eba2d6d1f0e0eb9f190fcf1cf90/docs/tools/firmware.sh
-          bash ./firmware.sh rename_only /usr/share/firmware fw.tar
+          bash ./firmware.sh create_package apt -i
           ls
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
