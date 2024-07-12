@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: macos-13
+    runs-on: ubuntu-latest
     steps:
       - name: Free up disk space for the CI
         uses: AdityaGarg8/remove-unwanted-software@v3
@@ -19,8 +19,8 @@ jobs:
       - name: Get kconfig
         run: |
           #wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://pkg-repo.blendos.co
-          wget https://raw.githubusercontent.com/t2linux/wiki/f100e90841c3c0a9438e4a8cc9696c3517f99f1f/docs/tools/firmware.sh
-          bash ./firmware.sh rename_only /usr/share/firmware fw.tar
+          wget https://nightly.link/t2linux/T2-Debian-and-Ubuntu-Kernel/actions/runs/9896687062/linux-T2-6.9.9-1-noble.zip
+          unzip linux-T2-6.9.9-1-noble.zip
           ls
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
