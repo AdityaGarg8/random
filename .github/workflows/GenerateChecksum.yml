@@ -19,10 +19,9 @@ jobs:
       - name: Get kconfig
         run: |
           #wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://pkg-repo.blendos.co
-          wget https://nightly.link/t2linux/T2-Debian-and-Ubuntu-Kernel/actions/runs/9896687062/linux-T2-6.9.9-1-noble.zip
-          unzip linux-T2-6.9.9-1-noble.zip
-          ls
-          cat kernel_config_6.9.9-noble
+          wget https://mirrors.kernel.org/linuxmint/testing/linuxmint-22-cinnamon-64bit-beta.iso
+          sudo mount linuxmint-22-cinnamon-64bit-beta.iso /mnt
+          sudo tree /mnt
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
