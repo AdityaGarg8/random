@@ -23,14 +23,15 @@ jobs:
       - name: Get kconfig
         run: |
           #wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://pkg-repo.blendos.co
-          wget https://github.com/t2linux/T2-Debian-and-Ubuntu-Kernel/releases/download/v6.9.9-1/linux-headers-6.9.9-1-t2-jammy_6.9.9-1_amd64.deb
-          wget https://github.com/t2linux/T2-Debian-and-Ubuntu-Kernel/releases/download/v6.9.9-1/linux-image-6.9.9-1-t2-jammy_6.9.9-1_amd64.deb
+          curl -L -O https://github.com/t2linux/T2-Debian-and-Ubuntu-Kernel/releases/download/v6.9.9-1/linux-headers-6.9.9-1-t2-jammy_6.9.9-1_amd64.deb
+          curl -L -O https://github.com/t2linux/T2-Debian-and-Ubuntu-Kernel/releases/download/v6.9.9-1/linux-image-6.9.9-1-t2-jammy_6.9.9-1_amd64.deb
           sudo apt install ./*.deb
           sudo apt update
           sudo apt install dkms -y
           git clone -b dfr https://github.com/AdityaGarg8/apple-touchbar-drv.git
           cd apple-touchbar-drv/usr/src/apple-touchbar-advanced-0.1
           make KVERSION=6.9.9-1-t2-jammy
+          make clean KVERSION=6.9.9-1-t2-jammy
           cd -
           sudo cp -r apple-touchbar-drv/usr/src/apple-touchbar-advanced-0.1 /usr/src
           sudo dkms install -m apple-touchbar-advanced -v 0.1 -k 6.9.9-1-t2-jammy
