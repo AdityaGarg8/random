@@ -21,7 +21,7 @@ jobs:
           #wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://pkg-repo.blendos.co
           sudo swapoff -a
           sudo rm -f /mnt/swapfile
-          free -h
+          #free -h
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
