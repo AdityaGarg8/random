@@ -27,6 +27,8 @@ jobs:
           git clone https://github.com/t2linux/linux-t2-patches.git
           cp ./linux-t2-patches/*.patch ./linux
           cd linux
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
           git am *.patch
           mkdir patches
           cp ./drivers/hid/hid-appletb-bl.c ./patches
