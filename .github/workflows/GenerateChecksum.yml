@@ -7,15 +7,15 @@ jobs:
       - name: Free up disk space for the CI
         uses: AdityaGarg8/remove-unwanted-software@v4
         with:
-          remove-android: 'true'
-          remove-dotnet: 'true'
-          remove-haskell: 'true'
-          remove-codeql: 'true'
-          remove-docker-images: 'true'
-          remove-large-packages: 'true'
-          remove-cached-tools: 'true'
-          remove-swapfile: 'true'
-          verbose: 'true'
+          remove-android: 'false'
+          remove-dotnet: 'false'
+          remove-haskell: 'false'
+          remove-codeql: 'false'
+          remove-docker-images: 'false'
+          remove-large-packages: 'false'
+          remove-cached-tools: 'false'
+          remove-swapfile: 'false'
+          verbose: 'false'
 
       - name: 'Checkout Repo'
         uses: actions/checkout@v4
@@ -23,12 +23,20 @@ jobs:
       - name: Get kconfig
         run: |
           #wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://pkg-repo.blendos.co
-          sudo swapoff -a -v
-          sudo rm -f /mnt/swapfile
-          #free -h
+          git clone --depth 1 https://github.com/torvalds/linux.git
+          git clone https://github.com/t2linux/linux-t2-patches.git
+          cp ./linux-t2-patches/*.patch ./linux
+          cd linux
+          git am *.patch
+          mkdir patches
+          cp ./drivers/hid/hid-appletb-bl.c ./patches
+          cp ./drivers/hid/hid-appletb-kbd.c ./patches
+          cp ./drivers/hid/hid-ids.h ./patches
+          cp ./drivers/hid/hid-multitouch.c ./patches
+          cp ./drivers/gpu/drm/tiny/appletbdrm.c ./patches
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
           name: config
           #path: /boot/config*
-          path: ${{ github.workspace }}/linux/*.patch
+          path: ${{ github.workspace }}/linux/patches
