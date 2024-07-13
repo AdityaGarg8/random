@@ -23,19 +23,17 @@ jobs:
       - name: Get kconfig
         run: |
           #wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://pkg-repo.blendos.co
-          git clone --depth 1 https://github.com/torvalds/linux.git
-          git clone https://github.com/t2linux/linux-t2-patches.git
-          cp ./linux-t2-patches/*.patch ./linux
-          cd linux
-          git config --global user.email "you@example.com"
-          git config --global user.name "Your Name"
-          git am *.patch
-          mkdir patches
-          cp ./drivers/hid/hid-appletb-bl.c ./patches
-          cp ./drivers/hid/hid-appletb-kbd.c ./patches
-          cp ./drivers/hid/hid-ids.h ./patches
-          cp ./drivers/hid/hid-multitouch.c ./patches
-          cp ./drivers/gpu/drm/tiny/appletbdrm.c ./patches
+          wget https://github.com/t2linux/T2-Debian-and-Ubuntu-Kernel/releases/download/v6.9.9-1/linux-headers-6.9.9-1-t2-jammy_6.9.9-1_amd64.deb
+          wget https://github.com/t2linux/T2-Debian-and-Ubuntu-Kernel/releases/download/v6.9.9-1/linux-image-6.9.9-1-t2-jammy_6.9.9-1_amd64.deb
+          sudo apt install ./*.deb
+          sudo apt update
+          sudo apt install dkms -y
+          git clone -b dfr https://github.com/AdityaGarg8/apple-touchbar-drv.git
+          cd apple-touchbar-drv/usr/src/apple-touchbar-advanced-0.1
+          make KVERSION=6.9.9-1-t2-jammy
+          cd -
+          sudo cp -r apple-touchbar-drv/usr/src/apple-touchbar-advanced-0.1 /usr/src
+          sudo dkms install -m apple-touchbar-advanced -v 0.1 -k 6.9.9-1-t2-jammy
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
