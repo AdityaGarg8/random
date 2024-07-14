@@ -14,7 +14,7 @@ PM_REMOVE="null"
 if apt --help >/dev/null 2>&1; then
     echo "Debian-based OS are not supported!"
     echo "Please use 'sudo touchbar --switch' instead."
-    exit 1
+#    exit 1
 elif dnf >/dev/null 2>&1; then
     echo "Fedora-based OS are not supported!"
     exit 1
@@ -46,7 +46,7 @@ if [[ "$1" == "--old" ]]; then
     echo "Switching to old driver..."
 
     # Removing tiny-dfr
-    $PM_REMOVE tiny-dfr
+#    $PM_REMOVE tiny-dfr
 
     # Blacklisting new driver
     echo "Blacklisting new touchbar driver..."
