@@ -5,16 +5,17 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Free up disk space for the CI
+        if: false
         uses: AdityaGarg8/remove-unwanted-software@v4
         with:
-          remove-android: 'false'
-          remove-dotnet: 'false'
-          remove-haskell: 'false'
-          remove-codeql: 'false'
-          remove-docker-images: 'false'
-          remove-large-packages: 'false'
-          remove-cached-tools: 'false'
-          remove-swapfile: 'false'
+          remove-android: 'true'
+          remove-dotnet: 'true'
+          remove-haskell: 'true'
+          remove-codeql: 'true'
+          remove-docker-images: 'true'
+          remove-large-packages: 'true'
+          remove-cached-tools: 'true'
+          remove-swapfile: 'true'
           verbose: 'false'
 
       - name: 'Checkout Repo'
