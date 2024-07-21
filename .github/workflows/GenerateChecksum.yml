@@ -22,12 +22,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Get kconfig
+        shell: cmd
         run: |
           #wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://pkg-repo.blendos.co
           curl -L -O https://github.com/t2linux/T2-Ubuntu/releases/download/v6.9.7-4/kubuntu-22.04-6.9.7-t2-jammy.iso.00
           curl -L -O https://github.com/t2linux/T2-Ubuntu/releases/download/v6.9.7-4/kubuntu-22.04-6.9.7-t2-jammy.iso.01
           copy /b kubuntu-22.04-6.9.7-t2-jammy.iso.00 + kubuntu-22.04-6.9.7-t2-jammy.iso.01 kubuntu-22.04-6.9.7-t2-jammy.iso
-          Get-FileHash kubuntu-22.04-6.9.7-t2-jammy.iso -Algorithm SHA256
+          certutil -hashfile kubuntu-22.04-6.9.7-t2-jammy.iso SHA256
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
