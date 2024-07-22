@@ -1,0 +1,9 @@
+[Unit]
+Description=Fix for wifi
+
+[Service]
+User=root
+ExecStart=/bin/bash -c 'modprobe -r hci_bcm4377; modprobe -r brcmfmac_wcc; modprobe -r brcmfmac && modprobe brcmfmac'
+
+[Install]
+WantedBy=multi-user.target
