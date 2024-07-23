@@ -26,6 +26,7 @@ jobs:
 
          :: Display the version number
          echo Latest Release Version: %version%
+         echo var2: %var2%
          echo latest kver: %latestkver%
 
          :: Clean up the temporary file
