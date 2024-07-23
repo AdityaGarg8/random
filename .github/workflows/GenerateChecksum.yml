@@ -21,7 +21,7 @@ jobs:
 
          :: Extract the version number from the line
          for /f "tokens=2 delims= " %%i in ("%var1%") do set "version=%%i"
-         for /f "tokens=2 delims=v" %%i in ("%version%") do set "var2=%%i"
+         for /f "tokens=1 delims=v" %%i in ("%version%") do set "var2=%%i"
          for /f "tokens=1 delims=-" %%i in ("%var2%") do set "latestkver=%%i"
 
          :: Display the version number
