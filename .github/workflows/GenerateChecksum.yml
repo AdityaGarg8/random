@@ -16,6 +16,7 @@ jobs:
 
       - name: Get kconfig
         run: |
+          dh -f
           echo ${{ github.sha }}
           echo ${{ github.workflow_sha }}
       - name: Upload package artifact
