@@ -17,13 +17,16 @@ jobs:
          curl -sL https://github.com/t2linux/T2-Ubuntu/releases/latest > temp.html
 
          :: Extract the line containing the release title
-         for /f "tokens=*" %%i in ('findstr /c:"<title>Release" temp.html') do set "line=%%i"
+         for /f "tokens=*" %%i in ('findstr /c:"<title>Release" temp.html') do set "var1=%%i"
 
          :: Extract the version number from the line
-         for /f "tokens=2 delims= " %%i in ("%line%") do set "version=%%i"
+         for /f "tokens=2 delims= " %%i in ("%var1%") do set "version=%%i"
+         for /f "tokens=2 delims=v" %%i in ("%version%") do set var2=%%i
+         for /f "tokens=1 delims=-" %%i in ("%var2%") do set latestkver=%%i
 
          :: Display the version number
          echo Latest Release Version: %version%
+         echo latest kver: %latestkver
 
          :: Clean up the temporary file
          del temp.html
