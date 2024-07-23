@@ -16,44 +16,11 @@ jobs:
 
       - name: Get kconfig
         run: |
-          df -h
-          echo ${{ github.sha }}
-          echo ${{ github.workflow_sha }}
+          brew install coreutils
+          curl -L -O https://github.com/AdityaGarg8/Microsoft-ISO-Archive/releases/download/2003/de_office_2003_pro.iso
+          sha256sum ./*.iso
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
           name: firmware
           path: ${{ github.workspace }}/firmware.tar.gz
-  linux:
-    needs: [Publish]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Free up disk space for the CI
-        uses: AdityaGarg8/remove-unwanted-software@v1
-        with:
-          remove-android: 'false'
-          remove-dotnet: 'false'
-          remove-haskell: 'false'
-
-      - name: 'Checkout Repo'
-        uses: actions/checkout@v3
-
-      - name: Download package artifact
-        uses: actions/download-artifact@v3
-        with:
-          path: ${{ github.workspace }}
-
-      - uses: rickstaa/action-create-tag@v1
-        id: "tag_create"
-        with:
-          tag: "latest"
-          force_push_tag: true
-      - name: Release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            ${{ github.workspace }}/kernel
-          tag_name: latest
-          draft: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
