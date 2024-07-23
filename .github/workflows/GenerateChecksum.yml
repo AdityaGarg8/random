@@ -2,15 +2,28 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Publish:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: 'Checkout Repo'
         uses: actions/checkout@v2
 
       - name: Get the kernel upgrade script
+        shell: cmd
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         id: publish
         run: |
-         wget https://nightly.link/t2linux/T2-Ubuntu/actions/runs/9766080056/mbp-ubuntu-.z01.zip
-         unzip mbp-ubuntu-.z01.zip
+         :: Fetch the latest release page
+         curl -sL https://github.com/t2linux/T2-Ubuntu/releases/latest > temp.html
+
+         :: Extract the line containing the release title
+         for /f "tokens=*" %%i in ('findstr /c:"<title>Release" temp.html') do set "line=%%i"
+
+         :: Extract the version number from the line
+         for /f "tokens=2 delims= " %%i in ("%line%") do set "version=%%i"
+
+         :: Display the version number
+         echo Latest Release Version: %version%
+
+         :: Clean up the temporary file
+         del temp.html
