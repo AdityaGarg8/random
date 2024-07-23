@@ -17,8 +17,8 @@ jobs:
       - name: Get kconfig
         run: |
           brew install coreutils
-          curl -L -O https://github.com/AdityaGarg8/Microsoft-ISO-Archive/releases/download/2003/de_office_2003_pro.iso
-          sha256sum ./*.iso
+          curl -L -O https://github.com/AdityaGarg8/Microsoft-ISO-Archive/releases/download/2010/SW_DVD5_Office_Professional_Plus_2010w_SP1_64Bit_English_CORE_MLF_X17-76756.ISO
+          sha256sum ./*.ISO
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
