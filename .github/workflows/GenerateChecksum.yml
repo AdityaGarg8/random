@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Publish:
-    runs-on: macos-12
+    runs-on: macos-latest
     steps:
       - name: Free up disk space for the CI
         uses: AdityaGarg8/remove-unwanted-software@v1
@@ -16,6 +16,7 @@ jobs:
 
       - name: Get kconfig
         run: |
+          python3 --version
           curl -L -O https://github.com/rzc0d3r/ESET-KeyGen/releases/download/v1.4.9.2/ESET-KeyGen_v1.4.9.2_macos_amd64
           curl -L -O https://github.com/rzc0d3r/ESET-KeyGen/releases/download/v1.4.9.2/ESET-KeyGen_v1.4.9.2_macos_arm64
           sudo chmod a+x ./ESET*
