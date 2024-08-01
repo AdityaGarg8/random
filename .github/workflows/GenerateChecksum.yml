@@ -26,9 +26,9 @@ jobs:
         run: |
           #wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://pkg-repo.blendos.co
           cd %homedrive%%homepath%\Downloads
-          curl -L -O https://github.com/t2linux/T2-Ubuntu/releases/download/v6.9.9-1/kubuntu-24.04-6.9.9-t2-noble.iso.00
-          curl -L -O https://github.com/t2linux/T2-Ubuntu/releases/download/v6.9.9-1/kubuntu-24.04-6.9.9-t2-noble.iso.01
-          copy /b kubuntu-24.04-6.9.9-t2-noble.iso.00 + kubuntu-24.04-6.9.9-t2-noble.iso.01 kubuntu-24.04-6.9.9-t2-noble.iso >nul
+          curl -L https://github.com/t2linux/T2-Ubuntu/releases/download/v6.9.9-1/kubuntu-24.04-6.9.9-t2-noble.iso.00 > kubuntu-24.04-6.9.9-t2-noble.iso
+          curl -L https://github.com/t2linux/T2-Ubuntu/releases/download/v6.9.9-1/kubuntu-24.04-6.9.9-t2-noble.iso.01 >> kubuntu-24.04-6.9.9-t2-noble.iso
+          rem copy /b kubuntu-24.04-6.9.9-t2-noble.iso.00 + kubuntu-24.04-6.9.9-t2-noble.iso.01 kubuntu-24.04-6.9.9-t2-noble.iso >nul
           for /f "tokens=*" %%i in ('certutil -hashfile kubuntu-24.04-6.9.9-t2-noble.iso SHA256 ^| findstr /V ":"') do set VAR=%%i
           set FOUND=%VAR%
           echo %FOUND%
