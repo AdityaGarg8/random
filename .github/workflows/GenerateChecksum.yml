@@ -16,10 +16,12 @@ jobs:
 
       - name: Get kconfig
         run: |
-          curl -#L https://github.com/t2linux/T2-Ubuntu/releases/download/v6.9.9-1/kubuntu-24.04-6.9.9-t2-noble.iso.00 > iso.iso
-          echo retry
-          curl -#L https://github.com/t2linux/T2-Ubuntu/releases/download/v6.9.9-1/kubuntu-24.04-6.9.9-t2-noble.iso.01 >> iso.iso
-          sha256sum iso.iso
+          CODENAME=noble
+          curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg >/dev/null
+          sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list"
+          echo "deb [signed-by=/etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg] https://github.com/AdityaGarg8/t2-ubuntu-repo/releases/download/${CODENAME} ./" | sudo tee -a /etc/apt/sources.list.d/t2.list
+          sudo apt update
+          sudo apt install apple-touchbar
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
