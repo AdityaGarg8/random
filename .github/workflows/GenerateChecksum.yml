@@ -32,4 +32,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: firmware
-          path: ${{ github.workspace }}/firmware.tar.gz
+          path: ${{ github.workspace }}/tiny-dfr_0.3.1-2_amd64.deb
