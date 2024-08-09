@@ -26,7 +26,7 @@ jobs:
           apt-get update && \
           apt-get install -y tiny-dfr && \
           apt download tiny-dfr'
-          sudo apt install ./tiny-dfr.deb
+          sudo apt install ./tiny-dfr_0.3.1-2_amd64.deb
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
