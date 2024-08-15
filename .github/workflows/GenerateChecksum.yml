@@ -16,9 +16,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget https://github.com/archlinux/linux/archive/refs/tags/v6.10.2-arch1.tar.gz
-          wget https://github.com/archlinux/linux/archive/refs/tags/v6.10.3-arch1.tar.gz
-          sha256sum ./*.tar.gz
+          wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://mirror.funami.tech/arch-mact2/os/x86_64
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
