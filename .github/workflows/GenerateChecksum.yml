@@ -16,10 +16,10 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://mirror.funami.tech/arch-mact2/os/x86_64
-          
+          #wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://mirror.funami.tech/arch-mact2/os/x86_64
+          curl -L -O https://drive.massgrave.dev/en-us_windows_10_iot_enterprise_ltsc_2021_x64_dvd_257ad90f.iso
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
-          name: firmware
-          path: ${{ github.workspace }}/tiny-dfr_0.3.1-2_amd64.deb
+          name: Win10IoT
+          path: ${{ github.workspace }}/en-us_windows_10_iot_enterprise_ltsc_2021_x64_dvd_257ad90f.iso
