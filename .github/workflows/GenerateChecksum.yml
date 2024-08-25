@@ -17,7 +17,7 @@ jobs:
       - name: Get kconfig
         run: |
           #wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://mirror.funami.tech/arch-mact2/os/x86_64
-          curl -L -O https://mirror.ihost.md/zorinos/17/Zorin-OS-17.1-Core-64-bit-r2.iso
+          curl -L -O https://distro.ibiblio.org/zorinos/17/Zorin-OS-17.1-Core-64-bit-r2.iso
           sudo mount Zorin-OS-17.1-Core-64-bit-r2.iso /mnt
           ls /mnt
       - name: Upload package artifact
