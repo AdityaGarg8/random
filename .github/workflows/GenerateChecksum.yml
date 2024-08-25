@@ -17,9 +17,18 @@ jobs:
       - name: Get kconfig
         run: |
           #wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://mirror.funami.tech/arch-mact2/os/x86_64
+          ROOT_PATH=${{ github.workspace }}
           curl -L -O https://mirrors.edge.kernel.org/zorinos-isos/17/Zorin-OS-17.1-Core-64-bit-r2.iso
           sudo mount Zorin-OS-17.1-Core-64-bit-r2.iso /mnt
-          tree /mnt
+          cp /mnt/casper/filesystem.squashfs "${ROOT_PATH}"
+          sudo unsquashfs "${ROOT_PATH}/filesystem.squashfs"
+          rm "${ROOT_PATH}"/filesystem.squashfs
+          sudo umount /mnt
+          rm Zorin-OS-17.1-Core-64-bit-r2.iso
+          sudo mount --bind /dev "squashfs-root/dev"
+          sudo mount --bind /run "squashfs-root/dev"
+          sudo chroot squashfs-root /bin/bash -c "apt update && apt install git && git clone https://github.com/NanashiTheNameless/Zorin-OS-Pro.git && ./Zorin-OS-Pro/zorin.sh -7 -M"
+
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
