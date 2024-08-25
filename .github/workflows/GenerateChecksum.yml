@@ -40,7 +40,7 @@ jobs:
           rm Zorin-OS-17.1-Core-64-bit-r2.iso
           sudo mount --bind /dev "squashfs-root/dev"
           sudo mount --bind /run "squashfs-root/run"
-          sudo chroot squashfs-root /bin/bash -c "ls /etc/apt/sources.list.d"
+          sudo chroot squashfs-root /bin/bash -c "cat /etc/apt/sources.list.d/zorin.list"
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
