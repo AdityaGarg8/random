@@ -31,7 +31,7 @@ jobs:
             isolinux \
             syslinux \
             wget
-          curl -L -O https://zrn.co/17core64
+          curl -L https://zrn.co/17core64 -o Zorin-OS-17.1-Core-64-bit-r2.iso
           sudo mount Zorin-OS-17.1-Core-64-bit-r2.iso /mnt
           cp /mnt/casper/filesystem.squashfs "${ROOT_PATH}"
           sudo unsquashfs "${ROOT_PATH}/filesystem.squashfs"
