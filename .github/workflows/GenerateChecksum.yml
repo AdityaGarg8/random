@@ -16,33 +16,8 @@ jobs:
 
       - name: Get kconfig
         run: |
-          #wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://mirror.funami.tech/arch-mact2/os/x86_64
           curl -sL https://kernel.org/ | grep "latest_button" -A 1 | awk "NR==2" | cut -d "/" -f 8 | cut -d "\"" -f 1 | cut -d "-" -f 2 | rev | cut -c 8- | rev
-          ROOT_PATH=${{ github.workspace }}
-          sudo apt-get install -y -qq -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" \
-            binutils \
-            debootstrap \
-            squashfs-tools \
-            xorriso \
-            grub-pc-bin \
-            grub-efi-amd64-bin \
-            mtools \
-            dosfstools \
-            zip \
-            isolinux \
-            syslinux \
-            wget
-          curl -L -O https://distro.ibiblio.org/zorinos/17/Zorin-OS-17.1-Core-64-bit-r2.iso
-          sudo mount Zorin-OS-17.1-Core-64-bit-r2.iso /mnt
-          cp /mnt/casper/filesystem.squashfs "${ROOT_PATH}"
-          sudo unsquashfs "${ROOT_PATH}/filesystem.squashfs"
-          rm "${ROOT_PATH}"/filesystem.squashfs
-          sudo umount /mnt
-          rm Zorin-OS-17.1-Core-64-bit-r2.iso
-          sudo mount --bind /dev "squashfs-root/dev"
-          sudo mount --bind /run "squashfs-root/run"
-          sudo chroot squashfs-root /bin/bash -c "apt update && apt list --installed | grep linux && apt install git -y && git clone https://github.com/AdityaGarg8/Zorin-OS-Pro.git && ./Zorin-OS-Pro/zorin.sh -7 -M"
-
+          
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
