@@ -20,7 +20,7 @@ jobs:
           dpkg-deb -R ./*.deb init
           ls ./init/DEBIAN
           cat ./init/DEBIAN/postinst
-          cat ./init/DEBIAN/preinit
+          cat ./init/DEBIAN/preinst
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
