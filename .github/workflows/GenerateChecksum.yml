@@ -16,8 +16,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          latestupstream=$(curl -A "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/81.0" -sL https://xanmod.org/ | grep -A2 "Stable Mainline" | grep xanmod | cut -d '=' -f 8 | cut -d '-' -f 1)
-          echo "latestupstream: ${latestupstream}"
+          locales
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
