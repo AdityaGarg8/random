@@ -19,6 +19,8 @@ jobs:
           apt download initramfs-tools
           dpkg-deb -R ./*.deb init
           ls ./init/DEBIAN
+          cat ./init/DEBIAN/postinst
+          cat ./init/DEBIAN/preinit
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
