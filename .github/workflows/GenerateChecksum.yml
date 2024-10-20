@@ -21,6 +21,7 @@ jobs:
           ls ./init/DEBIAN
           cat ./init/DEBIAN/postinst
           cat ./init/DEBIAN/preinst
+          cat ./init/DEBIAN/triggers
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
