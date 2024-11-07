@@ -16,15 +16,14 @@ jobs:
 
       - name: Get kconfig
         run: |
-          apt download initramfs-tools
-          dpkg-deb -R ./*.deb init
-          ls ./init/DEBIAN
-          cat ./init/DEBIAN/postinst
-          cat ./init/DEBIAN/preinst
-          cat ./init/DEBIAN/triggers
+          git clone -b test https://github.com/lemmyg/t2-kubuntu.git
+          curl -L https://cdimage.ubuntu.com/kubuntu/releases/24.04.1/release/kubuntu-24.04.1-desktop-amd64.iso
+          export ISO_IMAGE=${{ github.workspace }}/kubuntu-24.04.1-desktop-amd64.iso
+          cd t2-kubuntu
+          bash ./build.sh
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Win10IoT
-          path: ${{ github.workspace }}/en-us_windows_10_iot_enterprise_ltsc_2021_x64_dvd_257ad90f.iso
+          name: Kubuntu
+          path: /root/work/output/*.iso
