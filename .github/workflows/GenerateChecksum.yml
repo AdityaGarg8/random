@@ -17,11 +17,11 @@ jobs:
       - name: Get kconfig
         run: |
           git clone -b test https://github.com/lemmyg/t2-kubuntu.git
-          curl -O https://cdimage.ubuntu.com/kubuntu/releases/24.04.1/release/kubuntu-24.04.1-desktop-amd64.iso
-          export ISO_IMAGE=${{ github.workspace }}/kubuntu-24.04.1-desktop-amd64.iso
+          curl -O https://cdimage.ubuntu.com/kubuntu/releases/24.10/release/kubuntu-24.10-desktop-amd64.iso
+          export ISO_IMAGE=${{ github.workspace }}/kubuntu-24.10-desktop-amd64.iso
           cd t2-kubuntu
           sudo chmod a+x ./build.sh
-          sudo bash -c "ISO_IMAGE=${{ github.workspace }}/kubuntu-24.04.1-desktop-amd64.iso ${{ github.workspace }}/t2-kubuntu/build.sh"
+          sudo bash -c "ISO_IMAGE=${{ github.workspace }}/kubuntu-24.10-desktop-amd64.iso ${{ github.workspace }}/t2-kubuntu/build.sh"
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
