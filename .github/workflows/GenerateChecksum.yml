@@ -17,9 +17,10 @@ jobs:
       - name: Get kconfig
         run: |
           git clone -b test https://github.com/lemmyg/t2-kubuntu.git
-          curl -O https://cdimage.ubuntu.com/kubuntu/releases/24.10/release/kubuntu-24.10-desktop-amd64.iso
-          sed -i "s/ISO_IMAGE=\/home\/lemmyg\/Downloads\/kubuntu-24.10-desktop-amd64.iso/ISO_IMAGE=${{ github.workspace }}\/kubuntu-24.10-desktop-amd64.iso/g" ./t2-kubuntu/build_in_docker.sh
-          cd t2-kubuntu
+          sudo mkdir -p /home/lemmyg/Downloads
+          cd /home/lemmyg/Downloads
+          sudo curl -O https://cdimage.ubuntu.com/kubuntu/releases/24.10/release/kubuntu-24.10-desktop-amd64.iso
+          cd ${{ github.workspace }}/t2-kubuntu
           sudo chmod a+x ./build_in_docker.sh
           sudo ./build_in_docker.sh
           
