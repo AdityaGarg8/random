@@ -17,7 +17,7 @@ jobs:
       - name: Get kconfig
         run: |
           git clone -b test https://github.com/lemmyg/t2-kubuntu.git
-          curl -L https://cdimage.ubuntu.com/kubuntu/releases/24.04.1/release/kubuntu-24.04.1-desktop-amd64.iso
+          curl -O https://cdimage.ubuntu.com/kubuntu/releases/24.04.1/release/kubuntu-24.04.1-desktop-amd64.iso
           export ISO_IMAGE=${{ github.workspace }}/kubuntu-24.04.1-desktop-amd64.iso
           cd t2-kubuntu
           bash ./build.sh
