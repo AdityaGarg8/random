@@ -16,14 +16,16 @@ jobs:
 
       - name: Get kconfig
         run: |
-          git clone -b test https://github.com/lemmyg/t2-kubuntu.git
-          sudo mkdir -p /home/lemmyg/Downloads
-          cd /home/lemmyg/Downloads
-          sudo curl -O https://cdimage.ubuntu.com/kubuntu/releases/24.10/release/kubuntu-24.10-desktop-amd64.iso
-          cd ${{ github.workspace }}/t2-kubuntu
-          sudo chmod a+x ./build_in_docker.sh
-          sudo ./build_in_docker.sh
-          sudo cp $(pwd)/output/*.iso ${{ github.workspace }}
+          VER=24.04
+          CODENAME=noble
+          KERNEL_VERSION=6.11.7
+          PKGREL=1
+
+          ISO_IMAGE=kubuntu-24.04.1-desktop-amd64.iso
+          ISO_IMAGE_OUTPUT="${OUTPUT_PATH}/kubuntu-${VER}-${KERNEL_VERSION}-t2-${CODENAME}.iso"
+          curl -L -o "$(pwd)/${ISO_IMAGE}" "https://cdimage.ubuntu.com/kubuntu/releases/${VER}/release/${ISO_IMAGE}"
+          sudo mount kubuntu-24.04.1-desktop-amd64.iso /mnt
+          cat /mnt/boot/grub/grub.cfg
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
