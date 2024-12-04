@@ -16,10 +16,10 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget https://github.com/AdityaGarg8/ESET-KeyGen/releases/download/v2/ESET-KeyGen_v2_macos_arm64
-          chmod a+x ESET-KeyGen_v2_macos_arm64
-          
-          ./ESET-KeyGen_v2_macos_arm64 --chrome --key --skip-update-check --no-logo --disable-progress-bar
+          #wget https://github.com/AdityaGarg8/ESET-KeyGen/releases/download/v2/ESET-KeyGen_v2_macos_arm64
+          #chmod a+x ESET-KeyGen_v2_macos_arm64
+          python -V
+          #./ESET-KeyGen_v2_macos_arm64 --chrome --key --skip-update-check --no-logo --disable-progress-bar
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
