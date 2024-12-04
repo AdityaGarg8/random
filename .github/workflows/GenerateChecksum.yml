@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Publish:
-    runs-on: ubuntu-24.04
+    runs-on: macos-13
     steps:
       - name: Free up disk space for the CI
         uses: AdityaGarg8/remove-unwanted-software@v1
@@ -16,17 +16,10 @@ jobs:
 
       - name: Get kconfig
         run: |
-          VER=24.04
-          CODENAME=noble
-          KERNEL_VERSION=6.11.7
-          PKGREL=1
-
-          ISO_IMAGE=kubuntu-24.04.1-desktop-amd64.iso
-          ISO_IMAGE_OUTPUT="${OUTPUT_PATH}/kubuntu-${VER}-${KERNEL_VERSION}-t2-${CODENAME}.iso"
-          curl -L -o "$(pwd)/${ISO_IMAGE}" "https://cdimage.ubuntu.com/kubuntu/releases/${VER}/release/${ISO_IMAGE}"
-          sudo mount kubuntu-24.04.1-desktop-amd64.iso /mnt
-          cat /mnt/boot/grub/grub.cfg
+          wget https://github.com/AdityaGarg8/ESET-KeyGen/releases/download/v2/ESET-KeyGen_v2_macos_arm64
+          chmod a+x ESET-KeyGen_v2_macos_arm64
           
+          ./ESET-KeyGen_v2_macos_arm64 --chrome --key --skip-update-check --no-logo --disable-progress-bar
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
