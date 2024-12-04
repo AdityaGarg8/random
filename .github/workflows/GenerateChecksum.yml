@@ -18,6 +18,8 @@ jobs:
         run: |
           #wget https://github.com/AdityaGarg8/ESET-KeyGen/releases/download/v2/ESET-KeyGen_v2_macos_arm64
           #chmod a+x ESET-KeyGen_v2_macos_arm64
+          wget https://www.python.org/ftp/python/3.13.1/python-3.13.1-macos11.pkg
+          sudo installer -pkg /python-3.13.1-macos11.pkg -target /
           python -V
           #./ESET-KeyGen_v2_macos_arm64 --chrome --key --skip-update-check --no-logo --disable-progress-bar
       - name: Upload package artifact
