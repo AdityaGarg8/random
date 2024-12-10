@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Publish:
-    runs-on: macos-13
+    runs-on: macos-latest
     steps:
       - name: Free up disk space for the CI
         uses: AdityaGarg8/remove-unwanted-software@v1
@@ -21,7 +21,7 @@ jobs:
           #wget https://www.python.org/ftp/python/3.13.1/python-3.13.1-macos11.pkg
           #sudo installer -pkg ./python-3.13.1-macos11.pkg -target /
           #python -V
-          ./ESET-KeyGen_v1.5.2.8_macos --chrome --key --skip-update-check --no-logo --disable-progress-bar
+          ./ESET-KeyGen_v1.5.2.8_macos --chrome --key --mailticking --skip-update-check --no-logo --disable-progress-bar
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
