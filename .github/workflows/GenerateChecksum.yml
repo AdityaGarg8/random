@@ -21,7 +21,8 @@ jobs:
           #wget https://www.python.org/ftp/python/3.13.1/python-3.13.1-macos11.pkg
           #sudo installer -pkg ./python-3.13.1-macos11.pkg -target /
           #python -V
-          ./ESET-KeyGen_v1.5.2.8_macos --chrome --key --mailticking --skip-update-check --no-logo --disable-progress-bar
+          ./ESET-KeyGen_v1.5.2.8_macos --chrome --key --email-api mailticking --skip-update-check --no-logo --disable-progress-bar
+          ls
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
