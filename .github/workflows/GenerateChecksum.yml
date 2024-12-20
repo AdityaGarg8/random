@@ -16,7 +16,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          curl -L https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/debian-live-12.8.0-amd64-gnome.iso > debian.iso
+          curl -L http://mirror.keystealth.org/debian-cd/12.8.0-live/amd64/iso-hybrid/debian-live-12.8.0-amd64-gnome.iso > debian.iso
           sha256sum ./*.iso
           sudo mount debian.iso /mnt
           sudo tree /mnt
