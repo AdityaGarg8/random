@@ -21,7 +21,9 @@ jobs:
           sudo mount debian.iso /mnt
           sudo tree /mnt
           echo "GRUB STARTS HERE"
-          cat /mnt/boot/grub/grub.cfg
+          sha256sum /mnt/install/gtk/vmlinuz
+          sha256sum /mnt/install/vmlinuz
+          sha256sum /mnt/live/vmlinuz*
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
