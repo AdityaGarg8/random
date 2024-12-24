@@ -16,7 +16,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          curl -L https://cdimage.ubuntu.com/ubuntu-unity/releases/noble/release/ubuntu-unity-24.04.1-desktop-amd64.iso > debian.iso
+          curl -L https://cdimage.ubuntu.com/ubuntu-unity/releases/oracular/release/ubuntu-unity-24.10-desktop-amd64.iso > debian.iso
           sha256sum ./*.iso
           sudo mount debian.iso /mnt
           sudo tree /mnt
