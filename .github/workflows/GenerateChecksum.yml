@@ -20,6 +20,7 @@ jobs:
           sha256sum ./*.iso
           sudo mount debian.iso /mnt
           sudo tree /mnt
+          ls -l /mnt/casper
           cat /mnt/boot/grub/grub.cfg
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
