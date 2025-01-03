@@ -16,12 +16,16 @@ jobs:
 
       - name: Get kconfig
         run: |
-          curl -L https://mirror.pilotfiber.com/ubuntu-iso/noble/ubuntu-24.04.1-live-server-amd64.iso > debian.iso
-          sha256sum ./*.iso
-          sudo mount debian.iso /mnt
-          sudo tree /mnt
-          ls -l /mnt/casper
-          cat /mnt/boot/grub/grub.cfg
+          DOCKER_IMAGE=debian:sid
+          docker pull ${DOCKER_IMAGE}
+          docker run \
+          -t \
+          -v "$(pwd)":/repo \
+          ${DOCKER_IMAGE} \
+          /bin/bash -c 'cd /repo && \
+          apt-get update && \
+          apt-get install -y lsb-release && \
+          lsb_release -a'
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
