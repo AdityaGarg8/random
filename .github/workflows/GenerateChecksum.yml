@@ -16,7 +16,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          DOCKER_IMAGE=debian:sid
+          DOCKER_IMAGE=debian:testing
           docker pull ${DOCKER_IMAGE}
           docker run \
           -t \
