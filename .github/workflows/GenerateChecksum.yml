@@ -16,7 +16,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          curl -L https://mirror.pilotfiber.com/ubuntu-iso/noble/ubuntu-24.04.1-desktop-amd64.iso > debian.iso
+          curl -L https://mirror.pilotfiber.com/ubuntu-iso/noble/ubuntu-24.04.1-live-server-amd64.iso > debian.iso
           sha256sum ./*.iso
           sudo mount debian.iso /mnt
           sudo tree /mnt
