@@ -32,4 +32,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Ubuntu
-          path: ${{ github.workspace }}/Cyberpunk*/*
+          path: ${{ github.workspace }}/Cyberpunk*/fg-02.bin
