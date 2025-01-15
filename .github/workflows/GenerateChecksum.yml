@@ -5,11 +5,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Free up disk space for the CI
-        uses: AdityaGarg8/remove-unwanted-software@v1
+        uses: AdityaGarg8/remove-unwanted-software@v4
         with:
-          remove-android: 'true'
-          remove-dotnet: 'true'
-          remove-haskell: 'true'
+         remove-android: 'true'
+         remove-dotnet: 'true'
+         remove-haskell: 'true'
+         remove-codeql: 'true'
+         remove-docker-images: 'true'
+         remove-large-packages: 'true'
+         remove-cached-tools: 'true'
+         remove-swapfile: 'true'
 
       - name: 'Checkout Repo'
         uses: actions/checkout@v3
