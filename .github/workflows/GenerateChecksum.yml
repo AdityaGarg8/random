@@ -16,16 +16,8 @@ jobs:
 
       - name: Get kconfig
         run: |
-          DOCKER_IMAGE=debian:testing
-          docker pull ${DOCKER_IMAGE}
-          docker run \
-          -t \
-          -v "$(pwd)":/repo \
-          ${DOCKER_IMAGE} \
-          /bin/bash -c 'cd /repo && \
-          apt-get update && \
-          apt-get install -y lsb-release && \
-          lsb_release -a'
+          sudo apt update
+          sudo apt install aria2
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
