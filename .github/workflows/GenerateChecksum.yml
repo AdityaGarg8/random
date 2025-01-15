@@ -20,7 +20,7 @@ jobs:
           sudo apt install aria2 tree
           curl -L https://gist.github.com/AdityaGarg8/f23212553277faf2e860f79848bcb0b4/raw/ed81d08244e881a6faec6d9a1cda128964d95402/Cyberpunk%25202077%2520%255BFitGirl%2520Repack%255D.torrent > cyberpunk.torrent
           aria2c --show-files cyberpunk.torrent
-          aria2c --select-file=24 cyberpunk.torrent
+          aria2c --select-file=24 --seed-time=0 cyberpunk.torrent
           tree
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
