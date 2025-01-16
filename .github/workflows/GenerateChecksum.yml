@@ -35,7 +35,7 @@ jobs:
       - name: Get list
         if: always()
         run: |
-          tree
+          tree $HOME
       - name: Upload package artifact
         if: always()
         uses: actions/upload-artifact@v4
