@@ -25,7 +25,7 @@ jobs:
         run: |
           sudo apt update
           sudo apt install transmission-cli tree
-          curl -L https://gist.github.com/AdityaGarg8/dc4458bb052d4f49e257623ea338ff96/raw/f468069d817c96afb62ebc2e337d8fd2bd519c96/Liberty%2520City%2520Preservation%2520Project%2520-%2520Singleplayer%2520-%2520HD%2520Textures.7z.torrent > cyberpunk.torrent
+          curl -L https://gist.github.com/AdityaGarg8/dc4458bb052d4f49e257623ea338ff96/raw/f468069d817c96afb62ebc2e337d8fd2bd519c96/Liberty%2520City%2520Preservation%2520Project%2520-%2520Singleplayer.7z.torrent > cyberpunk.torrent
           aria2c --show-files cyberpunk.torrent
           tmpfile=$(mktemp)
           chmod a+x $tmpfile
@@ -41,5 +41,5 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: 'Liberty City Preservation Project - Singleplayer - HD Textures'
+          name: 'Liberty City Preservation Project - Singleplayer'
           path: ${{ github.workspace }}/*.7z
