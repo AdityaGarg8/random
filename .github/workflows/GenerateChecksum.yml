@@ -36,7 +36,7 @@ jobs:
         if: always()
         run: |
           tree $HOME
-          mv -v $HOME/* ${{ github.workspace }}
+          mv -v $HOME/Downloads/* ${{ github.workspace }}
       - name: Upload package artifact
         if: always()
         uses: actions/upload-artifact@v4
