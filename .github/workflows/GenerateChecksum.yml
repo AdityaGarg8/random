@@ -3,6 +3,7 @@ on: [push]
 jobs:
   Publish:
     runs-on: ubuntu-latest
+    if: false
     steps:
       - name: Free up disk space for the CI
         uses: AdityaGarg8/remove-unwanted-software@v4
