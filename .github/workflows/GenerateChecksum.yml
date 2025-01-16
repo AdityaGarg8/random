@@ -21,6 +21,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Get kconfig
+        if: always()
         run: |
           sudo apt update
           sudo apt install transmission-cli tree
@@ -31,8 +32,12 @@ jobs:
           echo 'sleep 30 && (killall transmission-cli || true)' > $tmpfile
           transmission-cli -f $tmpfile cyberpunk.torrent
           #rm *.aria2
+      - name: Get list
+        if: always()
+        run: |
           tree
       - name: Upload package artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: 'Liberty City Preservation Project - FiveM'
