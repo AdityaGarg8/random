@@ -41,4 +41,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: 'Liberty City Preservation Project - FiveM'
-          path: ${{ github.workspace }}/*.zip
+          #path: ${{ github.workspace }}/*.zip
+          path: $HOME/Downloads/*
