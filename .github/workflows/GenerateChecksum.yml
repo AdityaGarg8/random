@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: windows-latest
+    runs-on: macos-latest
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -24,35 +24,7 @@ jobs:
       - name: Get kconfig
         shell: cmd
         run: |
-          #wget -m -np -nH --cut-dirs=3 -e robots=off --reject "index.html*" -P ${{ github.workspace }}/repo https://pkg-repo.blendos.co
-          cd %homedrive%%homepath%\Downloads
-          curl -L -O "http://libgen.li/get.php?md5=34505718b47763b92fd1f033885f1cbd&key=K896P3U8UBK6W2A6"
-          curl -L https://github.com/t2linux/T2-Ubuntu/releases/download/v6.9.9-1/kubuntu-24.04-6.9.9-t2-noble.iso.00 > kubuntu-24.04-6.9.9-t2-noble.iso
-          curl -L https://github.com/t2linux/T2-Ubuntu/releases/download/v6.9.9-1/kubuntu-24.04-6.9.9-t2-noble.iso.01 >> kubuntu-24.04-6.9.9-t2-noble.iso
-          rem copy /b kubuntu-24.04-6.9.9-t2-noble.iso.00 + kubuntu-24.04-6.9.9-t2-noble.iso.01 kubuntu-24.04-6.9.9-t2-noble.iso >nul
-          for /f "tokens=*" %%i in ('certutil -hashfile kubuntu-24.04-6.9.9-t2-noble.iso SHA256 ^| findstr /V ":"') do set VAR=%%i
-          set FOUND=%VAR%
-          echo %FOUND%
-          curl -L -O https://github.com/t2linux/T2-Ubuntu/releases/download/v6.9.9-1/sha256-kubuntu-24.04
-          for /f "tokens=*" %%i in ('type sha256-kubuntu-24.04') do set VAR=%%i
-          set CHKSUM=%VAR:~0,64%
-          echo %CHKSUM%
-          if %FOUND% == %CHKSUM% (
-            goto CONTINUE
-          ) else (
-            goto ERR
-          )
-
-          :CONTINUE
-          echo matched
-          goto exit
-
-          :ERR
-          echo error
-          goto exit
-
-          :EXIT
-          exit
+          df -h
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
