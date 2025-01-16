@@ -26,7 +26,7 @@ jobs:
           sudo apt install transmission-cli tree
           curl -L https://gist.github.com/AdityaGarg8/dc4458bb052d4f49e257623ea338ff96/raw/f468069d817c96afb62ebc2e337d8fd2bd519c96/Liberty%2520City%2520Preservation%2520Project%2520-%2520FiveM.zip.torrent > cyberpunk.torrent
           aria2c --show-files cyberpunk.torrent
-          transmission-cli cyberpunk.torrent
+          transmission-cli --no-seed cyberpunk.torrent
           #rm *.aria2
           tree
       - name: Upload package artifact
