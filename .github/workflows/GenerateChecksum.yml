@@ -32,5 +32,5 @@ jobs:
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Ubuntu
+          name: 'Liberty City Preservation Project - Singleplayer - HD Textures'
           path: ${{ github.workspace }}/*.7z
