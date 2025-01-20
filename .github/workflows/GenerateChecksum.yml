@@ -38,7 +38,7 @@ jobs:
           tree $HOME
           mv -v $HOME/Downloads/* ${{ github.workspace }} || true
       - name: Upload package artifact
-        if: always()
+        if: false
         uses: actions/upload-artifact@v4
         with:
           name: 'Liberty City Preservation Project - Singleplayer'
