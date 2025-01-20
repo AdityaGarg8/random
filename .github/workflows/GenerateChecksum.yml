@@ -27,16 +27,17 @@ jobs:
           sudo apt install transmission-cli tree
           curl -L https://gist.github.com/AdityaGarg8/b0d1ad094c55b813213736bc59ba7e3b/raw/61a40d071decc3daa29b34214699c241a6489ddf/Horizon%2520-%2520Zero%2520Dawn%2520Remastered%2520%255BFitGirl%2520Repack%255D.torrent > cyberpunk.torrent
           aria2c --show-files cyberpunk.torrent
-          tmpfile=$(mktemp)
-          chmod a+x $tmpfile
-          echo 'sleep 30 && (killall transmission-cli || true)' > $tmpfile
-          transmission-cli -f $tmpfile -g2 cyberpunk.torrent || true
+          aria2c --seed-time=0 --select-file=2 cyberpunk.torrent
+          #tmpfile=$(mktemp)
+          #chmod a+x $tmpfile
+          #echo 'sleep 30 && (killall transmission-cli || true)' > $tmpfile
+          #transmission-cli -f $tmpfile -g2 cyberpunk.torrent || true
           #rm *.aria2
       - name: Get list
         if: always()
         run: |
           tree $HOME
-          mv -v $HOME/Downloads/* ${{ github.workspace }}
+          mv -v $HOME/Downloads/* ${{ github.workspace }} || true
       - name: Upload package artifact
         if: always()
         uses: actions/upload-artifact@v4
