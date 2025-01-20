@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -23,7 +23,9 @@ jobs:
 
       - name: Get kconfig
         run: |
-          df -h
+          curl -L https://nightly.link/AdityaGarg8/random/actions/runs/12863073686/Liberty%20City%20Preservation%20Project%20-%20Singleplayer.zip > horizon.zip
+          unzip -d horizon horizon.zip
+          tree
           
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
