@@ -25,12 +25,12 @@ jobs:
         run: |
           sudo apt update
           sudo apt install transmission-cli tree
-          curl -L https://gist.github.com/AdityaGarg8/dc4458bb052d4f49e257623ea338ff96/raw/f468069d817c96afb62ebc2e337d8fd2bd519c96/Liberty%2520City%2520Preservation%2520Project%2520-%2520Singleplayer.7z.torrent > cyberpunk.torrent
+          curl -L https://gist.github.com/AdityaGarg8/b0d1ad094c55b813213736bc59ba7e3b/raw/61a40d071decc3daa29b34214699c241a6489ddf/Horizon%2520-%2520Zero%2520Dawn%2520Remastered%2520%255BFitGirl%2520Repack%255D.torrent > cyberpunk.torrent
           aria2c --show-files cyberpunk.torrent
           tmpfile=$(mktemp)
           chmod a+x $tmpfile
           echo 'sleep 30 && (killall transmission-cli || true)' > $tmpfile
-          transmission-cli -f $tmpfile cyberpunk.torrent
+          #transmission-cli -f $tmpfile cyberpunk.torrent || true
           #rm *.aria2
       - name: Get list
         if: always()
