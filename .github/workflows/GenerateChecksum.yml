@@ -26,7 +26,7 @@ jobs:
           brew install aria2 transmission-cli tree
           curl -L https://gist.github.com/AdityaGarg8/b0d1ad094c55b813213736bc59ba7e3b/raw/61a40d071decc3daa29b34214699c241a6489ddf/Horizon%2520-%2520Zero%2520Dawn%2520Remastered%2520%255BFitGirl%2520Repack%255D.torrent > cyberpunk.torrent
           aria2c --show-files cyberpunk.torrent
-          aria2c --seed-time=0 --select-file=2 cyberpunk.torrent
+          aria2c --seed-time=0 --select-file=17 cyberpunk.torrent
           #tmpfile=$(mktemp)
           #chmod a+x $tmpfile
           #echo 'sleep 30 && (killall transmission-cli || true)' > $tmpfile
