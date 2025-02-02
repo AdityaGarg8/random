@@ -23,12 +23,8 @@ jobs:
 
       - name: Get kconfig
         run: |
-          curl -L https://nightly.link/AdityaGarg8/random/actions/runs/12863073686/Liberty%20City%20Preservation%20Project%20-%20Singleplayer.zip > horizon.zip
-          unzip -d horizon horizon.zip
-          tree
-          mkdir output
-          split -b 2000M -x '${{ github.workspace }}/horizon/Horizon - Zero Dawn Remastered [FitGirl Repack]/fg-optional-ultrawide-videos.bin' "${{ github.workspace }}/output/fg-optional-ultrawide-videos.bin."
-          
+          pip install gdown
+          gdown https://drive.google.com/uc?id=1l_5RK28JRL19wpT22B-DY9We3TVXnnQQ
       - name: Upload package artifact
         if: false
         uses: actions/upload-artifact@v4
