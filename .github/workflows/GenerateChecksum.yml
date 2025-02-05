@@ -23,7 +23,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          winget install schollz.croc
+          choco install croc
           #gh release download Pushpa_2 -D pushpa -R AdityaGarg8/movies
           #cd pushpa
           #cat ./Pushpa_2.mkv.0? > Pushpa.mkv
