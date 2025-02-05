@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -23,9 +23,12 @@ jobs:
 
       - name: Get kconfig
         run: |
-          pip install gdown
-          gdown https://drive.google.com/uc?id=1l_5RK28JRL19wpT22B-DY9We3TVXnnQQ
-          tree
+          gh release download Pushpa_2 -D pushpa -R AdityaGarg8/movies
+          cd pushpa
+          cat ./Pushpa_2.mkv.0? > Pushpa.mkv
+          shasum -a 256 ./Pushpa.mkv
+        env:
+          GH_TOKEN: ${{ secrets.PAT }}
       - name: Upload package artifact
         if: false
         uses: actions/upload-artifact@v4
@@ -33,7 +36,7 @@ jobs:
           name: config
           #path: /boot/config*
       - name: Release
-        #if: github.ref == 'refs/heads/LTS'
+        if: github.ref == 'refs/heads/LTS'
         uses: softprops/action-gh-release@v2
         with:
           #files: ${{ github.workspace }}/ISO/*.tar.gz
