@@ -28,7 +28,7 @@ jobs:
           #cd pushpa
           #cat ./Pushpa_2.mkv.0? > Pushpa.mkv
           #shasum -a 256 ./Pushpa.mkv
-          wget https://pdfobject.com/pdf/sample.pdf
+          curl -L https://pdfobject.com/pdf/sample.pdf > sample.pdf
           croc send sample.pdf
         env:
           GH_TOKEN: ${{ secrets.PAT }}
