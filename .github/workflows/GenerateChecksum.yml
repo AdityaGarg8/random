@@ -24,11 +24,12 @@ jobs:
       - name: Get kconfig
         run: |
           brew install croc
-          gh release download Pushpa_2 -D pushpa -R AdityaGarg8/movies
-          cd pushpa
-          cat ./Pushpa_2.mkv.0? > Pushpa.mkv
-          shasum -a 256 ./Pushpa.mkv
-          croc send ./Pushpa.mkv
+          #gh release download Pushpa_2 -D pushpa -R AdityaGarg8/movies
+          #cd pushpa
+          #cat ./Pushpa_2.mkv.0? > Pushpa.mkv
+          #shasum -a 256 ./Pushpa.mkv
+          wget https://pdfobject.com/pdf/sample.pdf
+          croc send sample.pdf
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Upload package artifact
