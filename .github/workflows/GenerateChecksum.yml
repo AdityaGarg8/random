@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: macos-latest
+    runs-on: windows-latest
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -23,7 +23,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          brew install croc
+          winget install schollz.croc
           #gh release download Pushpa_2 -D pushpa -R AdityaGarg8/movies
           #cd pushpa
           #cat ./Pushpa_2.mkv.0? > Pushpa.mkv
