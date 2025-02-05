@@ -24,9 +24,9 @@ jobs:
       - name: Get kconfig
         run: |
           brew install croc
-          gh release download Pushpa_2 -D pushpa -R AdityaGarg8/movies
+          gh release download Pushpa -D pushpa -R AdityaGarg8/movies
           cd pushpa
-          cat ./Pushpa_2.mkv.0? | croc send
+          cat ./Pushpa.mkv.0? | croc send
           #shasum -a 256 ./Pushpa.mkv
           #curl -L https://pdfobject.com/pdf/sample.pdf | croc send
           #croc send sample.pdf
