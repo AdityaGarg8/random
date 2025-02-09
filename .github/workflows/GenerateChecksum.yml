@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -23,13 +23,18 @@ jobs:
 
       - name: Get kconfig
         run: |
-          brew install croc
-          gh release download Pushpa -D pushpa -R AdityaGarg8/movies
-          cd pushpa
-          cat ./Pushpa.mkv.0? | croc send
-          #shasum -a 256 ./Pushpa.mkv
-          #curl -L https://pdfobject.com/pdf/sample.pdf | croc send
-          #croc send sample.pdf
+          git clone https://github.com/intel/lkp-tests.git ~/lkp-tests
+          sudo apt-get install sparse
+          # sparse version: v0.6.4-66-g0196afe1
+          # https://git.kernel.org/pub/scm/linux/kernel/git/hid/hid.git/commit/?id=8e9b9152cfbdc2a90a8acb68acbc1407ef67d139
+          git remote add hid https://git.kernel.org/pub/scm/linux/kernel/git/hid/hid.git
+          git fetch --no-tags hid for-6.15/apple
+          git checkout 8e9b9152cfbdc2a90a8acb68acbc1407ef67d139
+          # save the config file
+          curl -L https://download.01.org/0day-ci/archive/20250209/202502091105.ZsLoBSIh-lkp@intel.com/config > config
+          mkdir build_dir && cp config build_dir/.config
+          COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-13.2.0 ~/lkp-tests/kbuild/make.cross C=1 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__ -fmax-errors=unlimited -fmax-warnings=unlimited' O=build_dir ARCH=arc olddefconfig
+          COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-13.2.0 ~/lkp-tests/kbuild/make.cross C=1 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__ -fmax-errors=unlimited -fmax-warnings=unlimited' O=build_dir ARCH=arc SHELL=/bin/bash drivers/hid/
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Upload package artifact
