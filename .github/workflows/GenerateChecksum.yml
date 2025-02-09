@@ -31,7 +31,7 @@ jobs:
           ${DOCKER_IMAGE} \
           /bin/bash -c 'cd /repo && \
           apt-get update && apt install -y build-essential fakeroot libncurses-dev bison flex libssl-dev libelf-dev \
-          openssl dkms libudev-dev libpci-dev libiberty-dev autoconf wget xz-utils git \
+          openssl dkms libudev-dev libpci-dev libiberty-dev autoconf wget xz-utils git lftp \
           libcap-dev bc rsync cpio debhelper kernel-wedge curl gawk dwarves zstd python3 sparse gcc-13 && \
           git config --global --add safe.directory /repo && \
           git clone https://github.com/intel/lkp-tests.git ~/lkp-tests && \
