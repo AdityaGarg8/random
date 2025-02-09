@@ -24,7 +24,7 @@ jobs:
       - name: Get kconfig
         run: |
           git clone https://github.com/intel/lkp-tests.git ~/lkp-tests
-          sudo apt-get install sparse
+          sudo apt-get install -y sparse
           # sparse version: v0.6.4-66-g0196afe1
           # https://git.kernel.org/pub/scm/linux/kernel/git/hid/hid.git/commit/?id=8e9b9152cfbdc2a90a8acb68acbc1407ef67d139
           git remote add hid https://git.kernel.org/pub/scm/linux/kernel/git/hid/hid.git
