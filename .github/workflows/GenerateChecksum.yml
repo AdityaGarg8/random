@@ -29,7 +29,7 @@ jobs:
           -t \
           -v "$(pwd)":/repo \
           ${DOCKER_IMAGE} \
-          /bin/bash -c "cd $HOME && \
+          /bin/bash -c 'cd /repo && \
           apt-get update && apt install -y build-essential fakeroot libncurses-dev bison flex libssl-dev libelf-dev \
           openssl dkms libudev-dev libpci-dev libiberty-dev autoconf wget xz-utils git lftp \
           libcap-dev bc rsync cpio debhelper kernel-wedge curl gawk dwarves zstd python3 sparse gcc-13 && \
@@ -41,8 +41,8 @@ jobs:
           git checkout 8e9b9152cfbdc2a90a8acb68acbc1407ef67d139 && \
           curl -L https://download.01.org/0day-ci/archive/20250209/202502091105.ZsLoBSIh-lkp@intel.com/config > config && \
           mkdir build_dir && cp config build_dir/.config && cp config .config && \
-          COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-13.3.0 ~/lkp-tests/kbuild/make.cross C=1 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__ -fmax-errors=unlimited -fmax-warnings=unlimited' O=build_dir ARCH=arc olddefconfig && \
-          COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-13.3.0 ~/lkp-tests/kbuild/make.cross C=1 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__ -fmax-errors=unlimited -fmax-warnings=unlimited' O=build_dir ARCH=arc SHELL=/bin/bash drivers/hid/"
+          COMPILER_INSTALL_PATH=/repo/0day COMPILER=gcc-13.3.0 ~/lkp-tests/kbuild/make.cross C=1 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__ -fmax-errors=unlimited -fmax-warnings=unlimited' O=build_dir ARCH=arc olddefconfig && \
+          COMPILER_INSTALL_PATH=/repo/0day COMPILER=gcc-13.3.0 ~/lkp-tests/kbuild/make.cross C=1 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__ -fmax-errors=unlimited -fmax-warnings=unlimited' O=build_dir ARCH=arc SHELL=/bin/bash drivers/hid/'
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Upload package artifact
