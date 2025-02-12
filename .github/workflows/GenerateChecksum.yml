@@ -5,8 +5,8 @@ jobs:
     runs-on: ubuntu-24.04-arm
     steps:
       - name: Free up disk space for the CI
-        if: false
-        uses: AdityaGarg8/remove-unwanted-software@master
+        if: true
+        uses: AdityaGarg8/remove-unwanted-software@4.1
         with:
           remove-android: 'true'
           remove-dotnet: 'true'
@@ -23,7 +23,8 @@ jobs:
 
       - name: Get kconfig
         run: |
-          sudo apt-get remove -y powershell --fix-missing
+          echo no
+          #sudo apt-get remove -y powershell --fix-missing
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Upload package artifact
