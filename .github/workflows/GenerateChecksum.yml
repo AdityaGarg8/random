@@ -23,7 +23,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          echo $OSTYPE
+          echo $(uname -m)
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Upload package artifact
