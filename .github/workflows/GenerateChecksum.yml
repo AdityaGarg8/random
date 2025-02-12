@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Free up disk space for the CI
-        if: true
+        if: false
         uses: AdityaGarg8/remove-unwanted-software@v4.1
         with:
           remove-android: 'true'
@@ -23,7 +23,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          echo no
+          uname -m
           #sudo apt-get remove -y powershell --fix-missing
         env:
           GH_TOKEN: ${{ secrets.PAT }}
