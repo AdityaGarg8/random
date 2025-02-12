@@ -2,11 +2,11 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04-arm
     steps:
       - name: Free up disk space for the CI
         if: true
-        uses: AdityaGarg8/remove-unwanted-software@master
+        uses: AdityaGarg8/remove-unwanted-software@v5
         with:
           remove-android: 'true'
           remove-dotnet: 'true'
