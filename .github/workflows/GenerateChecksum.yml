@@ -23,8 +23,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          #sudo apt-get remove -y google-cloud-sdk --fix-missing
-          sudo apt-get remove -y google-cloud-cli --fix-missing
+          apt list --installed | grep powershell
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Upload package artifact
