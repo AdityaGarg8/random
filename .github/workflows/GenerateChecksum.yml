@@ -23,7 +23,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          apt list --installed | grep edge
+          apt list --installed | grep firefox
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Upload package artifact
