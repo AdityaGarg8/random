@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-24.04
     steps:
       - name: Free up disk space for the CI
         if: true
@@ -23,8 +23,9 @@ jobs:
 
       - name: Get kconfig
         run: |
-          uname -m
-          #sudo apt-get remove -y powershell --fix-missing
+          curl -L https://mirrors.edge.kernel.org/linuxmint/stable/22/linuxmint-22-cinnamon-64bit.iso > mint.iso
+          sudo mount ./mint.iso /mnt
+          tree /mnt
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Upload package artifact
