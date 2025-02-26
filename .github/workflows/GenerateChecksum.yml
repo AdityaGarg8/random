@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Free up disk space for the CI
-        if: true
+        if: false
         uses: AdityaGarg8/remove-unwanted-software@v5
         with:
           remove-android: 'true'
