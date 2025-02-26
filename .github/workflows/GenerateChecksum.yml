@@ -25,7 +25,7 @@ jobs:
         run: |
           curl -L https://mirrors.edge.kernel.org/linuxmint/stable/22/linuxmint-22-cinnamon-64bit.iso > mint.iso
           sudo mount ./mint.iso /mnt
-          tree /mnt
+          cat /mnt/boot/grub/grub.cfg
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Upload package artifact
