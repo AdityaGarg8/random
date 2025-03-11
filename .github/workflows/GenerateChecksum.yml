@@ -25,7 +25,7 @@ jobs:
         run: |
           curl -L https://github.com/AdityaGarg8/trackpadiso-ubuntu/releases/download/v6.13.6-2/ubuntu-24.04-6.13.6-t2-noble.iso.00 >> Ubuntu-trackpad.iso
           curl -L https://github.com/AdityaGarg8/trackpadiso-ubuntu/releases/download/v6.13.6-2/ubuntu-24.04-6.13.6-t2-noble.iso.01 >> Ubuntu-trackpad.iso
-          curl -L https://github.com/AdityaGarg8/trackpadiso-ubuntu/releases/download/v6.13.6-2/ubuntu-24.04-6.13.6-t2-noble.iso.01 >> Ubuntu-trackpad.iso
+          curl -L https://github.com/AdityaGarg8/trackpadiso-ubuntu/releases/download/v6.13.6-2/ubuntu-24.04-6.13.6-t2-noble.iso.02 >> Ubuntu-trackpad.iso
           sha256sum ./Ubuntu-trackpad.iso
           curl -L https://github.com/AdityaGarg8/trackpadiso-ubuntu/releases/download/v6.13.6-2/sha256-ubuntu-24.04
         env:
