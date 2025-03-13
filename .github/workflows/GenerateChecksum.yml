@@ -34,8 +34,8 @@ jobs:
         if: true
         uses: actions/upload-artifact@v4
         with:
-          name: ISO2
-          path: ${{ github.workspace }}/Ubuntu-trackpad.iso
+          name: ubuntu
+          path: ${{ github.workspace }}/Ubuntu-t2.iso
       - name: Release
         if: github.ref == 'refs/heads/LTS'
         uses: softprops/action-gh-release@v2
