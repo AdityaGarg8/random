@@ -23,7 +23,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          curl -L https://github.com/AdityaGarg8/trackpadiso-ubuntu/releases/download/v6.13.6-3/ubuntu-24.04-6.13.6-t2-noble.iso.00 >> Ubuntu-trackpad.iso
+          curl -L https://github.com/AdityaGarg8/trackpadiso-ubuntu/releases/download/v6.13.6-1/ubuntu-24.04-6.13.6-t2-noble.iso.00 >> Ubuntu-trackpad.iso
           curl -L https://github.com/AdityaGarg8/trackpadiso-ubuntu/releases/download/v6.13.6-3/ubuntu-24.04-6.13.6-t2-noble.iso.01 >> Ubuntu-trackpad.iso
           curl -L https://github.com/AdityaGarg8/trackpadiso-ubuntu/releases/download/v6.13.6-3/ubuntu-24.04-6.13.6-t2-noble.iso.02 >> Ubuntu-trackpad.iso
           sha256sum ./Ubuntu-trackpad.iso
@@ -34,7 +34,7 @@ jobs:
         if: true
         uses: actions/upload-artifact@v4
         with:
-          name: ISO3
+          name: ISO4
           path: ${{ github.workspace }}/Ubuntu-trackpad.iso
       - name: Release
         if: github.ref == 'refs/heads/LTS'
