@@ -34,7 +34,7 @@ jobs:
         if: true
         uses: actions/upload-artifact@v4
         with:
-          name: ISO4
+          name: ISO5
           path: ${{ github.workspace }}/Ubuntu-trackpad.iso
       - name: Release
         if: github.ref == 'refs/heads/LTS'
