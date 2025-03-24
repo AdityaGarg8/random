@@ -23,17 +23,11 @@ jobs:
       - name: Get kconfig
         if: always()
         run: |
-          brew install aria2 transmission-cli tree
-          curl -L https://gist.github.com/AdityaGarg8/b0d1ad094c55b813213736bc59ba7e3b/raw/61a40d071decc3daa29b34214699c241a6489ddf/Horizon%2520-%2520Zero%2520Dawn%2520Remastered%2520%255BFitGirl%2520Repack%255D.torrent > cyberpunk.torrent
-          aria2c --show-files cyberpunk.torrent
-          aria2c --seed-time=0 --select-file=17 cyberpunk.torrent
-          #tmpfile=$(mktemp)
-          #chmod a+x $tmpfile
-          #echo 'sleep 30 && (killall transmission-cli || true)' > $tmpfile
-          #transmission-cli -f $tmpfile -g2 cyberpunk.torrent || true
-          #rm *.aria2
+          curl -L https://mirror.us.leaseweb.net/ubuntu-cdimage/xubuntu/releases/24.04/release/xubuntu-24.04.2-desktop-amd64.iso > xubuntu.iso
+          sudo mount xubuntu.iso /mnt
+          tree /mnt
       - name: Get list
-        if: always()
+        if: false 
         run: |
           tree $HOME
           mv -v $HOME/Downloads/* ${{ github.workspace }} || true
@@ -44,12 +38,12 @@ jobs:
           name: 'Liberty City Preservation Project - Singleplayer'
           path: ${{ github.workspace }}/Horizon*/fg-optional-ultrawide-videos.bin
       - name: Split
-        if: always()
+        if: false
         run: |
           mkdir -p ${{ github.workspace }}/output
           split -b 2000M -x ${{ github.workspace }}/Horizon*/fg-optional-ultrawide-videos.bin ${{ github.workspace }}/output/fg-optional-ultrawide-videos.bin.
       - name: Release
-        #if: github.ref == 'refs/heads/LTS'
+        if: github.ref == 'refs/heads/LTS'
         uses: softprops/action-gh-release@v2
         with:
           #files: ${{ github.workspace }}/ISO/*.tar.gz
