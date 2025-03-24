@@ -23,7 +23,7 @@ jobs:
       - name: Get kconfig
         if: always()
         run: |
-          curl -L https://mirror.us.leaseweb.net/ubuntu-cdimage/xubuntu/releases/24.04/release/xubuntu-24.04.2-desktop-amd64.iso > xubuntu.iso
+          curl -L https://cdimages.ubuntu.com/xubuntu/releases/24.04/release/xubuntu-24.04.2-desktop-amd64.iso > xubuntu.iso
           sudo mount xubuntu.iso /mnt
           tree /mnt
       - name: Get list
