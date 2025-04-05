@@ -2,10 +2,10 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Free up disk space for the CI
-        if: false
+        if: true
         uses: AdityaGarg8/remove-unwanted-software@v5
         with:
           remove-android: 'true'
@@ -23,15 +23,14 @@ jobs:
 
       - name: Get kconfig
         run: |
-          brew install gnu-sed
           curl -L https://raw.githubusercontent.com/AdityaGarg8/random/573294910f1c7e8776bb13d9e72ee20ae5bbf155/output_links.txt > link.txt
           for i in {001..100}
           do
-          link=$(gsed -n "${i}p" ${{ github.workspace }}/link.txt)
+          link=$(sed -n "${i}p" ${{ github.workspace }}/link.txt)
           echo $link
           curl -L $link > "The_Last_of_Us_Part_II_Remastered_–_fitgirl-repacks.site_–_.part${i}.rar"
           done
-          md5 ./*.rar
+          md5sum ./*.rar
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Upload package artifact
