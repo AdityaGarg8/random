@@ -23,7 +23,9 @@ jobs:
 
       - name: Get kconfig
         run: |
-          curl -L https://fuckingfast.co/dl/CiXQkmQ1H_yXD8KCHaP8rgCHDkHBwHmurVOzjXQNNTg6RAfo6KUcU47ZAEiOLlRe_S3TDGs2bxJawZlp5itOtKi7PathnnuC-PbHXdfEcvz-0eWPB_mYtb-fFy0GExMJHou8gxjJbWuXBTBNvmFvQC295Tb9TayjZrVR3xf_R8HHGKQKhU-1ovjc9M5O > test.rar
+          curl -L https://raw.githubusercontent.com/AdityaGarg8/random/refs/heads/main/output_links.txt > tlou.sh
+          chmod a+x ./tlou.sh
+          ./tlou.sh
           md5 ./*.rar
         env:
           GH_TOKEN: ${{ secrets.PAT }}
