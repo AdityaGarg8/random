@@ -29,8 +29,7 @@ jobs:
           do
           link=$(gsed -n "${i}p" ${{ github.workspace }}/link.txt)
           echo $link
-          wget $link
-          #curl -L $link > "The_Last_of_Us_Part_II_Remastered_–_fitgirl-repacks.site_–_.part${i}.rar"
+          curl -L $link > "The_Last_of_Us_Part_II_Remastered_–_fitgirl-repacks.site_–_.part${i}.rar"
           done
           md5 ./*.rar
         env:
