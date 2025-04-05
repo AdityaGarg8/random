@@ -23,10 +23,13 @@ jobs:
 
       - name: Get kconfig
         run: |
-          brew install aria2
-          curl -L https://github.com/AdityaGarg8/random/raw/refs/heads/main/The%20Last%20of%20Us%20-%20Part%20II%20Remastered%20%5BFitGirl%20Repack%5D.torrent > tlou.torrent
-          aria2c --show-files ./tlou.torrent
-          aria2c --select-file=1 ./tlou.torrent
+          curl -L https://raw.githubusercontent.com/AdityaGarg8/random/573294910f1c7e8776bb13d9e72ee20ae5bbf155/output_links.txt > link.txt
+          for i in {001..100}
+          do
+          link=$(sed -n "${i}p" output_links.txt)
+          curl -L $link > "The_Last_of_Us_Part_II_Remastered_–_fitgirl-repacks.site_–_.part${i}.rar
+          done
+          md5 ./*.rar
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Upload package artifact
