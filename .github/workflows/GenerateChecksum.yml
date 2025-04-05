@@ -26,6 +26,7 @@ jobs:
           brew install aria2
           curl -L https://github.com/AdityaGarg8/random/raw/refs/heads/main/The%20Last%20of%20Us%20-%20Part%20II%20Remastered%20%5BFitGirl%20Repack%5D.torrent > tlou.torrent
           aria2c --show-files ./tlou.torrent
+          aria2c --select-file=1 ./tlou.torrent
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Upload package artifact
