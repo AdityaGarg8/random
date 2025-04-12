@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -23,10 +23,9 @@ jobs:
 
       - name: Get kconfig
         run: |
-          curl -L https://raw.githubusercontent.com/AdityaGarg8/random/refs/heads/main/output_links.txt > tlou.sh
-          chmod a+x ./tlou.sh
-          ./tlou.sh
-          md5 ./*.rar
+          curl -L https://cdimage.ubuntu.com/ubuntu-budgie/releases/noble/release/ubuntu-budgie-24.04.2-desktop-amd64.iso > ubuntu.iso
+          sudo mount ./ubuntu.iso /mnt
+          tree /mnt
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Upload package artifact
