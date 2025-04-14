@@ -23,9 +23,11 @@ jobs:
 
       - name: Get kconfig
         run: |
-          curl -L https://cdimage.ubuntu.com/ubuntu-budgie/releases/noble/release/ubuntu-budgie-24.04.2-desktop-amd64.iso > ubuntu.iso
-          sudo mount ./ubuntu.iso /mnt
-          tree /mnt
+          curl -L https://github.com/t2linux/T2-Ubuntu/releases/download/v6.13.8-1/kubuntu-24.04-6.13.8-t2-noble.iso.00 > kubuntu.iso
+          curl -L https://github.com/t2linux/T2-Ubuntu/releases/download/v6.13.8-1/kubuntu-24.04-6.13.8-t2-noble.iso.01 >> kubuntu.iso
+          curl -L https://github.com/t2linux/T2-Ubuntu/releases/download/v6.13.8-1/kubuntu-24.04-6.13.8-t2-noble.iso.02 >> kubuntu.iso
+          sha256sum ./kubuntu.iso
+          curl -L https://github.com/t2linux/T2-Ubuntu/releases/download/v6.13.8-1/sha256-kubuntu-24.04
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Upload package artifact
@@ -33,7 +35,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ISO
-          path: ${{ github.workspace }}/Ubuntu-t2.iso
+          path: ${{ github.workspace }}/kubuntu.iso
       - name: Release
         if: github.ref == 'refs/heads/LTS'
         uses: softprops/action-gh-release@v2
