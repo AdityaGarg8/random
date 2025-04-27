@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -23,9 +23,17 @@ jobs:
 
       - name: Get kconfig
         run: |
-          curl -L https://cdimage.ubuntu.com/ubuntu-unity/releases/plucky/release/ubuntu-unity-25.04-desktop-amd64.iso > kubuntu.iso
-          sudo mount ./kubuntu.iso /mnt
-          tree /mnt
+          wget https://www.python.org/ftp/python/3.13.3/python-3.13.3-macos11.pkg
+          sudo installer -pkg ./python-3.13.3-macos11.pkg -target /
+          curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+          python ./get-pip.py
+          pip install "charset_normalizer<3.0"
+          python -m pip install --upgrade pip
+          pip install pyinstaller msal keyring
+          wget https://raw.githubusercontent.com/AdityaGarg8/git-credential-outlook/refs/heads/main/git-credential-outlook
+          pyinstaller --onefile --clean --target-arch universal2 git-credential-outlook
+          chmod a+x ./dist/git-credential-outlook
+          mv ./dist/git-credential-outlook ./
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Upload package artifact
@@ -33,7 +41,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ISO
-          path: ${{ github.workspace }}/kubuntu.iso
+          path: ${{ github.workspace }}/git-credential-outlook
       - name: Release
         if: github.ref == 'refs/heads/LTS'
         uses: softprops/action-gh-release@v2
