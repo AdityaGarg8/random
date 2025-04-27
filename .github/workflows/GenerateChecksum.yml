@@ -29,7 +29,6 @@ jobs:
           pip install pyinstaller msal keyring
           wget https://raw.githubusercontent.com/AdityaGarg8/git-credential-outlook/refs/heads/main/git-credential-outlook
           pip uninstall cffi
-          CFLAGS="-arch x86_64 -arch arm64" pip install --no-binary=:all: cffi
           pyinstaller --onefile --clean --target-arch universal2 git-credential-outlook
           chmod a+x ./dist/git-credential-outlook
           mv ./dist/git-credential-outlook ./
