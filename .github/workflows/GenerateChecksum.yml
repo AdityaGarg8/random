@@ -26,9 +26,9 @@ jobs:
           brew install python
           file $(which python)
           python -m pip install --upgrade pip
+          pip uninstall cffi
           pip install pyinstaller msal keyring
           wget https://raw.githubusercontent.com/AdityaGarg8/git-credential-outlook/refs/heads/main/git-credential-outlook
-          pip uninstall cffi
           pyinstaller --onefile --clean --target-arch universal2 git-credential-outlook
           chmod a+x ./dist/git-credential-outlook
           mv ./dist/git-credential-outlook ./
