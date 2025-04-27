@@ -24,7 +24,7 @@ jobs:
       - name: Get kconfig
         run: |
           arch -arm64 brew install python
-          python --version
+          file $(which python)
           exit
           python -m pip install --upgrade pip
           pip install pyinstaller msal keyring
