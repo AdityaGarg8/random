@@ -23,13 +23,12 @@ jobs:
 
       - name: Get kconfig
         run: |
-          arch -arm64 brew install python
+          brew install python
           file $(which python)
-          exit
           python -m pip install --upgrade pip
           pip install pyinstaller msal keyring
           wget https://raw.githubusercontent.com/AdityaGarg8/git-credential-outlook/refs/heads/main/git-credential-outlook
-          pyinstaller --onefile --clean git-credential-outlook
+          pyinstaller --onefile --clean --target-arch universal2 git-credential-outlook
           chmod a+x ./dist/git-credential-outlook
           mv ./dist/git-credential-outlook ./
         env:
