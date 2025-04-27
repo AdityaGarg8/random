@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: macos-13
+    runs-on: macos-latest
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -23,15 +23,15 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget https://www.python.org/ftp/python/3.13.1/python-3.13.1-macos11.pkg
-          sudo installer -pkg ./python-3.13.1-macos11.pkg -target /
+          wget https://www.python.org/ftp/python/3.13.3/python-3.13.3-macos11.pkg
+          sudo installer -pkg ./python-3.13.3-macos11.pkg -target /
           curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
           python ./get-pip.py
           pip install "charset_normalizer<3.0"
           python -m pip install --upgrade pip
           pip install pyinstaller msal keyring
           wget https://raw.githubusercontent.com/AdityaGarg8/git-credential-outlook/refs/heads/main/git-credential-outlook
-          pyinstaller --onefile --clean --target-arch x86_64 git-credential-outlook
+          pyinstaller --onefile --clean --target-arch universal2 git-credential-outlook
           chmod a+x ./dist/git-credential-outlook
           mv ./dist/git-credential-outlook ./
         env:
