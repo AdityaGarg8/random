@@ -23,7 +23,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          arch -x86_64 pip install pyinstaller msal keyring
+          arch -arm64 pip install pyinstaller msal keyring
           wget https://raw.githubusercontent.com/AdityaGarg8/git-credential-outlook/refs/heads/main/git-credential-outlook
           pyinstaller --onefile --clean --target-arch x86_64 git-credential-outlook
           chmod a+x ./dist/git-credential-outlook
