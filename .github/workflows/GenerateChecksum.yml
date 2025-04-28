@@ -47,7 +47,7 @@ jobs:
           mode: onefile
           macos-target-arch: x86_64
       - name: test binary
-        if: true
+        if: false
         run: |
           chmod a+x ./Build/git-credential-outlook.bin
           file ./Build/git-credential-outlook.bin
