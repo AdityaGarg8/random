@@ -28,26 +28,20 @@ jobs:
           #pyinstaller --onefile --clean --target-arch x86_64 --optimize 2 git-credential-outlook
           #chmod a+x ./dist/git-credential-outlook
           #mv ./dist/git-credential-outlook ./
-          cat <<EOF > hello.py
-          #!/usr/bin/env python3
-
-          print("Hello, World!")
-          EOF
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
         uses: Nuitka/Nuitka-Action@main
         with:
           nuitka-version: main
-          #script-name: git-credential-outlook
-          script-name: hello.py
+          script-name: git-credential-outlook
           # many more Nuitka options available, see action doc, but it's best
           # to use nuitka-project: options in your code, so e.g. you can make
           # a difference for macOS and create an app bundle there.
           mode: onefile
           macos-target-arch: x86_64
       - name: test binary
-        if: false
+        if: true
         run: |
           chmod a+x ./Build/git-credential-outlook.bin
           file ./Build/git-credential-outlook.bin
