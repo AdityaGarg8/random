@@ -39,6 +39,10 @@ jobs:
           # to use nuitka-project: options in your code, so e.g. you can make
           # a difference for macOS and create an app bundle there.
           mode: onefile
+      - name: test binary
+        run: |
+          chmod a+x ./Build/git-credential-outlook.bin
+          ./Build/git-credential-outlook.bin
       - name: Upload package artifact
         if: true
         uses: actions/upload-artifact@v4
