@@ -39,7 +39,7 @@ jobs:
           # to use nuitka-project: options in your code, so e.g. you can make
           # a difference for macOS and create an app bundle there.
           mode: onefile
-          macos-target-arch: arm64
+          macos-target-arch: x86_64
       - name: test binary
         run: |
           chmod a+x ./Build/git-credential-outlook.bin
