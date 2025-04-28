@@ -38,9 +38,9 @@ jobs:
           # many more Nuitka options available, see action doc, but it's best
           # to use nuitka-project: options in your code, so e.g. you can make
           # a difference for macOS and create an app bundle there.
-          mode: app
+          mode: standalone
           macos-target-arch: x86_64
-          macos-signed-app-name: com.aditya.gitsendoutlook
+          #macos-signed-app-name: com.aditya.gitsendoutlook
       - name: test binary
         if: false
         run: |
@@ -53,7 +53,7 @@ jobs:
         with:
           name: ISO
           #path: ${{ github.workspace }}/git-credential-outlook
-          path: build/*.app
+          path: build/*
       - name: Release
         if: github.ref == 'refs/heads/LTS'
         uses: softprops/action-gh-release@v2
