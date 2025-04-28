@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: macos-13
+    runs-on: macos-latest
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -23,7 +23,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          arch -x86_64 pip install pyinstaller msal keyring
+          pip install pyinstaller msal keyring
           wget https://raw.githubusercontent.com/AdityaGarg8/git-credential-outlook/refs/heads/main/git-credential-outlook
           #pyinstaller --onefile --clean --target-arch x86_64 --optimize 2 git-credential-outlook
           #chmod a+x ./dist/git-credential-outlook
