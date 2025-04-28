@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: macos-latest
+    runs-on: macos-13
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -25,17 +25,27 @@ jobs:
         run: |
           arch -x86_64 pip install pyinstaller msal keyring
           wget https://raw.githubusercontent.com/AdityaGarg8/git-credential-outlook/refs/heads/main/git-credential-outlook
-          pyinstaller --onefile --clean --target-arch x86_64 --optimize 2 git-credential-outlook
+          #pyinstaller --onefile --clean --target-arch x86_64 --optimize 2 git-credential-outlook
           chmod a+x ./dist/git-credential-outlook
-          mv ./dist/git-credential-outlook ./
+          #mv ./dist/git-credential-outlook ./
         env:
           GH_TOKEN: ${{ secrets.PAT }}
+      - name: Build Executable with Nuitka
+        uses: Nuitka/Nuitka-Action@main
+        with:
+          nuitka-version: main
+          script-name: git-credential-outlook
+          # many more Nuitka options available, see action doc, but it's best
+          # to use nuitka-project: options in your code, so e.g. you can make
+          # a difference for macOS and create an app bundle there.
+          mode: onefile
       - name: Upload package artifact
         if: true
         uses: actions/upload-artifact@v4
         with:
           name: ISO
-          path: ${{ github.workspace }}/git-credential-outlook
+          #path: ${{ github.workspace }}/git-credential-outlook
+          path: build/*
       - name: Release
         if: github.ref == 'refs/heads/LTS'
         uses: softprops/action-gh-release@v2
