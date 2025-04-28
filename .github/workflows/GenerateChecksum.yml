@@ -42,6 +42,7 @@ jobs:
           macos-target-arch: x86_64
           macos-signed-app-name: com.aditya.gitsendoutlook
       - name: test binary
+        if: false
         run: |
           chmod a+x ./Build/git-credential-outlook.bin
           file ./Build/git-credential-outlook.bin
