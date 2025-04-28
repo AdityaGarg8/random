@@ -52,7 +52,7 @@ jobs:
         with:
           name: ISO
           #path: ${{ github.workspace }}/git-credential-outlook
-          path: build/*.bin
+          path: build/*.app
       - name: Release
         if: github.ref == 'refs/heads/LTS'
         uses: softprops/action-gh-release@v2
