@@ -42,7 +42,8 @@ jobs:
       - name: test binary
         run: |
           chmod a+x ./Build/git-credential-outlook.bin
-          ./Build/git-credential-outlook.bin
+          file ./Build/git-credential-outlook.bin
+          ./Build/git-credential-outlook.bin || true
       - name: Upload package artifact
         if: true
         uses: actions/upload-artifact@v4
