@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: macos-latest
+    runs-on: windows-latest
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -23,9 +23,9 @@ jobs:
 
       - name: Get kconfig
         run: |
-          arch -x86_64 pip install PyQt6
-          arch -x86_64 pip install PyQt6-WebEngine
-          arch -x86_64 pip install keyring msal trustme
+          pip install PyQt6==6.8.1
+          pip install PyQt6-WebEngine==6.8.0
+          pip install keyring msal trustme
           curl -L https://raw.githubusercontent.com/AdityaGarg8/random/refs/heads/main/outlook_qt.py > git-credential-outlook
           #pip install pyinstaller msal keyring
           #curl -L https://raw.githubusercontent.com/AdityaGarg8/git-credential-outlook/refs/heads/main/git-credential-outlook > git-credential-outlook
@@ -44,7 +44,7 @@ jobs:
           # to use nuitka-project: options in your code, so e.g. you can make
           # a difference for macOS and create an app bundle there.
           mode: onefile
-          macos-target-arch: x86_64
+          #macos-target-arch: x86_64
       - name: test binary
         if: false
         run: |
@@ -57,7 +57,7 @@ jobs:
         with:
           name: ISO
           #path: ${{ github.workspace }}/dist/*.exe
-          path: ${{ github.workspace }}/Build/*.bin
+          path: ${{ github.workspace }}/Build/*.exe
       - name: Release
         if: github.ref == 'refs/heads/LTS'
         uses: softprops/action-gh-release@v2
