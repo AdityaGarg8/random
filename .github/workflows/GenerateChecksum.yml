@@ -23,7 +23,10 @@ jobs:
 
       - name: Get kconfig
         run: |
-          pip install pyinstaller msal keyring
+          curl -L https://cdimage.ubuntu.com/ubuntu-budgie/releases/noble/release/ubuntu-budgie-24.04.2-desktop-amd64.iso > budgie.iso
+          sudo mount ./budgie.iso /mnt
+          tree /mnt
+          #pip install pyinstaller msal keyring
           #curl -L https://raw.githubusercontent.com/AdityaGarg8/git-credential-outlook/refs/heads/main/git-credential-outlook > git-credential-outlook
           #pyinstaller --onefile --clean --optimize 2 git-credential-outlook
           #chmod a+x ./dist/git-credential-outlook
