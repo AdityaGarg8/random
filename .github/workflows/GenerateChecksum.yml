@@ -25,7 +25,7 @@ jobs:
         run: |
           arch -x86_64 pip install PyQt6==6.8.1
           arch -x86_64 pip install PyQt6-WebEngine==6.8.0
-          arch -x86_64 pip install keyring msal
+          arch -x86_64 pip install keyring msal trustme
           curl -L https://raw.githubusercontent.com/AdityaGarg8/random/refs/heads/main/outlook_qt.py > git-credential-outlook
           #pip install pyinstaller msal keyring
           #curl -L https://raw.githubusercontent.com/AdityaGarg8/git-credential-outlook/refs/heads/main/git-credential-outlook > git-credential-outlook
