@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -23,15 +23,22 @@ jobs:
 
       - name: Get kconfig
         run: |
-          pip install pyinstaller msal keyring
-          curl -L https://raw.githubusercontent.com/AdityaGarg8/git-credential-outlook/refs/heads/main/git-credential-outlook > git-credential-outlook
+          curl -L "https://github.com/AdityaGarg8/git-credential-outlook-and-gmail/releases/download/debian/KEY.gpg" \
+	          | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/git-credential-outlook-and-gmail.gpg >/dev/null \
+	          && echo "deb [signed-by=/etc/apt/trusted.gpg.d/git-credential-outlook-and-gmail.gpg] \
+	          https://github.com/AdityaGarg8/git-credential-outlook-and-gmail/releases/download/debian ./" \
+	          | sudo tee -a /etc/apt/sources.list.d/git-credential-outlook-and-gmail.list \
+	          && sudo apt-get update \
+	          && sudo apt-get install -y git-credential-outlook
+          #pip install pyinstaller msal keyring
+          #curl -L https://raw.githubusercontent.com/AdityaGarg8/git-credential-outlook/refs/heads/main/git-credential-outlook > git-credential-outlook
           #pyinstaller --onefile --clean --optimize 2 git-credential-outlook
           #chmod a+x ./dist/git-credential-outlook
           #mv ./dist/git-credential-outlook ./
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
-        if: true
+        if: false
         uses: Nuitka/Nuitka-Action@main
         with:
           nuitka-version: main
