@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -23,9 +23,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          curl -L https://cdimage.ubuntu.com/ubuntu-budgie/releases/noble/release/ubuntu-budgie-24.04.2-desktop-amd64.iso > budgie.iso
-          sudo mount ./budgie.iso /mnt
-          tree /mnt
+          pip install PyGObject
           #pip install pyinstaller msal keyring
           #curl -L https://raw.githubusercontent.com/AdityaGarg8/git-credential-outlook/refs/heads/main/git-credential-outlook > git-credential-outlook
           #pyinstaller --onefile --clean --optimize 2 git-credential-outlook
