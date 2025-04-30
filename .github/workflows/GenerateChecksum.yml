@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: windows-latest
+    runs-on: macos-latest
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -44,7 +44,7 @@ jobs:
           # to use nuitka-project: options in your code, so e.g. you can make
           # a difference for macOS and create an app bundle there.
           mode: onefile
-          #macos-target-arch: x86_64
+          macos-target-arch: x86_64
       - name: test binary
         if: false
         run: |
@@ -57,7 +57,7 @@ jobs:
         with:
           name: ISO
           #path: ${{ github.workspace }}/dist/*.exe
-          path: ${{ github.workspace }}/Build/*.exe
+          path: ${{ github.workspace }}/Build/*.bin
       - name: Release
         if: github.ref == 'refs/heads/LTS'
         uses: softprops/action-gh-release@v2
