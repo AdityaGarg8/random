@@ -23,9 +23,9 @@ jobs:
 
       - name: Get kconfig
         run: |
-          pip install PyQt6
-          pip install PyQt6-WebEngine
-          pip install keyring msal
+          arch -x86_64 pip install PyQt6
+          arch -x86_64 pip install PyQt6-WebEngine
+          arch -x86_64 pip install keyring msal
           curl -L https://raw.githubusercontent.com/AdityaGarg8/random/refs/heads/main/outlook_qt.py > git-credential-outlook
           #pip install pyinstaller msal keyring
           #curl -L https://raw.githubusercontent.com/AdityaGarg8/git-credential-outlook/refs/heads/main/git-credential-outlook > git-credential-outlook
