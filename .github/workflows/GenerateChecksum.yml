@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: macos-latest
+    runs-on: windows-latest
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -23,15 +23,15 @@ jobs:
 
       - name: Get kconfig
         run: |
-          arch -x86_64 pip install PyQt6
-          arch -x86_64 pip install PyQt6-WebEngine
-          arch -x86_64 pip install keyring msal trustme
+          pip install PyQt6==6.8.1
+          pip install PyQt6-WebEngine==6.8.0
+          pip install keyring msal trustme
           curl -L https://raw.githubusercontent.com/AdityaGarg8/random/refs/heads/main/outlook_qt.py > git-credential-outlook
-          arch -x86_64 pip install pyinstaller
+          pip install pyinstaller
           #curl -L https://raw.githubusercontent.com/AdityaGarg8/git-credential-outlook/refs/heads/main/git-credential-outlook > git-credential-outlook
           pyinstaller --onefile --target-arch x86_64 git-credential-outlook
           #chmod a+x ./dist/git-credential-outlook
-          mv ./dist/git-credential-outlook ./
+          #mv ./dist/git-credential-outlook.exe ./
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
@@ -56,7 +56,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ISO
-          path: ${{ github.workspace }}/git-credential-outlook
+          path: ${{ github.workspace }}/dist/git-credential-outlook.exe
           #path: ${{ github.workspace }}/Build/*.exe
       - name: Release
         if: github.ref == 'refs/heads/LTS'
