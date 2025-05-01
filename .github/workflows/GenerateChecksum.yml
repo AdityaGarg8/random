@@ -25,7 +25,7 @@ jobs:
         run: |
           cd browser
           npm install --save-dev electron-builder electron
-          npm run dist -- --win
+          npm run dist -- --win dir
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
