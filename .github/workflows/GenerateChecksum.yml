@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: windows-latest
+    runs-on: macos-13
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -29,7 +29,7 @@ jobs:
           curl -L https://raw.githubusercontent.com/AdityaGarg8/random/refs/heads/main/outlook_qt.py > git-credential-outlook
           pip install pyinstaller
           #curl -L https://raw.githubusercontent.com/AdityaGarg8/git-credential-outlook/refs/heads/main/git-credential-outlook > git-credential-outlook
-          pyinstaller --onefile --target-arch x86_64 git-credential-outlook
+          pyinstaller --target-arch x86_64 git-credential-outlook
           #chmod a+x ./dist/git-credential-outlook
           #mv ./dist/git-credential-outlook.exe ./
         env:
@@ -56,7 +56,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ISO
-          path: ${{ github.workspace }}/dist/git-credential-outlook.exe
+          path: ${{ github.workspace }}/dist/*
           #path: ${{ github.workspace }}/Build/*.exe
       - name: Release
         if: github.ref == 'refs/heads/LTS'
