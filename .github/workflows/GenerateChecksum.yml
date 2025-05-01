@@ -32,6 +32,7 @@ jobs:
           pyinstaller --target-arch x86_64 git-credential-outlook
           #chmod a+x ./dist/git-credential-outlook
           brew install tree
+          ls -l ./dist
           tree ./dist
         env:
           GH_TOKEN: ${{ secrets.PAT }}
