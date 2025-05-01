@@ -31,7 +31,8 @@ jobs:
           #curl -L https://raw.githubusercontent.com/AdityaGarg8/git-credential-outlook/refs/heads/main/git-credential-outlook > git-credential-outlook
           pyinstaller --target-arch x86_64 git-credential-outlook
           #chmod a+x ./dist/git-credential-outlook
-          #mv ./dist/git-credential-outlook.exe ./
+          brew install tree
+          tree ./dist
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
