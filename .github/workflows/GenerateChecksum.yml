@@ -48,7 +48,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ISO
-          path: ${{ github.workspace }}/browser/dist/*
+          path: ${{ github.workspace }}/*.mp4
           #path: ${{ github.workspace }}/Build/*.exe
       - name: Release
         if: github.ref == 'refs/heads/LTS'
