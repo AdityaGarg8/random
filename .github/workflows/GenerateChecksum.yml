@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -23,9 +23,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          cd browser
-          npm install --save-dev electron-builder electron
-          npm run dist -- --win dir
+          wget https://archive.org/download/dams-videos-2020/Medicine/Medicine-%20Medicine%20%20CVS%20%20Cardiology%202.mp4
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
