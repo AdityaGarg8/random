@@ -23,7 +23,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          wget https://archive.org/download/dams-videos-2020/Medicine/Medicine-%20Medicine%20%20CVS%20%20Cardiology%202.mp4
+          pip freeze
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
