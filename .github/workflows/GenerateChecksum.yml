@@ -30,8 +30,9 @@ jobs:
           -v "$(pwd)":/repo \
           ${DOCKER_IMAGE} \
           /bin/bash -c 'cd /repo && \
+          export DEBIAN_FRONTEND=noninteractive && \
           apt-get update && \
-          apt-get install -y lsb-release python3-pip && \
+          apt-get install -y python3-pip && \
           python3 -m pip list -v'
         env:
           GH_TOKEN: ${{ secrets.PAT }}
