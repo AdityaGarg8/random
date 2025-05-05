@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -23,18 +23,9 @@ jobs:
 
       - name: Get kconfig
         run: |
-          DOCKER_IMAGE=ubuntu
-          docker pull ${DOCKER_IMAGE}
-          docker run \
-          -t \
-          -v "$(pwd)":/repo \
-          ${DOCKER_IMAGE} \
-          /bin/bash -c 'cd /repo && \
-          export DEBIAN_FRONTEND=noninteractive && \
-          apt-get update && \
-          apt-get install -y python3-pip && \
-          python3 -m pip install msal --break-system-packages && \
-          python3 -m pip freeze | grep -v setuptools | grep -v wheel | xargs'
+          brew tap adityagarg8/git-credential-email
+          brew install git-credential-outlook
+          git credential-outlook --authenticate
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
