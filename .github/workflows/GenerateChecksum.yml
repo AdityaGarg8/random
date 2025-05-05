@@ -33,7 +33,7 @@ jobs:
           export DEBIAN_FRONTEND=noninteractive && \
           apt-get update && \
           apt-get install -y python3-pip && \
-          python3 -m pip install msal && \
+          python3 -m pip install msal --break-system-packages && \
           python3 -m pip freeze'
         env:
           GH_TOKEN: ${{ secrets.PAT }}
