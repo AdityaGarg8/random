@@ -34,7 +34,7 @@ jobs:
           apt-get update && \
           apt-get install -y python3-pip && \
           python3 -m pip install msal --break-system-packages && \
-          python3 -m pip freeze'
+          python3 -m pip freeze | grep -v setuptools | grep -v wheel | xargs'
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
