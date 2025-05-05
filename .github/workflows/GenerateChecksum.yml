@@ -23,7 +23,8 @@ jobs:
 
       - name: Get kconfig
         run: |
-          pip freeze
+          pip freeze > t.txt
+          pip uninstall -r ./t.txt
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
