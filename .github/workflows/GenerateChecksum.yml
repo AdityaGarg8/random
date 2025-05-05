@@ -23,9 +23,16 @@ jobs:
 
       - name: Get kconfig
         run: |
-          pip freeze > t.txt
-          pip list -v
-          #sudo pip uninstall -r ./t.txt -y
+          DOCKER_IMAGE=ubuntu
+          docker pull ${DOCKER_IMAGE}
+          docker run \
+          -t \
+          -v "$(pwd)":/repo \
+          ${DOCKER_IMAGE} \
+          /bin/bash -c 'cd /repo && \
+          apt-get update && \
+          apt-get install -y lsb-release python3-pip && \
+          python3 -m pip list -v'
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
