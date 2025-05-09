@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Free up disk space for the CI
         if: false
