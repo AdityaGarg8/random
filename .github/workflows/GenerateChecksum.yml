@@ -23,9 +23,7 @@ jobs:
 
       - name: Get kconfig
         run: |
-          brew tap adityagarg8/git-credential-email
-          brew install git-credential-outlook
-          git-credential-outlook --help
+          hostname -f
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
