@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -24,6 +24,7 @@ jobs:
       - name: Get kconfig
         run: |
           hostname -f
+          hostname
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
