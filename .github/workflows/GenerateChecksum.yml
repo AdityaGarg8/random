@@ -38,6 +38,7 @@ jobs:
           # a difference for macOS and create an app bundle there.
           mode: onefile
           nofollow-import-to: "PyQt6*"
+          include-module: keyring.backends.Windows
           #macos-target-arch: x86_64
       - name: test binary
         if: false
