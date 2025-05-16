@@ -37,7 +37,7 @@ jobs:
           # to use nuitka-project: options in your code, so e.g. you can make
           # a difference for macOS and create an app bundle there.
           mode: onefile
-          include-package: "--nofollow-import-to=PyQt6*"
+          nofollow-import-to: "PyQt6*"
           #macos-target-arch: x86_64
       - name: test binary
         if: false
