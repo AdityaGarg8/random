@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: macos-latest
+    runs-on: windows-latest
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -23,12 +23,12 @@ jobs:
 
       - name: Get kconfig
         run: |
-          hostname -f
-          hostname
+          pip install msal keyring
+          curl -L https://raw.githubusercontent.com/AdityaGarg8/git-credential-email/refs/heads/main/git-credential-outlook > git-credential-outlook
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
-        if: false
+        if: true
         uses: Nuitka/Nuitka-Action@main
         with:
           nuitka-version: main
@@ -37,6 +37,7 @@ jobs:
           # to use nuitka-project: options in your code, so e.g. you can make
           # a difference for macOS and create an app bundle there.
           mode: onefile
+          include-package: "--nofollow-import-to=PyQt6*"
           #macos-target-arch: x86_64
       - name: test binary
         if: false
@@ -49,8 +50,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ISO
-          path: ${{ github.workspace }}/*.mp4
-          #path: ${{ github.workspace }}/Build/*.exe
+          #path: ${{ github.workspace }}/*.mp4
+          path: ${{ github.workspace }}/Build/*.exe
       - name: Release
         if: github.ref == 'refs/heads/LTS'
         uses: softprops/action-gh-release@v2
