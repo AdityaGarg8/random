@@ -23,12 +23,14 @@ jobs:
 
       - name: Get kconfig
         run: |
-          pip install msal keyring
+          pip install msal keyring pyinstaller
           curl -L https://raw.githubusercontent.com/AdityaGarg8/git-credential-email/refs/heads/main/git-credential-outlook > git-credential-outlook
+          pyinstaller --onefile git-credential-outlook --exclude-module PyQt6
+          
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
-        if: true
+        if: false
         uses: Nuitka/Nuitka-Action@main
         with:
           nuitka-version: main
@@ -51,8 +53,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ISO
-          #path: ${{ github.workspace }}/*.mp4
-          path: ${{ github.workspace }}/Build/*.exe
+          #path: ${{ github.workspace }}/dist/*.exe
+          #path: ${{ github.workspace }}/Build/*.exe
       - name: Release
         if: github.ref == 'refs/heads/LTS'
         uses: softprops/action-gh-release@v2
