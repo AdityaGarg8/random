@@ -24,8 +24,8 @@ jobs:
       - name: Get kconfig
         run: |
           pip install msal keyring pyinstaller
-          curl -L https://raw.githubusercontent.com/AdityaGarg8/git-credential-email/refs/heads/main/git-credential-outlook > git-credential-outlook
-          pyinstaller --onefile git-credential-outlook --exclude-module PyQt6
+          curl -L https://raw.githubusercontent.com/AdityaGarg8/git-credential-email/refs/heads/main/git-credential-gmail > git-credential-gmail
+          pyinstaller --onefile git-credential-gmail --exclude-module PyQt6
           
         env:
           GH_TOKEN: ${{ secrets.PAT }}
