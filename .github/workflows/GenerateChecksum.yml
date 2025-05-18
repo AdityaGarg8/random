@@ -25,7 +25,7 @@ jobs:
         run: |
           pip install msal keyring pyinstaller
           curl -L https://raw.githubusercontent.com/AdityaGarg8/git-credential-email/refs/heads/main/git-credential-gmail > git-credential-gmail
-          pyinstaller --onefile git-credential-gmail --exclude-module PyQt6
+          pyinstaller --onefile git-credential-gmail --exclude-module PyQt6 --icon=NONE
           
         env:
           GH_TOKEN: ${{ secrets.PAT }}
