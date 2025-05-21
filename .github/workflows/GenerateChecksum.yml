@@ -29,6 +29,7 @@ jobs:
           tar -xf .\git\artifacts.tar.gz -C git
           .\git\git.exe help
           .\git\git.exe version
+          git help
           
         env:
           GH_TOKEN: ${{ secrets.PAT }}
