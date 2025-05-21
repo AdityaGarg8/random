@@ -23,9 +23,10 @@ jobs:
 
       - name: Get kconfig
         run: |
-          pip install msal keyring pyinstaller
-          curl -L https://raw.githubusercontent.com/AdityaGarg8/git-credential-email/refs/heads/main/git-credential-gmail > git-credential-gmail
-          pyinstaller --onefile git-credential-gmail --exclude-module PyQt6 --icon=NONE
+          curl -L https://nightly.link/git/git/actions/runs/15149090654/windows-artifacts.zip > git.zip
+          tar -xf .\git.zip -C git
+          cd git
+          ls
           
         env:
           GH_TOKEN: ${{ secrets.PAT }}
