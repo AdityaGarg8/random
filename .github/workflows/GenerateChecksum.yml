@@ -27,8 +27,8 @@ jobs:
           New-Item -Path .\git -ItemType "Directory"
           tar -xf .\git.zip -C git
           tar -xf .\git\artifacts.tar.gz -C git
-          cd git
-          ls
+          .\git\git.exe help
+          .\git\git.exe version
           
         env:
           GH_TOKEN: ${{ secrets.PAT }}
