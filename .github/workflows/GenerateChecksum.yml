@@ -26,6 +26,7 @@ jobs:
           curl -L https://nightly.link/git/git/actions/runs/15149090654/windows-artifacts.zip > git.zip
           New-Item -Path .\git -ItemType "Directory"
           tar -xf .\git.zip -C git
+          tar -xf .\git\artifacts.tar.gz -C git
           cd git
           ls
           
