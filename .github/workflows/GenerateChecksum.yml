@@ -23,14 +23,10 @@ jobs:
 
       - name: Get kconfig
         run: |
-          curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg >/dev/null
-          sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list"
-          sudo apt update
-          sudo apt install apple-bce
-          curl -L https://github.com/t2linux/fedora-iso/releases/download/f42.2/Fedora-t2linux-KDE-Desktop-Live-42.2.x86_64.iso.00 > fedora-kde.iso
-          curl -L https://github.com/t2linux/fedora-iso/releases/download/f42.2/Fedora-t2linux-KDE-Desktop-Live-42.2.x86_64.iso.01 >> fedora-kde.iso
-          sha256sum ./fedora-kde.iso
-          curl -L https://github.com/t2linux/fedora-iso/releases/download/f42.2/Fedora-t2linux-KDE-Desktop-Live-42.2.x86_64.iso.sha256
+          curl -L https://github.com/t2linux/T2-Mint/releases/download/v6.14.8-1/linuxmint-22.1-xfce-6.14.8-t2-noble.iso.00 > mint-xfce.iso
+          curl -L https://github.com/t2linux/T2-Mint/releases/download/v6.14.8-1/linuxmint-22.1-xfce-6.14.8-t2-noble.iso.01 >> mint-xfce.iso
+          sha256sum ./mint-xfce.iso
+          curl -L https://github.com/t2linux/T2-Mint/releases/download/v6.14.8-1/sha256-xfce
           
         env:
           GH_TOKEN: ${{ secrets.PAT }}
@@ -58,7 +54,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ISO
-          path: ${{ github.workspace }}/fedora-kde.iso
+          path: ${{ github.workspace }}/mint-xfce.iso
           #path: ${{ github.workspace }}/dist/*.exe
           #path: ${{ github.workspace }}/Build/*.exe
       - name: Release
