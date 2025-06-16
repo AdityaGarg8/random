@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -23,10 +23,8 @@ jobs:
 
       - name: Get kconfig
         run: |
-          curl -L https://github.com/t2linux/T2-Mint/releases/download/v6.14.8-1/linuxmint-22.1-xfce-6.14.8-t2-noble.iso.00 > mint-xfce.iso
-          curl -L https://github.com/t2linux/T2-Mint/releases/download/v6.14.8-1/linuxmint-22.1-xfce-6.14.8-t2-noble.iso.01 >> mint-xfce.iso
-          sha256sum ./mint-xfce.iso
-          curl -L https://github.com/t2linux/T2-Mint/releases/download/v6.14.8-1/sha256-xfce
+          curl -L https://575885e8393202b2c422e11cbcd610e5.r2.cloudflarestorage.com/backup/17743385837.mkv?response-content-disposition=attachment%3B%20filename%3D%22R7R.2O22.2I6Op.NF.W3B-DI.DDP5.%21.A7m05.H3VC-T3IIy.mkv%22&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ffbb79fdd5b9dc5a39ac46176b21166c%2F20250616%2Fauto%2Fs3%2Faws4_request&X-Amz-Date=20250616T154030Z&X-Amz-SignedHeaders=host&X-Amz-Expires=10800&X-Amz-Signature=edcaa0330e161d2ebe219a9149ca5742191182235ec0ac06e17d6b54669f2055
+          shasum -a 256 ./*.mkv
           
         env:
           GH_TOKEN: ${{ secrets.PAT }}
