@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: macos-latest
+    runs-on: windows-latest
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -23,8 +23,12 @@ jobs:
 
       - name: Get kconfig
         run: |
-          curl -L https://575885e8393202b2c422e11cbcd610e5.r2.cloudflarestorage.com/backup/17743385837.mkv?response-content-disposition=attachment%3B%20filename%3D%22R7R.2O22.2I6Op.NF.W3B-DI.DDP5.%21.A7m05.H3VC-T3IIy.mkv%22&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ffbb79fdd5b9dc5a39ac46176b21166c%2F20250616%2Fauto%2Fs3%2Faws4_request&X-Amz-Date=20250616T154030Z&X-Amz-SignedHeaders=host&X-Amz-Expires=10800&X-Amz-Signature=edcaa0330e161d2ebe219a9149ca5742191182235ec0ac06e17d6b54669f2055
-          shasum -a 256 ./*.mkv
+          curl -L https://raw.githubusercontent.com/AdityaGarg8/git-credential-email/62ae498ce2a4d3f63a33a0b758d0670219021a27/git-protonmail > git-protonmail
+          pip install pyinstaller keyring
+          pip install opencv-python-headless
+          pip install bcrypt cryptography keyring PGPy13 requests requests-toolbelt typing-extensions
+          pyinstaller git-protonmail --exclude-module PyQt6 --icon=NONE --contents-directory gcp-resources
+          Compress-Archive -Path .\dist\git-protonmail\* -DestinationPath git-protonmail_win64.zip
           
         env:
           GH_TOKEN: ${{ secrets.PAT }}
@@ -52,7 +56,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ISO
-          path: ${{ github.workspace }}/mint-xfce.iso
+          path: ${{ github.workspace }}/git-protonmail_win64.zip
+          #path: ${{ github.workspace }}/mint-xfce.iso
           #path: ${{ github.workspace }}/dist/*.exe
           #path: ${{ github.workspace }}/Build/*.exe
       - name: Release
