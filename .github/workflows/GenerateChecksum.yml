@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -22,6 +22,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Get kconfig
+        shell: bash
         run: |
           wget https://nightly.link/mnixry/proton-bridge/workflows/build-multi-platform/master/build-windows-latest.zip
           unzip ./build-windows-latest.zip
