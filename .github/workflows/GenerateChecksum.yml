@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -23,12 +23,9 @@ jobs:
 
       - name: Get kconfig
         run: |
-          curl -L https://raw.githubusercontent.com/AdityaGarg8/git-credential-email/62ae498ce2a4d3f63a33a0b758d0670219021a27/git-protonmail > git-protonmail
-          pip install pyinstaller keyring
-          pip install opencv-python-headless
-          pip install bcrypt cryptography keyring PGPy13 requests requests-toolbelt typing-extensions
-          pyinstaller git-protonmail --exclude-module PyQt6 --icon=NONE --contents-directory gcp-resources
-          Compress-Archive -Path .\dist\git-protonmail\* -DestinationPath git-protonmail_win64.zip
+          wget https://nightly.link/mnixry/proton-bridge/workflows/build-multi-platform/master/build-windows-latest.zip
+          unzip ./build-windows-latest.zip
+          ls
           
         env:
           GH_TOKEN: ${{ secrets.PAT }}
