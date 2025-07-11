@@ -33,6 +33,10 @@ jobs:
           
         env:
           GH_TOKEN: ${{ secrets.PAT }}
+      - name: Build Windows Installer MSI from exe file
+        uses: AliceOh/CreateWindowsInstaller@1.0.0
+        with:
+          exefile: ${{ github.workspace }}/bridge-win/helloworld.exe
       - name: Build Executable with Nuitka
         if: false
         uses: Nuitka/Nuitka-Action@main
