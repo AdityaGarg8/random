@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -24,12 +24,9 @@ jobs:
       - name: Get kconfig
         shell: bash
         run: |
-          curl -L https://nightly.link/mnixry/proton-bridge/workflows/build-multi-platform/master/build-windows-latest.zip > build-windows-latest.zip
-          unzip ./build-windows-latest.zip
-          mkdir bridge-win
-          cd bridge-win
-          tar xf ../bridge_windows_e164ed2ebd.tgz
-          cd -
+          curl -L https://github.com/t2linux/T2-Mint/releases/download/v6.15.6-1/linuxmint-22.1-xfce-6.15.6-t2-noble.iso.00 > mint-xfce.iso
+          curl -L https://github.com/t2linux/T2-Mint/releases/download/v6.15.6-1/linuxmint-22.1-xfce-6.15.6-t2-noble.iso.01 >> mint-xfce.iso
+          sha256sum ./mint-xfce.iso
           
         env:
           GH_TOKEN: ${{ secrets.PAT }}
@@ -61,8 +58,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ISO
-          path: ${{ github.workspace }}/git-protonmail_win64.zip
-          #path: ${{ github.workspace }}/mint-xfce.iso
+          #path: ${{ github.workspace }}/git-protonmail_win64.zip
+          path: ${{ github.workspace }}/mint-xfce.iso
           #path: ${{ github.workspace }}/dist/*.exe
           #path: ${{ github.workspace }}/Build/*.exe
       - name: Release
