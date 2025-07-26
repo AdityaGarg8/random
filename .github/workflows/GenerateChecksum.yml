@@ -24,10 +24,10 @@ jobs:
       - name: Get kconfig
         shell: cmd
         run: |
-          curl -L https://github.com/t2linux/T2-Mint/releases/download/v6.15.6-1/linuxmint-22.1-cinnamon-6.15.6-t2-noble.iso.00 > mint-cinnamon.iso
-          curl -L https://github.com/t2linux/T2-Mint/releases/download/v6.15.6-1/linuxmint-22.1-cinnamon-6.15.6-t2-noble.iso.01 >> mint-cinnamon.iso
-          certutil -hashfile .\mint-cinnamon.iso SHA256
-          curl -L https://github.com/t2linux/T2-Mint/releases/download/v6.15.6-1/sha256-cinnamon
+          curl -L https://github.com/t2linux/fedora-iso/releases/download/f42.2/Fedora-t2linux-Workstation-Live-42.2.x86_64.iso.00 > fedora.iso
+          curl -L https://github.com/t2linux/fedora-iso/releases/download/f42.2/Fedora-t2linux-Workstation-Live-42.2.x86_64.iso.00 >> fedora.iso
+          certutil -hashfile .\fedora.iso SHA256
+          curl -L https://github.com/t2linux/fedora-iso/releases/download/f42.2/Fedora-t2linux-Workstation-Live-42.2.x86_64.iso.sha256
           
         env:
           GH_TOKEN: ${{ secrets.PAT }}
@@ -56,7 +56,7 @@ jobs:
         with:
           name: ISO
           #path: ${{ github.workspace }}/git-protonmail_win64.zip
-          path: ${{ github.workspace }}/mint-cinnamon.iso
+          path: ${{ github.workspace }}/fedora.iso
           #path: ${{ github.workspace }}/dist/*.exe
           #path: ${{ github.workspace }}/Build/*.exe
       - name: Release
