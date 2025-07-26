@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -22,11 +22,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Get kconfig
-        shell: cmd
+        #shell: cmd
         run: |
           curl -L https://github.com/t2linux/fedora-iso/releases/download/f42.2/Fedora-t2linux-Workstation-Live-42.2.x86_64.iso.00 > fedora.iso
-          curl -L https://github.com/t2linux/fedora-iso/releases/download/f42.2/Fedora-t2linux-Workstation-Live-42.2.x86_64.iso.00 >> fedora.iso
-          certutil -hashfile .\fedora.iso SHA256
+          curl -L https://github.com/t2linux/fedora-iso/releases/download/f42.2/Fedora-t2linux-Workstation-Live-42.2.x86_64.iso.01 >> fedora.iso
+          #certutil -hashfile .\fedora.iso SHA256
+          sha256sum ./fedora.iso
           curl -L https://github.com/t2linux/fedora-iso/releases/download/f42.2/Fedora-t2linux-Workstation-Live-42.2.x86_64.iso.sha256
           
         env:
