@@ -26,6 +26,7 @@ jobs:
         run: |
           git clone https://github.com/AdityaGarg8/ESET-KeyGen.git
           cd ESET-KeyGen
+          pip install selenium requests colorama
           python ./main.py --update
           
         env:
