@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: windows-latest
+    runs-on: windows-11-arm
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -24,8 +24,8 @@ jobs:
       - name: Get kconfig
         #shell: bash
         run: |
-          curl -L https://github.com/rzc0d3r/ESET-KeyGen/releases/download/v1.5.5.8/ESET-KeyGen_v1.5.5.8_win64.exe > eset.exe
-          .\eset.exe --update
+          curl -L https://github.com/AdityaGarg8/ESET-KeyGen/releases/download/vTest/ESET-KeyGen_vTest_win64_arm.exe > eset.exe
+          .\eset.exe --auto-detect-browser --key
           
         env:
           GH_TOKEN: ${{ secrets.PAT }}
