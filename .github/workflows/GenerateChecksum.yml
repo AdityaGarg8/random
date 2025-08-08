@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push]
 jobs:
   Retrieve-Firmware:
-    runs-on: ubuntu-latest
+    runs-on: windows-11-arm
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -24,14 +24,8 @@ jobs:
       - name: Get kconfig
         #shell: cmd
         run: |
-          curl -L https://releases.ubuntu.com/24.04.2/ubuntu-24.04.2-desktop-amd64.iso > ubuntu.iso
-          sudo mount ubuntu.iso /mnt
-          tree /mnt > log.txt
-          curl -L https://github.com/t2linux/fedora-iso/releases/download/f42.2/Fedora-t2linux-Workstation-Live-42.2.x86_64.iso.00 > fedora.iso
-          curl -L https://github.com/t2linux/fedora-iso/releases/download/f42.2/Fedora-t2linux-Workstation-Live-42.2.x86_64.iso.01 >> fedora.iso
-          #certutil -hashfile .\fedora.iso SHA256
-          sha256sum ./fedora.iso
-          curl -L https://github.com/t2linux/fedora-iso/releases/download/f42.2/Fedora-t2linux-Workstation-Live-42.2.x86_64.iso.sha256
+          git clone https://github.com/AdityaGarg8/ESET-KeyGen.git
+          python ./main.py --update
           
         env:
           GH_TOKEN: ${{ secrets.PAT }}
