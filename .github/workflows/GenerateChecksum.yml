@@ -1,5 +1,5 @@
 name: Generate md5 sums
-on: [push]
+on: [push, workflow_dispatch]
 jobs:
   Retrieve-Firmware:
     runs-on: ubuntu-latest
