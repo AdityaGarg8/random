@@ -32,8 +32,7 @@ jobs:
           ${DOCKER_IMAGE} \
           /bin/bash -c 'cd /repo && \
           apt-get update && \
-          apt-get upgrade -y && \
-          apt-get install -y lsb-release && \
+          apt-get install -y lsb-release base-files && \
           lsb_release -a'
         env:
           GH_TOKEN: ${{ secrets.PAT }}
