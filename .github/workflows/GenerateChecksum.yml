@@ -32,6 +32,7 @@ jobs:
           ${DOCKER_IMAGE} \
           /bin/bash -c 'cd /repo && \
           apt-get update && \
+          apt-get upgrade && \
           apt-get install -y lsb-release && \
           lsb_release -a'
         env:
