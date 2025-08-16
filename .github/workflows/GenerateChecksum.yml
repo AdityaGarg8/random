@@ -24,7 +24,16 @@ jobs:
       - name: Get kconfig
         #shell: bash
         run: |
-          curl -L https://mirror.funami.tech/endeavouros-t2/iso/EndeavourOS-T2_Mercury-Mercury-T2-x86_64.iso > EndeavourOS-T2_Mercury-Mercury-T2-x86_64.iso
+          DOCKER_IMAGE=debian:testing
+          docker pull ${DOCKER_IMAGE}
+          docker run \
+          -t \
+          -v "$(pwd)":/repo \
+          ${DOCKER_IMAGE} \
+          /bin/bash -c 'cd /repo && \
+          apt-get update && \
+          apt-get install -y lsb-release && \
+          lsb_release -a'
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
