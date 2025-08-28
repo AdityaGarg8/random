@@ -24,16 +24,10 @@ jobs:
       - name: Get kconfig
         #shell: bash
         run: |
-          DOCKER_IMAGE=ubuntu:24.04
-          docker pull ${DOCKER_IMAGE}
-          docker run \
-          -t \
-          -v "$(pwd)":/repo \
-          ${DOCKER_IMAGE} \
-          /bin/bash -c 'cd /repo && \
-          apt-get update && \
-          apt-get install -y lsb-release base-files && \
-          lsb_release -a'
+          curl -L https://github.com/t2linux/T2-Mint/releases/download/v6.15.8-1/linuxmint-22.1-cinnamon-6.15.8-t2-noble.iso.00 > mint.iso
+          curl -L https://github.com/t2linux/T2-Mint/releases/download/v6.15.8-1/linuxmint-22.1-cinnamon-6.15.8-t2-noble.iso.01 >> mint.iso
+          sha256sum ./mint.iso
+          curl -L https://github.com/t2linux/T2-Mint/releases/download/v6.15.8-1/sha256-cinnamon
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
@@ -60,7 +54,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ISO
-          path: ${{ github.workspace }}/EndeavourOS-T2_Mercury-Mercury-T2-x86_64.iso
+          path: ${{ github.workspace }}/mint.iso
           #path: ${{ github.workspace }}/fedora.iso
           #path: ${{ github.workspace }}/dist/*.exe
           #path: ${{ github.workspace }}/Build/*.exe
