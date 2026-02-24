@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push, workflow_dispatch]
 jobs:
   Retrieve-Firmware:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -22,9 +22,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Get kconfig
-        #shell: bash
+        shell: bash
         run: |
-          wget http://93.123.118.11:6060/d3/y/1771018088/10000/g4/libgenrs_nonfiction/libgenrs_nonfiction/2949000/0747ff0fbf88271e81b88b825cbe9a84~/Krkr0vXxl1K6rAo0KDJuBA/SRB%27s%20Manual%20of%20Surgery%20%5B6th%20edition%5D%20--%20Sriram%20Bhat%20M_%20--%206th%20edition%2C%20PS%2C%202019%20--%20Jaypee%20Brothers%20Medical%20Publishers%3B%20Jaypee%20Brothers%20Medical%20--%209789352709076%20--%200747ff0fbf88271e81b88b825cbe9a84%20--%20Anna%E2%80%99s%20Archive.pdf
+          git clone https://github.com/sharpenedblade/t2linux-installer.git
+          cd t2linux-installer
+          cargo build --release
+          tree ./
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
