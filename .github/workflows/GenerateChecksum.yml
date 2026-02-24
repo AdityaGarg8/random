@@ -27,7 +27,8 @@ jobs:
           git clone https://github.com/sharpenedblade/t2linux-installer.git
           cd t2linux-installer
           cargo build --release
-          tree ./
+          cd ./target/release
+          ls
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
