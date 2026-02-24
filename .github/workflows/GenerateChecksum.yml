@@ -22,13 +22,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Get kconfig
-        shell: bash
+        #shell: bash
         run: |
           git clone https://github.com/sharpenedblade/t2linux-installer.git
           cd t2linux-installer
           cargo build --release
-          cd ./target/release
-          ls
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
@@ -55,7 +53,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ISO
-          path: ${{ github.workspace }}/*.pdf
+          path: ${{ github.workspace }}/t2linux-installer/target/release/*.exe
+          #path: ${{ github.workspace }}/*.pdf
           #path: ${{ github.workspace }}/fedora.iso
           #path: ${{ github.workspace }}/dist/*.exe
           #path: ${{ github.workspace }}/Build/*.exe
