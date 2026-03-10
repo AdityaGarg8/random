@@ -24,7 +24,7 @@ jobs:
       - name: Get kconfig
         #shell: bash
         run: |
-          curl -L -o ubuntu.iso https://releases.ubuntu.com/24.04.4/ubuntu-24.04.4-desktop-amd64.iso
+          curl -L -o ubuntu.iso https://releases.ubuntu.com/25.10/ubuntu-25.10-desktop-amd64.iso
           sudo mount ubuntu.iso /mnt
           #tree /mnt
           cat /mnt/casper/install-sources.yaml
