@@ -2,7 +2,7 @@ name: Generate md5 sums
 on: [push, workflow_dispatch]
 jobs:
   Retrieve-Firmware:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Free up disk space for the CI
         if: false
@@ -24,9 +24,9 @@ jobs:
       - name: Get kconfig
         #shell: bash
         run: |
-          git clone https://github.com/sharpenedblade/t2linux-installer.git
-          cd t2linux-installer
-          cargo build --release
+          wget https://releases.ubuntu.com/24.04.4/ubuntu-24.04.4-desktop-amd64.iso
+          sudo mount ubuntu-24.04.4-desktop-amd64.iso /mnt
+          tree /mnt
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
