@@ -26,7 +26,8 @@ jobs:
         run: |
           curl -L -o ubuntu.iso https://releases.ubuntu.com/24.04.4/ubuntu-24.04.4-desktop-amd64.iso
           sudo mount ubuntu.iso /mnt
-          tree /mnt
+          #tree /mnt
+          cat /mnt/casper/install-sources.yaml
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
