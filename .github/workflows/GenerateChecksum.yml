@@ -24,10 +24,10 @@ jobs:
       - name: Get kconfig
         #shell: bash
         run: |
-          curl -L -o ubuntu.iso https://releases.ubuntu.com/25.04/ubuntu-25.04-desktop-amd64.iso
+          curl -L -o ubuntu.iso https://releases.ubuntu.com/25.10/ubuntu-25.10-live-server-amd64.iso
           sudo mount ubuntu.iso /mnt
-          #tree /mnt
-          cat /mnt/casper/install-sources.yaml
+          tree /mnt
+          cat /mnt/casper/install-sources.yaml || true
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
