@@ -30,7 +30,7 @@ jobs:
           sudo mount ubuntu.iso /mnt
           echo "#${flavour}" >> $GITHUB_STEP_SUMMARY
           tree /mnt >> $GITHUB_STEP_SUMMARY
-          cat /mnt/casper/install-sources.yaml || true >> $GITHUB_STEP_SUMMARY
+          cat /mnt/casper/install-sources.yaml >> $GITHUB_STEP_SUMMARY || true
           sudo umount /mnt
           done
         env:
