@@ -28,7 +28,7 @@ jobs:
           do
           curl -L https://cdimage.ubuntu.com/${flavour}/releases/questing/release/${flavour}-25.10-desktop-amd64.iso > ubuntu.iso
           sudo mount ubuntu.iso /mnt
-          echo "#${flavour}" >> $GITHUB_STEP_SUMMARY
+          echo "# ${flavour}" >> $GITHUB_STEP_SUMMARY
           tree /mnt >> $GITHUB_STEP_SUMMARY
           cat /mnt/casper/install-sources.yaml >> $GITHUB_STEP_SUMMARY || true
           sudo umount /mnt
