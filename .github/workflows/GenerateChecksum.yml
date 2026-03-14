@@ -24,14 +24,15 @@ jobs:
       - name: Get kconfig
         #shell: bash
         run: |
-          curl -L https://github.com/t2linux/T2-Ubuntu/releases/download/v6.19.7-1/ubuntu-25.10-6.19.7-t2-questing.iso.00 > ubuntu.iso
-          curl -L https://github.com/t2linux/T2-Ubuntu/releases/download/v6.19.7-1/ubuntu-25.10-6.19.7-t2-questing.iso.01 >> ubuntu.iso
-          curl -L https://github.com/t2linux/T2-Ubuntu/releases/download/v6.19.7-1/ubuntu-25.10-6.19.7-t2-questing.iso.02 >> ubuntu.iso
-          sha256sum ./ubuntu.iso
-          curl -L https://github.com/t2linux/T2-Ubuntu/releases/download/v6.19.7-1/sha256-ubuntu-25.10
+          for flavour in lubuntu ubuntu-budgie ubuntucinnamon ubuntu-mate xubuntu
+          do
+          curl -L https://cdimage.ubuntu.com/${flavour}/releases/questing/release/${flavour}-25.10-desktop-amd64.iso > ubuntu.iso
           sudo mount ubuntu.iso /mnt
-          tree /mnt
-          cat /mnt/casper/install-sources.yaml || true
+          echo "#${flavour}" >> $GITHUB_STEP_SUMMARY
+          tree /mnt >> $GITHUB_STEP_SUMMARY
+          cat /mnt/casper/install-sources.yaml || true >> $GITHUB_STEP_SUMMARY
+          sudo umount /mnt
+          done
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
