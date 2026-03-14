@@ -24,7 +24,7 @@ jobs:
       - name: Get kconfig
         #shell: bash
         run: |
-          for flavour in lubuntu ubuntu-budgie ubuntucinnamon ubuntu-mate xubuntu
+          for flavour in lubuntu ubuntu-budgie ubuntucinnamon ubuntu-mate xubuntu kubuntu
           do
           curl -L https://cdimage.ubuntu.com/${flavour}/releases/questing/release/${flavour}-25.10-desktop-amd64.iso > ubuntu.iso
           sudo mount ubuntu.iso /mnt
