@@ -24,18 +24,9 @@ jobs:
       - name: Get kconfig
         #shell: bash
         run: |
-          curl -L https://github.com/t2linux/T2-Ubuntu/releases/download/v6.19.8-2/ubuntu-mate-25.10-6.19.8-t2-questing.iso.00 > ubuntu.iso
-          curl -L https://github.com/t2linux/T2-Ubuntu/releases/download/v6.19.8-2/ubuntu-mate-25.10-6.19.8-t2-questing.iso.01 >> ubuntu.iso
-          curl -L https://github.com/t2linux/T2-Ubuntu/releases/download/v6.19.8-2/ubuntu-mate-25.10-6.19.8-t2-questing.iso.02 >> ubuntu.iso
-          sha256sum ./ubuntu.iso && echo mate
-          curl -L https://github.com/t2linux/T2-Ubuntu/releases/download/v6.19.8-2/xubuntu-25.10-6.19.8-t2-questing.iso.00 > ubuntu.iso
-          curl -L https://github.com/t2linux/T2-Ubuntu/releases/download/v6.19.8-2/xubuntu-25.10-6.19.8-t2-questing.iso.01 >> ubuntu.iso
-          curl -L https://github.com/t2linux/T2-Ubuntu/releases/download/v6.19.8-2/xubuntu-25.10-6.19.8-t2-questing.iso.02 >> ubuntu.iso
-          sha256sum ./ubuntu.iso && echo xubuntu
-          exit
           for flavour in server
           do
-          curl -L https://releases.ubuntu.com/25.10/ubuntu-25.10-live-server-amd64.iso > ubuntu.iso
+          curl -L https://releases.ubuntu.com/24.04.4/ubuntu-24.04.4-desktop-amd64.iso > ubuntu.iso
           sudo mount ubuntu.iso /mnt
           echo "# ${flavour}" >> $GITHUB_STEP_SUMMARY
           tree /mnt >> $GITHUB_STEP_SUMMARY
