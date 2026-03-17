@@ -24,9 +24,9 @@ jobs:
       - name: Get kconfig
         #shell: bash
         run: |
-          for flavour in ubuntustudio
+          for flavour in server
           do
-          curl -L https://cdimage.ubuntu.com/daily-live/current/resolute-desktop-amd64.iso > ubuntu.iso
+          curl -L https://releases.ubuntu.com/25.10/ubuntu-25.10-live-server-amd64.iso > ubuntu.iso
           sudo mount ubuntu.iso /mnt
           echo "# ${flavour}" >> $GITHUB_STEP_SUMMARY
           tree /mnt >> $GITHUB_STEP_SUMMARY
