@@ -24,9 +24,9 @@ jobs:
       - name: Get kconfig
         #shell: bash
         run: |
-          for flavour in server
+          for flavour in unity
           do
-          curl -L https://cdimage.ubuntu.com/kubuntu/daily-live/20260313/resolute-desktop-amd64.iso > ubuntu.iso
+          curl -L https://cdimage.ubuntu.com/ubuntu-unity/daily-live/20260312/resolute-desktop-amd64.iso > ubuntu.iso
           sudo mount ubuntu.iso /mnt
           echo "# ${flavour}" >> $GITHUB_STEP_SUMMARY
           tree /mnt >> $GITHUB_STEP_SUMMARY
