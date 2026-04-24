@@ -26,7 +26,7 @@ jobs:
         run: |
           for flavour in server
           do
-          curl -L https://cdimage.ubuntu.com/ubuntu-server/daily-live/20260320/resolute-live-server-amd64.iso > ubuntu.iso
+          curl -L https://releases.ubuntu.com/26.04/ubuntu-26.04-desktop-amd64.iso > ubuntu.iso
           sudo mount ubuntu.iso /mnt
           echo "# ${flavour}" >> $GITHUB_STEP_SUMMARY
           tree /mnt >> $GITHUB_STEP_SUMMARY
