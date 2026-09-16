@@ -24,15 +24,12 @@ jobs:
       - name: Get kconfig
         #shell: bash
         run: |
-          for flavour in ubuntu-unity
-          do
-          curl -L https://cdimage.ubuntu.com/$flavour/releases/26.04/release/$flavour-26.04-desktop-amd64.iso > ubuntu.iso
-          sudo mount ubuntu.iso /mnt
-          echo "# ${flavour}" >> $GITHUB_STEP_SUMMARY
-          tree /mnt >> $GITHUB_STEP_SUMMARY
-          cat /mnt/casper/install-sources.yaml >> $GITHUB_STEP_SUMMARY || true
-          sudo umount /mnt
-          done
+          sudo apt update
+          curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg >/dev/null
+          sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list"
+          sudo apt update
+          sudo apt install -y t2-ncm
+          sudo apt purge -y t2-ncm
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
