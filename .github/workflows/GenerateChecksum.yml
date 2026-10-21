@@ -24,12 +24,10 @@ jobs:
       - name: Get kconfig
         #shell: bash
         run: |
-          sudo apt update
-          curl -s --compressed "https://adityagarg8.github.io/t2-ubuntu-repo/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/t2-ubuntu-repo.gpg >/dev/null
-          sudo curl -s --compressed -o /etc/apt/sources.list.d/t2.list "https://adityagarg8.github.io/t2-ubuntu-repo/t2.list"
-          sudo apt update
-          sudo apt install -y t2-ncm
-          sudo apt purge -y t2-ncm
+          git clone https://github.com/torvalds/linux.git
+          cd linux
+          git revert --no-edit f0ba5fd
+          git format-patch -1 HEAD
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
@@ -56,7 +54,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ISO
-          path: ${{ github.workspace }}/t2linux-installer/target/release/*.exe
+          path: ${{ github.workspace }}/linux/0001*
           #path: ${{ github.workspace }}/*.pdf
           #path: ${{ github.workspace }}/fedora.iso
           #path: ${{ github.workspace }}/dist/*.exe
