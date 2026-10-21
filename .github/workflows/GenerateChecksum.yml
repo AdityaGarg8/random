@@ -26,6 +26,8 @@ jobs:
         run: |
           git clone https://github.com/torvalds/linux.git
           cd linux
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
           git revert --no-edit f0ba5fd
           git format-patch -1 HEAD
         env:
