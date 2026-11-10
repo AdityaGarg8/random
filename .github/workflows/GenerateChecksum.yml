@@ -24,8 +24,8 @@ jobs:
       - name: Get kconfig
         #shell: bash
         run: |
-          cd /usr/share/firmware/wifi
-          ls
+          cd /usr/share/firmware/wifi/C-4364__s-B2
+          sha256sum ./*
         env:
           GH_TOKEN: ${{ secrets.PAT }}
       - name: Build Executable with Nuitka
